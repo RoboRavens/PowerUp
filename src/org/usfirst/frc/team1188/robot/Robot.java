@@ -12,6 +12,9 @@ import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtend;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetract;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1188.robot.subsystems.Elevator;
+import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
+import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
+import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -53,6 +56,9 @@ public class Robot extends TimedRobot {
 	
 	public final DriveTrain driveTrain = new DriveTrain(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
 	public final Elevator elevator = new Elevator(this, driveController, elevatorMotor);
+	public final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
+	public final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
+	public final LightSubsystem LightSubsystem = new LightSubsystem();
 
 	/**
 	 * This function is run when the robot is first started up and should be
