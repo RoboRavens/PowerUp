@@ -2,6 +2,7 @@ package org.usfirst.frc.team1188.ravenhardware;
 
 import org.usfirst.frc.team1188.robot.*;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
@@ -50,13 +51,8 @@ public class RavenTank {
 	
 	public boolean userControlOfCutPower = true;
 
-	RavenTalon driveLeft1 = new RavenTalon(RobotMap.leftDriveChannel1, slewRate);
-	RavenTalon driveLeft2 = new RavenTalon(RobotMap.leftDriveChannel2, slewRate);
-	RavenTalon driveLeft3 = new RavenTalon(RobotMap.leftDriveChannel3, slewRate);
-	RavenTalon driveRight1 = new RavenTalon(RobotMap.rightDriveChannel1, slewRate);
-	RavenTalon driveRight2 = new RavenTalon(RobotMap.rightDriveChannel2, slewRate);
-	RavenTalon driveRight3 = new RavenTalon(RobotMap.rightDriveChannel3, slewRate);
-
+	RavenTalon driveLeft = new RavenTalon(RobotMap.leftDriveChannel, slewRate);
+	RavenTalon driveRight = new RavenTalon(RobotMap.rightDriveChannel, slewRate);
 	
 	protected Solenoid shiftToLowGearSolenoid;
 	protected Solenoid shiftToHighGearSolenoid;
@@ -246,15 +242,11 @@ public class RavenTank {
     
     public void driveLeftSide(double magnitude) {
 		// System.out.println("Driving left side. Magnitude: " + magnitude);
-    	driveLeft1.set(magnitude);
-		driveLeft2.set(magnitude);
-		driveLeft3.set(magnitude);
+    	driveLeft.set(magnitude);
     }
     
     public void driveRightSide(double magnitude) {
-    	driveRight1.set(magnitude);
-		driveRight2.set(magnitude);
-		driveRight3.set(magnitude);
+    	driveRight.set(magnitude);
     }
     
     public void shiftToLowGear() {
