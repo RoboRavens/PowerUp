@@ -51,7 +51,12 @@ public class RavenTank {
 	public boolean userControlOfCutPower = true;
 
 	RavenTalon driveLeft1 = new RavenTalon(RobotMap.leftDriveChannel1, slewRate);
+	RavenTalon driveLeft2 = new RavenTalon(RobotMap.leftDriveChannel2, slewRate);
+	RavenTalon driveLeft3 = new RavenTalon(RobotMap.leftDriveChannel3, slewRate);
 	RavenTalon driveRight1 = new RavenTalon(RobotMap.rightDriveChannel1, slewRate);
+	RavenTalon driveRight2 = new RavenTalon(RobotMap.rightDriveChannel2, slewRate);
+	RavenTalon driveRight3 = new RavenTalon(RobotMap.rightDriveChannel3, slewRate);
+
 	
 	protected Solenoid shiftToLowGearSolenoid;
 	protected Solenoid shiftToHighGearSolenoid;
@@ -242,14 +247,14 @@ public class RavenTank {
     public void driveLeftSide(double magnitude) {
 		// System.out.println("Driving left side. Magnitude: " + magnitude);
     	driveLeft1.set(magnitude);
-		//driveLeft2.set(magnitude);
-		// driveLeft3.set(magnitude);
+		driveLeft2.set(magnitude);
+		driveLeft3.set(magnitude);
     }
     
     public void driveRightSide(double magnitude) {
     	driveRight1.set(magnitude);
-		//driveRight2.set(magnitude);
-		// driveRight3.set(magnitude);
+		driveRight2.set(magnitude);
+		driveRight3.set(magnitude);
     }
     
     public void shiftToLowGear() {

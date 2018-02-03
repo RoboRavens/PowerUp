@@ -8,7 +8,12 @@
 package org.usfirst.frc.team1188.robot;
 
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtend;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetract;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1188.robot.subsystems.Elevator;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
@@ -40,11 +45,14 @@ public class Robot extends TimedRobot {
 	Solenoid shiftToLowGearSolenoid = new Solenoid(RobotMap.shiftToLowGearSolenoid);
 	Solenoid shiftToHighGearSolenoid = new Solenoid(RobotMap.shiftToHighGearSolenoid);
 	
+	TalonSRX elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
+	
 	Relay carriageStalledRelay = new Relay(RobotMap.carriageStalledLightRelay);
 	
 	Lighting carriageStalledLighting = new Lighting(carriageStalledRelay);
 	
 	public final DriveTrain driveTrain = new DriveTrain(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
+	public final Elevator elevator = new Elevator(this, driveController, elevatorMotor);
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -153,6 +161,9 @@ public class Robot extends TimedRobot {
 	        driveTrain.ravenTank.setCutPower(false);
 	      }		
 	    }
+	    
+		m_oi.elevatorExtendButton.whenPressed(new ElevatorExtend(elevator, driveController));
+		m_oi.elevatorRetractButton.whenPressed(new ElevatorRetract(elevator, driveController));
 	}
 
 	/**

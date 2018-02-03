@@ -52,6 +52,10 @@ public final class Calibrations {
 	public static final int drivingForward = -1;
 	public static final int drivingBackward = 1;
 	
+	// Elevator Lift
+	public static final double elevatorExtensionPowerMagnitude = 0.5;
+	public static final double elevatorRetractionPowerMagnitude = 0.3;
+	
 	// Lighting
 	public static double lightingFlashTotalDurationMs = 1000;
 	public static double lightingFlashes = 10;

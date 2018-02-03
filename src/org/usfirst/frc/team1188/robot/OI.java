@@ -9,10 +9,20 @@ public class OI {
 	Joystick operationController;
 	Joystick buttonPanel;
 	
+	// Elevator
+		public Button elevatorExtendButton;
+		public Button elevatorRetractButton;
+	
 	public OI(Joystick driveController, Joystick operationController, Joystick buttonPanel) {
 		this.driveController = driveController;
 		this.operationController = operationController;
 		this.buttonPanel = buttonPanel;
+		initializeButtons();
+	}
+	
+	protected void initializeButtons() {
+		elevatorExtendButton = new JoystickButton(operationController, ControlsMap.elevatorExtendButton);
+		elevatorRetractButton = new JoystickButton(operationController, ControlsMap.elevatorRetractButton);
 	}
 	
 	// Shifters
@@ -28,5 +38,13 @@ public class OI {
 	
 	public boolean getDriveCutPowerMode() {
 		return driveController.getRawAxis(ControlsMap.driveCutPowerAxis) > .25;
+	}
+	
+	public boolean getGearCarriageExtendButton() {
+		return operationController.getRawButton(ControlsMap.elevatorExtendButton);
+	}
+	
+	public boolean getGearCarriageRetractButton() {
+		return operationController.getRawButton(ControlsMap.elevatorRetractButton);
 	}
 }
