@@ -41,23 +41,21 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
-	Joystick driveController = new Joystick(0);
-	Joystick operationController = new Joystick(1);
-	Joystick buttonPanel = new Joystick(2);
+	public static Joystick driveController = new Joystick(0);
+	public static Joystick operationController = new Joystick(1);
+	public static Joystick buttonPanel = new Joystick(2);
 	
 	Solenoid shiftToLowGearSolenoid = new Solenoid(RobotMap.shiftToLowGearSolenoid);
 	Solenoid shiftToHighGearSolenoid = new Solenoid(RobotMap.shiftToHighGearSolenoid);
-	
-	TalonSRX elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
 	
 	Relay carriageStalledRelay = new Relay(RobotMap.carriageStalledLightRelay);
 	
 	Lighting carriageStalledLighting = new Lighting(carriageStalledRelay);
 	
 	public final DriveTrain driveTrain = new DriveTrain(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
-	public final Elevator elevator = new Elevator(this, driveController, elevatorMotor);
+	public final Elevator elevator = new Elevator();
 	public final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
-	public final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
+	public final static IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
 	public final LightSubsystem LightSubsystem = new LightSubsystem();
 
 	/**

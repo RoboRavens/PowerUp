@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1188.robot.commands.elevator;
 
-import org.usfirst.frc.team1188.robot.Calibrations;
+
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.subsystems.Elevator;
 
@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorRetract extends Command {
 	Elevator elevator;
 	Robot robot;
-    Joystick driveController;
+    Joystick operationController;
 
-    public ElevatorRetract(Elevator elevator, Joystick driveController) {
+    public ElevatorRetract(Elevator elevator, Joystick operationController) {
     	requires(elevator);
     	this.elevator = elevator;
     	this.robot = elevator.robot;
-    	this.driveController = driveController;
+    	this.operationController = operationController;
     }
 
     // Called just before this Command runs the first time
