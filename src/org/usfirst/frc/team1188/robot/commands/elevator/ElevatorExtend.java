@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1188.robot.commands.elevator;
 
-import org.usfirst.frc.team1188.robot.Calibrations;
+import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.subsystems.Elevator;
 
@@ -13,12 +13,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorExtend extends Command {
 	Elevator elevator;
 	Robot robot;
-    Joystick driveController;
+    Gamepad driveController;
 
-    public ElevatorExtend(Elevator elevator, Joystick driveController) {
+    public ElevatorExtend(Elevator elevator, Gamepad driveController) {
     	requires(elevator);
     	this.elevator = elevator;
-    	this.robot = elevator.robot;
     	this.driveController = driveController;
     }
 

@@ -1,17 +1,16 @@
 package org.usfirst.frc.team1188.robot;
 
+import org.usfirst.frc.team1188.gamepad.AxisCode;
+import org.usfirst.frc.team1188.gamepad.ButtonCode;
+
 import edu.wpi.first.wpilibj.PWM;
 
 public class ControlsMap {
 	// Drive controller
-	public static final int driveShiftToLowGearButton = 5;
-	public static final int driveShiftToHighGearButton = 6;
-	public static final int driveCutPowerAxis = 3;
-	public static final int operatorOverrideAxis = 2;
-
-	public static final int driveControllerAlignMiddleLiftButton = 1;
-	public static final int driveControllerAlignLeftLiftButton = 3;
-	public static final int driveControllerAlignRightLiftButton = 2;
+	public static final ButtonCode driveShiftToLowGearButton = ButtonCode.LEFTBUMPER;
+	public static final ButtonCode driveShiftToHighGearButton = ButtonCode.RIGHTBUMPER;
+	public static final AxisCode driveCutPowerAxis = AxisCode.RIGHTTRIGGER;
+	public static final AxisCode operatorOverrideAxis = AxisCode.LEFTTRIGGER;
 	
 	/*
 	
@@ -45,13 +44,13 @@ public class ControlsMap {
 	// public static final int shooterOverrideShootButton = 5;
 	public static final int gearIntakeExtendButton = 6;
 	// public static final int gearIntakeRetractButton = 5;
-	public static final int elevatorExtendButton = 8;
-	public static final int elevatorRetractButton = 7;
+	public static final ButtonCode elevatorExtendButton = ButtonCode.START;
+	public static final ButtonCode elevatorRetractButton = ButtonCode.BACK;
 	public static final int climberClimbButton = 10;
 	
 	
 	
-	public static final int operationShiftToLowGearButton = 5;
+	public static final ButtonCode operationShiftToLowGearButton = ButtonCode.LEFTBUMPER;
 	public static final int operationFlashlightAimAxis = 4;
 	
 	// Custom buttons

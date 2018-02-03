@@ -2,7 +2,7 @@ package org.usfirst.frc.team1188.robot.subsystems;
 
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtend;
+import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStop;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -16,21 +16,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Elevator extends Subsystem {
-	public Robot robot;
-	Joystick driveController;	
 	TalonSRX extensionMotor;
 	DigitalInput extensionLimit;
 	DigitalInput retractionLimit;
+	TalonSRX elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	
-	public Elevator(Robot robot, Joystick driveController, TalonSRX extensionMotor) {
-		this.robot = robot;
-		this.driveController = driveController;
-		this.extensionMotor = extensionMotor;
-	}
-	
+
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

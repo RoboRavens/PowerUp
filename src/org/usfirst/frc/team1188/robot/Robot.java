@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team1188.robot;
 
+import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtend;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetract;
@@ -36,29 +37,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static OI m_oi;
-
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
-	Joystick driveController = new Joystick(0);
-	Joystick operationController = new Joystick(1);
-	Joystick buttonPanel = new Joystick(2);
+	public static final Gamepad driveController = new Gamepad(0);
+	public static final Gamepad operationController = new Gamepad(1);
+	public static final Gamepad buttonPanel = new Gamepad(2);
 	
 	Solenoid shiftToLowGearSolenoid = new Solenoid(RobotMap.shiftToLowGearSolenoid);
 	Solenoid shiftToHighGearSolenoid = new Solenoid(RobotMap.shiftToHighGearSolenoid);
-	
-	TalonSRX elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
-	
+		
 	Relay carriageStalledRelay = new Relay(RobotMap.carriageStalledLightRelay);
 	
 	Lighting carriageStalledLighting = new Lighting(carriageStalledRelay);
 	
 	public final DriveTrain driveTrain = new DriveTrain(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
-	public final Elevator elevator = new Elevator(this, driveController, elevatorMotor);
-	public final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
-	public final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
-	public final LightSubsystem LightSubsystem = new LightSubsystem();
+	public static final Elevator elevator = new Elevator();
+	public static final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
+	public static final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
+	public static final LightSubsystem LightSubsystem = new LightSubsystem();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -70,7 +67,6 @@ public class Robot extends TimedRobot {
 		table.putDouble("ledMode", 1);
 		System.out.println("disable limelight");
 		
-		m_oi = new OI(driveController, operationController, buttonPanel);
 		// m_chooser.addDefault("Default Auto", new Command());
 		// m_chooser.addObject(name, object);
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -151,16 +147,16 @@ public class Robot extends TimedRobot {
 	
 	public void runOperatorControls() {
 		// Drive Train
-		if (m_oi.getDriveShiftLowButton()) {
+		if (driveController.getButtonValue(ControlsMap.driveShiftToLowGearButton) || operationController.getButtonValue(ControlsMap.operationShiftToLowGearButton)) {
 			driveTrain.ravenTank.shiftToLowGear();
 		}
 		
-		if (m_oi.getDriveShiftHighButton()) {
+		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
 			driveTrain.ravenTank.shiftToHighGear();
 		}
 		
 	    if (driveTrain.ravenTank.userControlOfCutPower) {
-	      if (m_oi.getDriveCutPowerMode()) {
+	      if (driveController.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
 	        driveTrain.ravenTank.setCutPower(true);
 	      }
 	      else {
@@ -168,8 +164,9 @@ public class Robot extends TimedRobot {
 	      }		
 	    }
 	    
-		m_oi.elevatorExtendButton.whenPressed(new ElevatorExtend(elevator, driveController));
-		m_oi.elevatorRetractButton.whenPressed(new ElevatorRetract(elevator, driveController));
+	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtend(elevator, driveController));
+		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetract(elevator, driveController));
+
 	}
 
 	/**
