@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorRetract extends Command {
 	Elevator elevator;
 	Robot robot;
-    Gamepad driveController;
+    Gamepad operationController;
 
     public ElevatorRetract(Elevator elevator, Gamepad driveController) {
     	requires(elevator);
     	this.elevator = elevator;
-    	this.driveController = driveController;
+    	this.operationController = driveController;
     }
 
     // Called just before this Command runs the first time

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1188.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 public final class Calibrations {
 	// Drive calibration
 	public static final double slewRate = 1; // Previously: .35.
@@ -56,9 +58,14 @@ public final class Calibrations {
 	public static final double elevatorExtensionPowerMagnitude = 0.5;
 	public static final double elevatorRetractionPowerMagnitude = 0.3;
 	
+	//Intake Wheel
+	public static double intakeWheelPullPowerMagnitude = 0.4;
+	public static final double intakeWheelPushPowerMagnitude = 0.5;
+	
 	// Lighting
 	public static double lightingFlashTotalDurationMs = 1000;
 	public static double lightingFlashes = 10;
+	
 	
 
 }
