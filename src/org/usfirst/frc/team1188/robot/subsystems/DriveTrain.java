@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
+import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Robot;
@@ -15,20 +16,20 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
 	
 	public Robot robot;
-	Joystick driveController;
+	Gamepad driveController;
 	public RavenTank ravenTank;
 	
-	public DriveTrain(Robot robot, Joystick driveController) {
+	public DriveTrain(Robot robot, Gamepad driveController) {
 		initializeDriveTrain(robot, driveController);
 		this.ravenTank = new RavenTank(robot);
 	}
 	
-	public DriveTrain(Robot robot, Joystick driveController, Solenoid lowGearSolenoid, Solenoid highGearSolenoid, Lighting shiftedToLowGearLighting) {
+	public DriveTrain(Robot robot, Gamepad driveController, Solenoid lowGearSolenoid, Solenoid highGearSolenoid, Lighting shiftedToLowGearLighting) {
 		initializeDriveTrain(robot, driveController);
 		this.ravenTank = new RavenTank(robot, lowGearSolenoid, highGearSolenoid, shiftedToLowGearLighting);
 	}
 
-	private void initializeDriveTrain(Robot robot, Joystick driveController) {
+	private void initializeDriveTrain(Robot robot, Gamepad driveController) {
 		this.robot = robot;
 		this.driveController = driveController;
 	}

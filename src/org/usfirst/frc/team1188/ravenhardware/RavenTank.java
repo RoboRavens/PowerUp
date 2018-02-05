@@ -2,6 +2,7 @@ package org.usfirst.frc.team1188.ravenhardware;
 
 import org.usfirst.frc.team1188.robot.*;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
@@ -52,7 +53,6 @@ public class RavenTank {
 
 	RavenTalon driveLeft = new RavenTalon(RobotMap.leftDriveChannel, slewRate);
 	RavenTalon driveRight = new RavenTalon(RobotMap.rightDriveChannel, slewRate);
-
 	
 	protected Solenoid shiftToLowGearSolenoid;
 	protected Solenoid shiftToHighGearSolenoid;

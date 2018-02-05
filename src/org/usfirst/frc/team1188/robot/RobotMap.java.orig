@@ -4,7 +4,11 @@ public class RobotMap {
 	// Drive motors
 	public static int leftDriveChannel = 0;
 	public static int rightDriveChannel = 1;
+<<<<<<< .merge_file_a07704
+	
+=======
 
+>>>>>>> .merge_file_a08068
 	// Drive encoders
 	public static final int leftDriveEncoder1 = 0;
 	public static final int leftDriveEncoder2 = 1;
@@ -16,11 +20,13 @@ public class RobotMap {
 	
 	public static final int elevatorMotor = 6;
 	
-	//Intake system *Update values!*
-	public static final int intakeMotorLeft = 1;
-	public static final int intakeMotorRight = 0;
+<<<<<<< .merge_file_a07704
+	public static final int intakeMotorRight = 1;
+	public static final int intakeMotorLeft = 0;
+=======
 	public static final int leftIntakeClampSolenoid = 0;
 	public static final int rightIntakeClampSolenoid = 0;
+>>>>>>> .merge_file_a08068
 	
 	public static final int carriageStalledLightRelay = 1;
 }

@@ -3,14 +3,16 @@ package org.usfirst.frc.team1188.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team1188.robot.subsystems.*;
+import org.usfirst.frc.team1188.gamepad.AxisCode;
+import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.*;
 
 public class DriveTrainDriveFPS extends Command {
 	Robot robot;
     DriveTrain driveTrain;
-    Joystick driveController;
+    Gamepad driveController;
 
-    public DriveTrainDriveFPS(DriveTrain driveTrain, Joystick driveController) {
+    public DriveTrainDriveFPS(DriveTrain driveTrain, Gamepad driveController) {
     	requires(driveTrain);
     	this.driveTrain = driveTrain;
     	this.robot = driveTrain.robot;
@@ -24,9 +26,9 @@ public class DriveTrainDriveFPS extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// System.out.println("Executing tank drive command.");
-        double leftYAxisValue = driveController.getRawAxis(1);
-    	double rightYAxisValue = driveController.getRawAxis(5);
-    	double rightXAxisValue = driveController.getRawAxis(4);
+        double leftYAxisValue = driveController.getAxis(AxisCode.LEFTSTICKY);
+    	double rightYAxisValue = driveController.getAxis(AxisCode.RIGHTSTICKY);
+    	double rightXAxisValue = driveController.getAxis(AxisCode.RIGHTSTICKX);
     	
     	
     	driveTrain.ravenTank.drive(leftYAxisValue, rightYAxisValue, rightXAxisValue);

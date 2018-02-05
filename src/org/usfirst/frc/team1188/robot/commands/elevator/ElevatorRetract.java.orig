@@ -1,6 +1,11 @@
 package org.usfirst.frc.team1188.robot.commands.elevator;
 
+<<<<<<< HEAD
+
+=======
 import org.usfirst.frc.team1188.gamepad.Gamepad;
+import org.usfirst.frc.team1188.robot.Calibrations;
+>>>>>>> master
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.subsystems.Elevator;
 
@@ -10,15 +15,25 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevatorExtend extends Command {
+public class ElevatorRetract extends Command {
 	Elevator elevator;
 	Robot robot;
-    Gamepad operationController;
+<<<<<<< HEAD
+    Joystick operationController;
 
-    public ElevatorExtend(Elevator elevator, Gamepad driveController) {
+    public ElevatorRetract(Elevator elevator, Joystick operationController) {
     	requires(elevator);
     	this.elevator = elevator;
-    	this.operationController = driveController;
+    	this.robot = elevator.robot;
+    	this.operationController = operationController;
+=======
+    Gamepad driveController;
+
+    public ElevatorRetract(Elevator elevator, Gamepad driveController) {
+    	requires(elevator);
+    	this.elevator = elevator;
+    	this.driveController = driveController;
+>>>>>>> master
     }
 
     // Called just before this Command runs the first time
@@ -27,15 +42,15 @@ public class ElevatorExtend extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (elevator.getIsAtExtensionLimit() == false) {
-        	elevator.extend();
+    	if (elevator.getIsAtRetractionLimit() == false) {
+        	elevator.retract();
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	boolean isFinished = false;
-    	if (elevator.getIsAtExtensionLimit()) {
+    	if (elevator.getIsAtRetractionLimit()) {
     		isFinished = true;
     	} 	    	
     	return isFinished;

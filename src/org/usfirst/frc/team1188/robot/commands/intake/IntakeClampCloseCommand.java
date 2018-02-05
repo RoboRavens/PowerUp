@@ -1,15 +1,19 @@
 package org.usfirst.frc.team1188.robot.commands.intake;
 
+import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class IntakeClampCloseCommand extends Command {
-
-    public IntakeClampCloseCommand() {
+	IntakeClampSubsystem intakeClampSubsystem;
+	
+    public IntakeClampCloseCommand(IntakeClampSubsystem IntakeClampSubsystem) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(IntakeClampSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -18,6 +22,7 @@ public class IntakeClampCloseCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	intakeClampSubsystem.close();
     }
 
     // Make this return true when this Command no longer needs to run execute()

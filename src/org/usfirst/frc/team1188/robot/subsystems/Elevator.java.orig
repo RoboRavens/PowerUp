@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
-import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
@@ -10,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,10 +17,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Elevator extends Subsystem {
 	public Robot robot;
-	Gamepad operatorController;	
+	Joystick operatorController;	
 	TalonSRX extensionMotor;
 	DigitalInput extensionLimit;
 	DigitalInput retractionLimit;
+	TalonSRX elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
