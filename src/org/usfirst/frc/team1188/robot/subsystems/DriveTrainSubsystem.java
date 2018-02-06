@@ -4,7 +4,7 @@ import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveFPS;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveFPSCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -13,18 +13,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class DriveTrain extends Subsystem {
+public class DriveTrainSubsystem extends Subsystem {
 	
 	public Robot robot;
 	Gamepad driveController;
 	public RavenTank ravenTank;
 	
-	public DriveTrain(Robot robot, Gamepad driveController) {
+	public DriveTrainSubsystem(Robot robot, Gamepad driveController) {
 		initializeDriveTrain(robot, driveController);
 		this.ravenTank = new RavenTank(robot);
 	}
 	
-	public DriveTrain(Robot robot, Gamepad driveController, Solenoid lowGearSolenoid, Solenoid highGearSolenoid, Lighting shiftedToLowGearLighting) {
+	public DriveTrainSubsystem(Robot robot, Gamepad driveController, Solenoid lowGearSolenoid, Solenoid highGearSolenoid, Lighting shiftedToLowGearLighting) {
 		initializeDriveTrain(robot, driveController);
 		this.ravenTank = new RavenTank(robot, lowGearSolenoid, highGearSolenoid, shiftedToLowGearLighting);
 	}
@@ -41,7 +41,7 @@ public class DriveTrain extends Subsystem {
         // Set the default command for a subsystem here.
      
     	//setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new DriveTrainDriveFPS(this, driveController));
+    	setDefaultCommand(new DriveTrainDriveFPSCommand(this, driveController));
     }
     
 }

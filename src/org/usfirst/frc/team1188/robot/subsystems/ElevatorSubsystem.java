@@ -4,7 +4,7 @@ import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStop;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStopCommand;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Elevator extends Subsystem {
+public class ElevatorSubsystem extends Subsystem {
 	public Robot robot;
 	Gamepad operatorController;	
 	TalonSRX extensionMotor;
@@ -25,14 +25,14 @@ public class Elevator extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public Elevator() {
+	public ElevatorSubsystem() {
 		this.extensionMotor = new TalonSRX(RobotMap.elevatorMotor);
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new ElevatorStop(this));
+    	setDefaultCommand(new ElevatorStopCommand(this));
     }
     
     public void extend() {

@@ -9,10 +9,10 @@ package org.usfirst.frc.team1188.robot;
 
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtend;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetract;
-import org.usfirst.frc.team1188.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team1188.robot.subsystems.Elevator;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
+import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
+import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
@@ -50,8 +50,8 @@ public class Robot extends TimedRobot {
 	
 	Lighting carriageStalledLighting = new Lighting(carriageStalledRelay);
 	
-	public final DriveTrain driveTrain = new DriveTrain(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
-	public static final Elevator elevator = new Elevator();
+	public final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
+	public static final ElevatorSubsystem elevator = new ElevatorSubsystem();
 	public static final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
 	public static final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
 	public static final LightSubsystem LightSubsystem = new LightSubsystem();
@@ -163,8 +163,8 @@ public class Robot extends TimedRobot {
 	      }		
 	    }
 	    
-	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtend(elevator, driveController));
-		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetract(elevator, driveController));
+	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController));
+		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
 
 	}
 

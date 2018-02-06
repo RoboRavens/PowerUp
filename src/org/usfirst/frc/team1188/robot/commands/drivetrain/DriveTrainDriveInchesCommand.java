@@ -3,14 +3,14 @@ package org.usfirst.frc.team1188.robot.commands.drivetrain;
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveTrainDriveInches extends Command {
+public class DriveTrainDriveInchesCommand extends Command {
 	Robot robot;
-	DriveTrain driveTrain;
+	DriveTrainSubsystem driveTrain;
 	RavenTank ravenTank;
 	
 	double powerMagnitude;
@@ -21,7 +21,7 @@ public class DriveTrainDriveInches extends Command {
 	Timer timeoutTimer;
 	double timeoutSeconds = 9999999;
 	
-    public DriveTrainDriveInches(DriveTrain driveTrain, double inchesToTravel, double powerMagnitude, int direction) {
+    public DriveTrainDriveInchesCommand(DriveTrainSubsystem driveTrain, double inchesToTravel, double powerMagnitude, int direction) {
     	requires(driveTrain);
     	this.driveTrain = driveTrain;
     	this.ravenTank = driveTrain.ravenTank;
@@ -32,7 +32,7 @@ public class DriveTrainDriveInches extends Command {
     	this.timeoutTimer = new Timer();
     }
     
-    public DriveTrainDriveInches(DriveTrain driveTrain, double inchesToTravel, double powerMagnitude, int direction, double timeoutSeconds) {
+    public DriveTrainDriveInchesCommand(DriveTrainSubsystem driveTrain, double inchesToTravel, double powerMagnitude, int direction, double timeoutSeconds) {
     	requires(driveTrain);
     	this.driveTrain = driveTrain;
     	this.ravenTank = driveTrain.ravenTank;

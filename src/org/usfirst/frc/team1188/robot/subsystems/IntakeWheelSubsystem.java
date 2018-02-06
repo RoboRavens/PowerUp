@@ -2,7 +2,7 @@ package org.usfirst.frc.team1188.robot.subsystems;
 
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.RobotMap;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullIdle;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullIdleCommand;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,7 +25,7 @@ public class IntakeWheelSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new IntakeWheelPullIdle(this));
+        setDefaultCommand(new IntakeWheelPullIdleCommand(this));
     }
     
     public void pull() {

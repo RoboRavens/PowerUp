@@ -7,12 +7,12 @@ import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.*;
 
-public class DriveTrainDriveFPS extends Command {
+public class DriveTrainDriveFPSCommand extends Command {
 	Robot robot;
-    DriveTrain driveTrain;
+    DriveTrainSubsystem driveTrain;
     Gamepad driveController;
 
-    public DriveTrainDriveFPS(DriveTrain driveTrain, Gamepad driveController) {
+    public DriveTrainDriveFPSCommand(DriveTrainSubsystem driveTrain, Gamepad driveController) {
     	requires(driveTrain);
     	this.driveTrain = driveTrain;
     	this.robot = driveTrain.robot;

@@ -2,13 +2,13 @@ package org.usfirst.frc.team1188.robot.commands.drivetrain;
 
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Calibrations;
-import org.usfirst.frc.team1188.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveTrainTurnRelativeDegrees extends Command {
-	DriveTrain driveTrain;
+public class DriveTrainTurnRelativeDegreesCommand extends Command {
+	DriveTrainSubsystem driveTrain;
 	RavenTank ravenTank;
 	Timer safetyTimer;
 	
@@ -16,7 +16,7 @@ public class DriveTrainTurnRelativeDegrees extends Command {
 	double degreesToTurn;
 	double driveTrainOriginalHeading;
 	
-    public DriveTrainTurnRelativeDegrees(DriveTrain driveTrain, double degreesToTurn) {
+    public DriveTrainTurnRelativeDegreesCommand(DriveTrainSubsystem driveTrain, double degreesToTurn) {
         requires(driveTrain);
         this.ravenTank = driveTrain.ravenTank;
         this.degreesToTurn = degreesToTurn;

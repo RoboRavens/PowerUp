@@ -3,7 +3,7 @@ package org.usfirst.frc.team1188.robot.commands.elevator;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.subsystems.Elevator;
+import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevatorRetract extends Command {
-	Elevator elevator;
+public class ElevatorRetractCommand extends Command {
+	ElevatorSubsystem elevator;
 	Robot robot;
     Gamepad operationController;
 
-    public ElevatorRetract(Elevator elevator, Gamepad driveController) {
+    public ElevatorRetractCommand(ElevatorSubsystem elevator, Gamepad driveController) {
     	requires(elevator);
     	this.elevator = elevator;
     	this.operationController = driveController;

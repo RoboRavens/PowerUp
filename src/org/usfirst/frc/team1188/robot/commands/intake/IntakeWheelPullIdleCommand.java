@@ -6,9 +6,9 @@ import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeWheelPullIdle extends Command{
+public class IntakeWheelPullIdleCommand extends Command{
 	
-	public IntakeWheelPullIdle(IntakeWheelSubsystem intakeWheelSubsystem) {
+	public IntakeWheelPullIdleCommand(IntakeWheelSubsystem intakeWheelSubsystem) {
     	requires(Robot.IntakeWheelSubsystem);
     }
 
