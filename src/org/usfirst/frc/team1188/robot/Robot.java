@@ -19,6 +19,7 @@ import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -45,6 +46,8 @@ public class Robot extends TimedRobot {
 	
 	Solenoid shiftToLowGearSolenoid = new Solenoid(RobotMap.shiftToLowGearSolenoid);
 	Solenoid shiftToHighGearSolenoid = new Solenoid(RobotMap.shiftToHighGearSolenoid);
+	
+	Encoder elevatorEncoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 	
 	Relay carriageStalledRelay = new Relay(RobotMap.carriageStalledLightRelay);
 	
@@ -163,7 +166,7 @@ public class Robot extends TimedRobot {
 	      }		
 	    }
 	    
-	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController));
+	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
 		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
 
 	}

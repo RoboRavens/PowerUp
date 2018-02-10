@@ -55,8 +55,9 @@ public final class Calibrations {
 	public static final int drivingBackward = 1;
 	
 	// Elevator Lift
-	public static final double elevatorExtensionPowerMagnitude = 0.5;
-	public static final double elevatorRetractionPowerMagnitude = 0.3;
+	public static final double elevatorExtensionPowerMagnitude = 0.25;
+	public static final double elevatorRetractionPowerMagnitude = 0.1;
+	public static final double elevatorMaximumSpeed = 0.25;
 	
 	//Intake Wheel
 	public static double intakeWheelPullPowerMagnitude = 0.4;

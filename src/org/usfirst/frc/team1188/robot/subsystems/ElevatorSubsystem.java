@@ -36,18 +36,33 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void extend() {
-		this.set(Calibrations.elevatorExtensionPowerMagnitude); 
+		this.extend(Calibrations.elevatorExtensionPowerMagnitude); 
+	}
+    
+    public void extend(double magnitude) {
+		this.set(magnitude); 
 	}
     
     public void retract() {
-		this.set(-1 * Calibrations.elevatorRetractionPowerMagnitude); 
+		this.retract(Calibrations.elevatorRetractionPowerMagnitude); 
 	}
+    
+    public void retract(double magnitude) {
+		this.set(-1 * magnitude); 
+	}
+    
     
     public void stop() {
 		this.set(0);
 	}
     
     private void set(double magnitude) {
+    	if (getIsAtExtensionLimit() == true && Math.signum(magnitude) == 1) {
+    		magnitude = 0;
+    	}
+    	if (getIsAtRetractionLimit() == true && Math.signum(magnitude) == -1) {
+    		magnitude = 0;
+    	}
     	extensionMotor.set(ControlMode.PercentOutput, magnitude);
     }
     

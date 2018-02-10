@@ -35,11 +35,7 @@ public class ElevatorRetractCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean isFinished = false;
-    	if (elevator.getIsAtRetractionLimit()) {
-    		isFinished = true;
-    	} 	    	
-    	return isFinished;
+    	return true;
     }
 
     // Called once after isFinished returns true
