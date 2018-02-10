@@ -12,8 +12,8 @@ public class RobotMap {
 	public static final int rightDriveEncoder2 = 3;
 	
 	
-	public static final int elevatorEncoder1 = 0;
-	public static final int elevatorEncoder2 = 1;
+	public static final int elevatorEncoder1 = 20;
+	public static final int elevatorEncoder2 = 21;
 	
 	public static final int shiftToLowGearSolenoid = 0;
 	public static final int shiftToHighGearSolenoid = 1;
@@ -21,10 +21,10 @@ public class RobotMap {
 	public static final int elevatorMotor = 6;
 	
 	//Intake system *Update values!*
-	public static final int intakeMotorLeft = 1;
-	public static final int intakeMotorRight = 0;
-	public static final int leftIntakeClampSolenoid = 0;
-	public static final int rightIntakeClampSolenoid = 1;
+	public static final int intakeMotorLeft = 10;
+	public static final int intakeMotorRight = 11;
+	public static final int leftIntakeClampSolenoid = 2;
+	public static final int rightIntakeClampSolenoid = 3;
 	
 	public static final int carriageStalledLightRelay = 1;
 }
