@@ -57,6 +57,10 @@ public class ElevatorSubsystem extends Subsystem {
 	}
     
     private void set(double magnitude) {
+    	magnitude = Math.min(magnitude, 1);
+    	magnitude = Math.max(magnitude, -1);
+    	magnitude *= Calibrations.elevatorMaximumSpeed;
+    	
     	if (getIsAtExtensionLimit() == true && Math.signum(magnitude) == 1) {
     		magnitude = 0;
     	}

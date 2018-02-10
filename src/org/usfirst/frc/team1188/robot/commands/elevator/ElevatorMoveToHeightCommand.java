@@ -42,8 +42,7 @@ public class ElevatorMoveToHeightCommand extends Command {
     	int direction = (int) Math.signum(distToTarget);
     	//speed = distToTarget / deceleration;
     	// Turn speed into portions of Calibrations.elevatorMaximumSpeed
-    	double keyValue = heightLimit / Calibrations.elevatorMaximumSpeed;
-    	speed = distToTarget / keyValue;
+    	speed = distToTarget / 8192;
     	
     	if (direction > 0) {
     		elevator.extend(speed);
