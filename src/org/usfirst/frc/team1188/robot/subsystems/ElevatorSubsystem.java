@@ -18,7 +18,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ElevatorSubsystem extends Subsystem {
 	public Robot robot;
 	Gamepad operatorController;	
-	TalonSRX extensionMotor;
+	TalonSRX leftMotor;
+	TalonSRX rightMotor;
 	DigitalInput extensionLimit;
 	DigitalInput retractionLimit;
 
@@ -26,7 +27,8 @@ public class ElevatorSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	public ElevatorSubsystem() {
-		this.extensionMotor = new TalonSRX(RobotMap.elevatorMotor);
+		this.rightMotor = new TalonSRX(RobotMap.elevatorMotorRight);
+		this.leftMotor = new TalonSRX(RobotMap.elevatorMotorLeft);
 	}
 	
     public void initDefaultCommand() {
@@ -67,7 +69,8 @@ public class ElevatorSubsystem extends Subsystem {
     	if (getIsAtRetractionLimit() == true && Math.signum(magnitude) == -1) {
     		magnitude = 0;
     	}
-    	extensionMotor.set(ControlMode.PercentOutput, magnitude);
+    	rightMotor.set(ControlMode.PercentOutput, magnitude);
+    	leftMotor.set(ControlMode.PercentOutput, -1 * magnitude);
     }
     
     public boolean getIsAtExtensionLimit() {

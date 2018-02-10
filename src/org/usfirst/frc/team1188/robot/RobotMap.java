@@ -18,11 +18,13 @@ public class RobotMap {
 	public static final int shiftToLowGearSolenoid = 0;
 	public static final int shiftToHighGearSolenoid = 1;
 	
-	public static final int elevatorMotor = 6;
+	public static final int elevatorMotorLeft = 3;
+	public static final int elevatorMotorRight = 2;
+	
 	
 	//Intake system *Update values!*
-	public static final int intakeMotorLeft = 10;
-	public static final int intakeMotorRight = 11;
+	public static final int intakeMotorLeft = 0;
+	public static final int intakeMotorRight = 1;
 	public static final int leftIntakeClampSolenoid = 2;
 	public static final int rightIntakeClampSolenoid = 3;
 	
