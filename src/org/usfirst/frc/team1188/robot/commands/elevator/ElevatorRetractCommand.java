@@ -31,11 +31,14 @@ public class ElevatorRetractCommand extends Command {
     	if (elevator.getIsAtRetractionLimit() == false) {
         	elevator.retract();
     	}
+    	else {
+    		elevator.stop();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return true;
+    	return false;
     }
 
     // Called once after isFinished returns true

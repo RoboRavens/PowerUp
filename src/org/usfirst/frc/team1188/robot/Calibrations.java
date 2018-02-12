@@ -31,7 +31,7 @@ public final class Calibrations {
 	
 	// Default drive and gyro modes
 	public static final int defaultDriveMode = Calibrations.fpsTank;
-	public static final int defaultGyroMode = Calibrations.gyroEnabled;
+	public static final int defaultGyroMode = Calibrations.gyroDisabled;
 	
 	//public static final int defaultGyroMode = Calibrations.gyroDisabled;
 	
@@ -55,9 +55,22 @@ public final class Calibrations {
 	public static final int drivingBackward = 1;
 	
 	// Elevator Lift
-	public static final double elevatorExtensionPowerMagnitude = 0.25;
-	public static final double elevatorRetractionPowerMagnitude = 0.1;
-	public static final double elevatorMaximumSpeed = 0.25;
+	public static final double elevatorExtensionPowerMagnitude = 1;
+	public static final double elevatorRetractionPowerMagnitude = .4;
+	public static final double elevatorMaximumSpeed = 1;
+	public static final int elevatorLiftEncoderMinimumValue = 0;
+	public static final int elevatorLiftEncoderMaximumValue = 30000;
+	
+	// The safety margin is how far away from the end of travel the encoders will stop the lift.
+	// At low speeds (max of .3), and a lift max value of 30k, 1500 maxes out the elevator.
+	// At higher speeds, a higher value is needed because the elevator will overshoot the target until we have PID.
+	public static final int elevatorLiftUpwardSafetyMargin = 2500;
+	
+	public static final int elevatorLiftDownwardSafetyMargin = 1500;
+	
+	
+	
+	
 	
 	//Intake Wheel
 	public static double intakeWheelPullPowerMagnitude = 0.4;
