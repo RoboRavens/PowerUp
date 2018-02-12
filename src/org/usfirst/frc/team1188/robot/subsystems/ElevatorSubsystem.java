@@ -29,6 +29,7 @@ public class ElevatorSubsystem extends Subsystem {
 	public ElevatorSubsystem() {
 		this.rightMotor = new TalonSRX(RobotMap.elevatorMotorRight);
 		this.leftMotor = new TalonSRX(RobotMap.elevatorMotorLeft);
+		this.leftMotor.setInverted(true);
 	}
 	
     public void initDefaultCommand() {
@@ -42,7 +43,12 @@ public class ElevatorSubsystem extends Subsystem {
 	}
     
     public void extend(double magnitude) {
-		this.set(magnitude); 
+    	if (this.getIsAtExtensionLimit()) {
+    		this.stop();
+    	}
+    	else {
+        	this.set(magnitude);	
+    	}
 	}
     
     public void retract() {
@@ -50,15 +56,34 @@ public class ElevatorSubsystem extends Subsystem {
 	}
     
     public void retract(double magnitude) {
-		this.set(-1 * magnitude); 
+    	if (this.getIsAtRetractionLimit()) {
+    		this.stop();
+    	}
+    	else {
+    		this.set(-1 * magnitude);
+    	}
 	}
-    
     
     public void stop() {
 		this.set(0);
 	}
     
+    public void getPosition() {
+    	System.out.print("Right: " + rightMotor.getSelectedSensorPosition(0));
+    	System.out.println("Left: " + leftMotor.getSelectedSensorPosition(0));
+    }
+    
+    public void getIsAtLimits() {
+    	System.out.print(" Extension Limit: " + this.getIsAtExtensionLimit() + " Retraction Limit: " + this.getIsAtRetractionLimit());
+    }
+    
+    public void resetEncoders() {
+    	this.rightMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
+    	this.leftMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
+    }
+    
     private void set(double magnitude) {
+    	// System.out.println(rightMotor.get);
     	magnitude = Math.min(magnitude, 1);
     	magnitude = Math.max(magnitude, -1);
     	magnitude *= Calibrations.elevatorMaximumSpeed;
@@ -70,15 +95,39 @@ public class ElevatorSubsystem extends Subsystem {
     		magnitude = 0;
     	}
     	rightMotor.set(ControlMode.PercentOutput, magnitude);
-    	leftMotor.set(ControlMode.PercentOutput, -1 * magnitude);
+    	leftMotor.set(ControlMode.PercentOutput, magnitude);
+    	// leftMotor.set(ControlMode.PercentOutput, -1 * magnitude);
     }
     
-    public boolean getIsAtExtensionLimit() {
-    	return extensionLimit.get();
+    public int getRightEncoderPosition() {
+    	int rightEncoderPosition = this.rightMotor.getSelectedSensorPosition(0);
+    	
+    	return rightEncoderPosition;
     }
     
+    // Right now this method just looks at the right limit switch; some combination of both should be used.
     public boolean getIsAtRetractionLimit() {
-    	return retractionLimit.get();
+    	boolean isAtRetractionLimit = false;
+    	
+    	if (this.getRightEncoderPosition() - Calibrations.elevatorLiftDownwardSafetyMargin < Calibrations.elevatorLiftEncoderMinimumValue) {
+    		isAtRetractionLimit = true;
+    	}
+    	
+    	
+    	return isAtRetractionLimit;
+    	// return retractionLimit.get();
+    }
+    
+    // Right now this method just looks at the right limit switch; some combination of both should be used.
+    public boolean getIsAtExtensionLimit() {
+    	boolean isAtExtensionLimit = false;
+    	
+    	if (this.getRightEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
+    		isAtExtensionLimit = true;
+    	}
+    	
+    	return isAtExtensionLimit;
+    	// return extensionLimit.get();
     }
 }
 

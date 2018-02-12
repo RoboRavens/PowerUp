@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
 	
 	public static final Gamepad driveController = new Gamepad(0);
 	public static final Gamepad operationController = new Gamepad(1);
-	public static final Gamepad buttonPanel = new Gamepad(2);
+	// public static final Gamepad buttonPanel = new Gamepad(2);
 	
 	Solenoid shiftToLowGearSolenoid = new Solenoid(RobotMap.shiftToLowGearSolenoid);
 	Solenoid shiftToHighGearSolenoid = new Solenoid(RobotMap.shiftToHighGearSolenoid);
@@ -73,6 +73,14 @@ public class Robot extends TimedRobot {
 		// m_chooser.addObject(name, object);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		// Zero the elevator encoders; the robot should always start with the elevator down.
+		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
+		Robot.elevator.resetEncoders();
+		
+
+		this.elevator.getPosition();
+		this.elevator.getIsAtLimits();
 	}
 
 	/**
@@ -88,6 +96,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+
+		driveTrain.ravenTank.resetOrientationGyro();
+
+		// this.elevator.getPosition();
+		// this.elevator.getIsAtLimits();
+		
+		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
+			this.elevator.resetEncoders();
+		}
 	}
 
 	/**
@@ -128,6 +145,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+
+		driveTrain.ravenTank.resetOrientationGyro();
+		
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -145,6 +165,9 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		
 		runOperatorControls();
+		
+		// this.elevator.getPosition();
+		// this.elevator.getIsAtLimits();
 	}
 	
 	public void runOperatorControls() {
@@ -166,8 +189,8 @@ public class Robot extends TimedRobot {
 	      }		
 	    }
 	    
-	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
-		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
+	    driveController.getButton(ControlsMap.elevatorExtendButton).whileHeld(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
+		driveController.getButton(ControlsMap.elevatorRetractButton).whileHeld(new ElevatorRetractCommand(elevator, driveController));
 
 	}
 
