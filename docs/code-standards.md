@@ -49,9 +49,9 @@ public class Example {
 
 ```java
 public class ExampleSubsystem extends Subsystem {
-	public void initDefaultCommand() {
-		setDefaultCommand(new ExampleCommand());
-	}
+    public void initDefaultCommand() {
+    setDefaultCommand(new ExampleCommand());
+    }
 }
 ```
 
@@ -62,18 +62,18 @@ public class ExampleSubsystem extends Subsystem {
 
 ```java
 public class ExampleCommand extends Command {
-	public ExampleCommand() {
-		requires(Robot.ExampleSubsystem);
-	}
+    public ExampleCommand() {
+    requires(Robot.ExampleSubsystem);
+    }
 
-	@Override
-	protected void execute() {
-		Robot.ExampleSubsystem.doSomething();
-	}
+    @Override
+    protected void execute() {
+    Robot.ExampleSubsystem.doSomething();
+    }
 
-	@Override
-	protected boolean isFinished() {
-		return true;
-	}
+    @Override
+    protected boolean isFinished() {
+    return true;
+    }
 }
 ```
