@@ -81,5 +81,7 @@ public final class Calibrations {
 	public static double lightingFlashes = 10;
 	
 	
-
+	public static double armExtensionPowerMagnitude = .5;
+	public static double armRetractionPowerMagnitude = .5;
+	public static double armMaximumSpeed = .5;
 }

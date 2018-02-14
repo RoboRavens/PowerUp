@@ -29,4 +29,7 @@ public class RobotMap {
 	public static final int rightIntakeClampSolenoid = 3;
 	
 	public static final int carriageStalledLightRelay = 1;
+	
+	public static int armMotorLeft = 4;
+	public static int armMotorRight = 5;
 }
