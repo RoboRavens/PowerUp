@@ -21,6 +21,9 @@ public class RobotMap {
 	public static final int elevatorMotorLeft = 3;
 	public static final int elevatorMotorRight = 2;
 	
+	// Arm Motors
+	public static final int armMotorLeft = 1; // UPDATE!
+	public static final int armMotorRight = 2; // UPDATE!
 	
 	//Intake system *Update values!*
 	public static final int intakeMotorLeft = 0;
