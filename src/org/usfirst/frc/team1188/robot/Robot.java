@@ -10,11 +10,9 @@ package org.usfirst.frc.team1188.robot;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
-import org.usfirst.frc.team1188.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
@@ -59,7 +57,6 @@ public class Robot extends TimedRobot {
 	
 	public final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
 	public static final ElevatorSubsystem elevator = new ElevatorSubsystem();
-	public static final ArmSubsystem arm = new ArmSubsystem();
 	public static final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
 	public static final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
 	public static final LightSubsystem LightSubsystem = new LightSubsystem();
@@ -84,8 +81,8 @@ public class Robot extends TimedRobot {
 		Robot.elevator.resetEncoders();
 		
 
-		this.elevator.getPosition();
-		this.elevator.getIsAtLimits();
+		// this.elevator.getPosition();
+		// this.elevator.getIsAtLimits();
 	}
 
 	/**
@@ -104,7 +101,7 @@ public class Robot extends TimedRobot {
 
 		driveTrain.ravenTank.resetOrientationGyro();
 
-		//this.elevator.getPosition();
+		this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 		
 		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
@@ -171,7 +168,7 @@ public class Robot extends TimedRobot {
 		
 		runOperatorControls();
 		
-		// this.elevator.getPosition();
+		 this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 	}
 	
@@ -193,12 +190,10 @@ public class Robot extends TimedRobot {
 	        driveTrain.ravenTank.setCutPower(false);
 	      }		
 	    }
-	    
-	    driveController.getButton(ControlsMap.elevatorExtendButton).whileHeld(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
-		driveController.getButton(ControlsMap.elevatorRetractButton).whileHeld(new ElevatorRetractCommand(elevator, driveController));
-		
-		driveController.getButton(ButtonCode.A).whileHeld(new ArmExtendCommand(arm));
-		driveController.getButton(ButtonCode.B).whileHeld(new ArmRetractCommand(arm));
+		driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 16849));
+	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
+		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
+
 	}
 
 	/**

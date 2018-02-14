@@ -16,12 +16,12 @@ public class ElevatorMoveToHeightCommand extends Command {
 	Robot robot;
     Gamepad operationController;
     Encoder encoder;
-    int heightLimit;
+    double heightLimitInches;
     double speed;
     int tolerance = 5;
     int deceleration = 1500;
     
-    public ElevatorMoveToHeightCommand(ElevatorSubsystem elevator, Gamepad operationController, Encoder encoder, int heightLimit) {
+    public ElevatorMoveToHeightCommand(ElevatorSubsystem elevator, Gamepad operationController, Encoder encoder, double heightLimitInches) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(elevator);
@@ -29,7 +29,7 @@ public class ElevatorMoveToHeightCommand extends Command {
     	this.robot = robot;
     	this.operationController = operationController;
     	this.encoder = encoder;
-    	this.heightLimit = heightLimit;
+    	this.heightLimitInches = heightLimitInches;
     }
 
     // Called just before this Command runs the first time
@@ -38,11 +38,13 @@ public class ElevatorMoveToHeightCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	int distToTarget = heightLimit - encoder.get();
+    	double distToTarget = heightLimitInches - elevator.getElevatorPosition();
     	int direction = (int) Math.signum(distToTarget);
     	//speed = distToTarget / deceleration;
     	// Turn speed into portions of Calibrations.elevatorMaximumSpeed
-    	speed = distToTarget / 8192;
+    	// speed = distToTarget / 8192;
+    	
+    	speed = .5;
     	
     	if (direction > 0) {
     		elevator.extend(speed);
@@ -54,7 +56,19 @@ public class ElevatorMoveToHeightCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	boolean isFinished = false;
+    	
+    	
+    	System.out.println("GetPos Count: " + elevator.getLeftEncoderPosition() + " Encoder.get: " + encoder.get() + " HLI: " + this.heightLimitInches);
+    	
+    	if (elevator.getElevatorPosition() >= this.heightLimitInches) {
+    		elevator.stop();
+    		isFinished = true;		
+    	} else {
+    		isFinished = false;
+    	}
+    
+    	return isFinished;
     }
 
     // Called once after isFinished returns true

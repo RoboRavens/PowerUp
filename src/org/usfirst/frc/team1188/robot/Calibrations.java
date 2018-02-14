@@ -57,7 +57,7 @@ public final class Calibrations {
 	// Elevator Lift
 	public static final double elevatorExtensionPowerMagnitude = 1;
 	public static final double elevatorRetractionPowerMagnitude = .4;
-	public static final double elevatorMaximumSpeed = 1;
+	public static final double elevatorMaximumSpeed = .5;
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
 	
@@ -68,11 +68,8 @@ public final class Calibrations {
 	
 	public static final int elevatorLiftDownwardSafetyMargin = 1500;
 	
-	// Arm
-	public static final double armExtensionPowerMagnitude = 0.5;
-	public static final double armRetractionPowerMagnitude = 0.5;
-	public static final double armMaximumSpeed = 0.5;
-
+	
+	
 	
 	
 	//Intake Wheel

@@ -6,6 +6,7 @@ import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveFPSCommand;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 

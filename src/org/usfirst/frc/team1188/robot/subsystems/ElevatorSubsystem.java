@@ -69,8 +69,22 @@ public class ElevatorSubsystem extends Subsystem {
 	}
     
     public void getPosition() {
-    	System.out.print("Right: " + rightMotor.getSelectedSensorPosition(0));
-    	System.out.println("Left: " + leftMotor.getSelectedSensorPosition(0));
+    	System.out.print("Right: " + this.getRightEncoderPosition());
+    	System.out.println("Left: " + this.getLeftEncoderPosition());
+    }
+    
+    public int getLeftEncoderPosition() {
+    	return leftMotor.getSelectedSensorPosition(0);
+    }
+    
+    public int getRightEncoderPosition() {
+    	int rightEncoderPosition = this.rightMotor.getSelectedSensorPosition(0);
+    	
+    	return rightEncoderPosition;
+    }
+    
+    public int getElevatorPosition() {
+    	return rightMotor.getSelectedSensorPosition(0);
     }
     
     public void getIsAtLimits() {
@@ -97,12 +111,6 @@ public class ElevatorSubsystem extends Subsystem {
     	rightMotor.set(ControlMode.PercentOutput, magnitude);
     	leftMotor.set(ControlMode.PercentOutput, magnitude);
     	// leftMotor.set(ControlMode.PercentOutput, -1 * magnitude);
-    }
-    
-    public int getRightEncoderPosition() {
-    	int rightEncoderPosition = this.rightMotor.getSelectedSensorPosition(0);
-    	
-    	return rightEncoderPosition;
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
