@@ -7,9 +7,11 @@
 
 package org.usfirst.frc.team1188.robot;
 
+import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
@@ -79,8 +81,8 @@ public class Robot extends TimedRobot {
 		Robot.elevator.resetEncoders();
 		
 
-		this.elevator.getPosition();
-		this.elevator.getIsAtLimits();
+		// this.elevator.getPosition();
+		// this.elevator.getIsAtLimits();
 	}
 
 	/**
@@ -99,7 +101,7 @@ public class Robot extends TimedRobot {
 
 		driveTrain.ravenTank.resetOrientationGyro();
 
-		// this.elevator.getPosition();
+		this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 		
 		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
@@ -166,7 +168,7 @@ public class Robot extends TimedRobot {
 		
 		runOperatorControls();
 		
-		// this.elevator.getPosition();
+		 this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 	}
 	
@@ -188,9 +190,9 @@ public class Robot extends TimedRobot {
 	        driveTrain.ravenTank.setCutPower(false);
 	      }		
 	    }
-	    
-	    driveController.getButton(ControlsMap.elevatorExtendButton).whileHeld(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
-		driveController.getButton(ControlsMap.elevatorRetractButton).whileHeld(new ElevatorRetractCommand(elevator, driveController));
+		driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 16849));
+	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
+		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
 
 	}
 
