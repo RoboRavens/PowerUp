@@ -10,7 +10,9 @@ package org.usfirst.frc.team1188.robot;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendAndHoldCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
@@ -41,6 +43,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	
+	Diagnostics diagnostics = new Diagnostics(this);
 	
 	public static final Gamepad driveController = new Gamepad(0);
 	public static final Gamepad operationController = new Gamepad(1);
@@ -100,8 +104,10 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 
 		driveTrain.ravenTank.resetOrientationGyro();
+		
+		diagnostics.outputDisabledDiagnostics();
 
-		this.elevator.getPosition();
+		// this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 		
 		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
@@ -143,6 +149,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		diagnostics.outputAutonomousDiagnostics();
 	}
 
 	@Override
@@ -168,17 +175,19 @@ public class Robot extends TimedRobot {
 		
 		runOperatorControls();
 		
-		 this.elevator.getPosition();
+		 // this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
+		 
+		 diagnostics.outputTeleopDiagnostics();
 	}
 	
 	public void runOperatorControls() {
 		// Drive Train
-		if (driveController.getButtonValue(ControlsMap.driveShiftToLowGearButton) || operationController.getButtonValue(ControlsMap.operationShiftToLowGearButton)) {
+		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton) || operationController.getButtonValue(ControlsMap.operationShiftToLowGearButton)) {
 			driveTrain.ravenTank.shiftToLowGear();
 		}
 		
-		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
+		if (driveController.getButtonValue(ControlsMap.driveShiftToLowGearButton)) {
 			driveTrain.ravenTank.shiftToHighGear();
 		}
 		
@@ -194,6 +203,11 @@ public class Robot extends TimedRobot {
 	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
 		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
 
+		driveController.getButton(ButtonCode.B).whileHeld(new ElevatorHoldPositionCommand(elevator, operationController, elevatorEncoder));
+	    
+		driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
+	    
+		
 	}
 
 	/**

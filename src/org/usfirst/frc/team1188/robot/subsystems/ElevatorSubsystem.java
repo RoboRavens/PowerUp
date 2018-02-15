@@ -108,9 +108,14 @@ public class ElevatorSubsystem extends Subsystem {
     	if (getIsAtRetractionLimit() == true && Math.signum(magnitude) == -1) {
     		magnitude = 0;
     	}
-    	rightMotor.set(ControlMode.PercentOutput, magnitude);
-    	leftMotor.set(ControlMode.PercentOutput, magnitude);
+    	
+    	this.setMotors(magnitude);
     	// leftMotor.set(ControlMode.PercentOutput, -1 * magnitude);
+    }
+    
+    private void setMotors(double magnitude) {
+    	leftMotor.set(ControlMode.PercentOutput, magnitude);
+    	rightMotor.set(ControlMode.PercentOutput, magnitude);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
@@ -137,5 +142,10 @@ public class ElevatorSubsystem extends Subsystem {
     	return isAtExtensionLimit;
     	// return extensionLimit.get();
     }
+
+	public void holdPosition() {
+		this.setMotors(Calibrations.elevatorHoldPositionPowerMagnitude);
+		
+	}
 }
 

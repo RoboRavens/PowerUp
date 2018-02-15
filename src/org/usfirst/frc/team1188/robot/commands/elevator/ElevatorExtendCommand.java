@@ -40,7 +40,13 @@ public class ElevatorExtendCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return false;
+    	boolean isFinished = false;
+    	
+    	if (elevator.getIsAtExtensionLimit()) {
+    		isFinished = true;
+    	}
+    	
+    	return isFinished;
     }
     
     // Called once after isFinished returns true

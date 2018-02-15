@@ -535,16 +535,27 @@ public class RavenTank {
     }
     */
     
+    public void outputEncoderTravels() {
+    	double leftInches = this.leftEncoder.getNetInchesTraveled() * -1;
+    	double rightInches = this.rightEncoder.getNetInchesTraveled();
+    	
+    	System.out.println("LI: " + leftInches + " RI: " + rightInches);
+    }
+    
     public double getNetInchesTraveled() {
-    	double leftInches = this.leftEncoder.getNetInchesTraveled();
+    	double leftInches = this.leftEncoder.getNetInchesTraveled() * -1;
     	double rightInches = this.rightEncoder.getNetInchesTraveled();
     	
     	double netInchesTraveled = (leftInches + rightInches) / 2;
     	
     	
-    	netInchesTraveled = rightInches;
+    	// netInchesTraveled = leftInches;
     	
     	return netInchesTraveled;
+    }
+    
+    public double getSlewRate() {
+    	return this.slewRate;
     }
     
     /*

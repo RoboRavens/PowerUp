@@ -4,7 +4,18 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public final class Calibrations {
 	// Drive calibration
-	public static final double slewRate = 1; // Previously: .35.
+	// Slew rate of .2 seems to work well for when the lift is lowered, though more testing
+	// is necessary - might turn it up or down slightly for increased performance.
+	// public static final double slewRate = .2;
+	public static final double slewRate = .25;
+	
+	// The safe slew rate changes based upon a few variables:
+	// 		- What gear we are in
+	//		- How high the lift is
+	//		- What direction the robot is moving (forward or backward.)
+	//			(backwards to forwards seems worse - but that's with no arm or cube, and a broken chassis)
+	//		- A number low enough to be safe for all scenarios will negatively impact normal operation.
+	
 	public static final double cutPowerModeMovementRatio = .3;
 	public static final double cutPowerModeTurnRatio = .5;
 	public static final double gyroAdjustmentScaleFactor = .03;
@@ -57,7 +68,8 @@ public final class Calibrations {
 	// Elevator Lift
 	public static final double elevatorExtensionPowerMagnitude = 1;
 	public static final double elevatorRetractionPowerMagnitude = .4;
-	public static final double elevatorMaximumSpeed = .5;
+	public static final double elevatorMaximumSpeed = .33;
+	public static final double elevatorHoldPositionPowerMagnitude = .05;
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
 	
