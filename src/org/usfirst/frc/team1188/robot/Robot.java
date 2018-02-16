@@ -60,7 +60,8 @@ public class Robot extends TimedRobot {
 	Lighting carriageStalledLighting = new Lighting(carriageStalledRelay);
 	
 	public final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
-	public static final ElevatorSubsystem elevator = new ElevatorSubsystem();
+	// Update to operationController 
+	public final ElevatorSubsystem elevator = new ElevatorSubsystem(this, driveController, elevatorEncoder);
 	public static final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
 	public static final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
 	public static final LightSubsystem LightSubsystem = new LightSubsystem();
@@ -82,7 +83,7 @@ public class Robot extends TimedRobot {
 		
 		// Zero the elevator encoders; the robot should always start with the elevator down.
 		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
-		Robot.elevator.resetEncoders();
+		this.elevator.resetEncoders();
 		
 
 		// this.elevator.getPosition();

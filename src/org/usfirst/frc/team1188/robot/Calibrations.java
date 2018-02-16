@@ -85,8 +85,8 @@ public final class Calibrations {
 	
 	
 	//Intake Wheel
-	public static double intakeWheelPullPowerMagnitude = 0.4;
-	public static final double intakeWheelPushPowerMagnitude = 0.5;
+	public static double intakeWheelPullPowerMagnitude = .4;
+	public static final double intakeWheelPushPowerMagnitude = .5;
 	
 	// Lighting
 	public static double lightingFlashTotalDurationMs = 1000;

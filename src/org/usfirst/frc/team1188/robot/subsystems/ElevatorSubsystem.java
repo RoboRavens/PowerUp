@@ -4,12 +4,14 @@ import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStopCommand;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,20 +24,26 @@ public class ElevatorSubsystem extends Subsystem {
 	TalonSRX rightMotor;
 	DigitalInput extensionLimit;
 	DigitalInput retractionLimit;
+	Encoder encoder;
+	
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public ElevatorSubsystem() {
+	public ElevatorSubsystem(Robot robot, Gamepad operatorController, Encoder encoder) {
 		this.rightMotor = new TalonSRX(RobotMap.elevatorMotorRight);
 		this.leftMotor = new TalonSRX(RobotMap.elevatorMotorLeft);
 		this.leftMotor.setInverted(true);
+		
+		this.operatorController = operatorController;
+		this.encoder = encoder;
+		this.robot = robot;
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new ElevatorStopCommand(this));
+    	setDefaultCommand(new ElevatorHoldPositionCommand(this, operatorController, encoder));
     }
     
     public void extend() {
