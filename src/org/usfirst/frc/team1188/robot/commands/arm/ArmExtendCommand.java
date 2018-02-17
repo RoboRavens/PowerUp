@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1188.robot.commands.arm;
 
-import org.usfirst.frc.team1188.robot.subsystems.ArmSubsystem;
+import org.usfirst.frc.team1188.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,13 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ArmExtendCommand extends Command {
-	ArmSubsystem arm;
 	
-    public ArmExtendCommand(ArmSubsystem arm) {
+    public ArmExtendCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(arm);
-    	this.arm = arm;
+    	requires(Robot.ARM_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +21,7 @@ public class ArmExtendCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	arm.extend();
+    	Robot.ARM_SUBSYSTEM.extend();
     	// System.out.println("EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.");
     }
 
@@ -34,7 +32,7 @@ public class ArmExtendCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	arm.stop();
+    	Robot.ARM_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

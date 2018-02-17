@@ -9,13 +9,13 @@ package org.usfirst.frc.team1188.robot;
 
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
-import org.usfirst.frc.team1188.ravenhardware.Lighting;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendAndHoldCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMaximumScaleHeightCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
@@ -26,15 +26,10 @@ import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+//import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -49,28 +44,18 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
-	Diagnostics diagnostics = new Diagnostics(this);
+	Diagnostics diagnostics = new Diagnostics();
 	
-	public static final Gamepad driveController = new Gamepad(0);
-	public static final Gamepad operationController = new Gamepad(1);
-	// public static final Gamepad buttonPanel = new Gamepad(2);
-	
-	Solenoid shiftToLowGearSolenoid = new Solenoid(RobotMap.shiftToLowGearSolenoid);
-	Solenoid shiftToHighGearSolenoid = new Solenoid(RobotMap.shiftToHighGearSolenoid);
-	
-	Encoder elevatorEncoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
-	
-	Relay carriageStalledRelay = new Relay(RobotMap.carriageStalledLightRelay);
-	
-	Lighting carriageStalledLighting = new Lighting(carriageStalledRelay);
-	
-	public final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
-	// Update to operationController 
-	public final ElevatorSubsystem elevator = new ElevatorSubsystem(this, driveController, elevatorEncoder);
-	public static final ArmSubsystem arm = new ArmSubsystem();
-	public static final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
-	public static final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
-	public static final LightSubsystem LightSubsystem = new LightSubsystem();
+	public static final Gamepad DRIVE_CONTROLLER = new Gamepad(0);
+	public static final Gamepad OPERATION_CONTROLLER = new Gamepad(1);
+	// public static final Gamepad buttonPanel = new Gamepad(2);	
+			
+	public static final DriveTrainSubsystem DRIVE_TRAIN_SUBSYSTEM = new DriveTrainSubsystem();
+	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
+	public static final ArmSubsystem ARM_SUBSYSTEM = new ArmSubsystem();
+	public static final IntakeClampSubsystem INTAKE_CLAMP_SUBSYSTEM = new IntakeClampSubsystem();
+	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
+	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -78,8 +63,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		NetworkTable table = NetworkTable.getTable("limelight");
-		table.putDouble("ledMode", 1);
+		//NetworkTable table = NetworkTable.getTable("limelight");
+		//table.putDouble("ledMode", 1);
 		System.out.println("disable limelight");
 		
 		// m_chooser.addDefault("Default Auto", new Command());
@@ -89,7 +74,7 @@ public class Robot extends TimedRobot {
 		
 		// Zero the elevator encoders; the robot should always start with the elevator down.
 		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
-		this.elevator.resetEncoders();
+		Robot.ELEVATOR_SUBSYSTEM.resetEncoders();
 		
 
 		// this.elevator.getPosition();
@@ -110,15 +95,16 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 
-		driveTrain.ravenTank.resetOrientationGyro();
+		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		
 		diagnostics.outputDisabledDiagnostics();
 
 		// this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
+		//this.arm.getPosition();
 		
-		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
-			this.elevator.resetEncoders();
+		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
+			Robot.ELEVATOR_SUBSYSTEM.resetEncoders();
 		}
 	}
 
@@ -162,7 +148,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 
-		driveTrain.ravenTank.resetOrientationGyro();
+		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
@@ -184,43 +170,47 @@ public class Robot extends TimedRobot {
 		
 		 // this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
+		Robot.ARM_SUBSYSTEM.getPosition();
 		 
 		 diagnostics.outputTeleopDiagnostics();
 	}
 	
 	public void runOperatorControls() {
 		// Drive Train
-		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton) || operationController.getButtonValue(ControlsMap.operationShiftToLowGearButton)) {
-			driveTrain.ravenTank.shiftToLowGear();
+		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton) || OPERATION_CONTROLLER.getButtonValue(ControlsMap.operationShiftToLowGearButton)) {
+			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToLowGear();
 		}
 		
-		if (driveController.getButtonValue(ControlsMap.driveShiftToLowGearButton)) {
-			driveTrain.ravenTank.shiftToHighGear();
+		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToLowGearButton)) {
+			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToHighGear();
 		}
 		
-	    if (driveTrain.ravenTank.userControlOfCutPower) {
-	      if (driveController.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
-	        driveTrain.ravenTank.setCutPower(true);
+	    if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) {
+	      if (DRIVE_CONTROLLER.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
+	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(true);
 	      }
 	      else {
-	        driveTrain.ravenTank.setCutPower(false);
+	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false);
 	      }		
 	    }
 	    
-		driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
-	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
-		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
+		//driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
+	    DRIVE_CONTROLLER.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand());
+		DRIVE_CONTROLLER.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand());
 
-		driveController.getButton(ButtonCode.B).whileHeld(new ElevatorHoldPositionCommand(elevator, operationController, elevatorEncoder));
+		DRIVE_CONTROLLER.getButton(ButtonCode.B).whileHeld(new ElevatorHoldPositionCommand());
 	    
 		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
-		driveController.getButton(ButtonCode.X).whileHeld(new ArmExtendCommand(arm));
-		driveController.getButton(ButtonCode.Y).whileHeld(new ArmRetractCommand(arm));
+		DRIVE_CONTROLLER.getButton(ButtonCode.X).whileHeld(new ArmExtendCommand());
+		DRIVE_CONTROLLER.getButton(ButtonCode.Y).whileHeld(new ArmRetractCommand());
 		
-		driveController.getButton(ButtonCode.LEFTSTICK).whileHeld(new IntakeWheelPullCommand(IntakeWheelSubsystem));
-		driveController.getButton(ButtonCode.RIGHTSTICK).whileHeld(new IntakeWheelPushCommand(IntakeWheelSubsystem));
+		DRIVE_CONTROLLER.getButton(ButtonCode.LEFTSTICK).whileHeld(new IntakeWheelPullCommand());
+		DRIVE_CONTROLLER.getButton(ButtonCode.RIGHTSTICK).whileHeld(new IntakeWheelPushCommand());
 		
+		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToMaximumScaleHeightCommand());
 	}
 
 	/**

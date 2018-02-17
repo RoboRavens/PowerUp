@@ -31,6 +31,23 @@ public class ArmSubsystem extends Subsystem {
     	setDefaultCommand(new ArmStopCommand(this));
     }
     
+    public void getPosition() {
+    	System.out.print("Right: " + this.getRightEncoderPosition() + "    ");
+    	System.out.println("Left: " + this.getLeftEncoderPosition());
+    }
+    
+    public int getLeftEncoderPosition() {
+    	int leftEncoderPosition = this.leftMotor.getSelectedSensorPosition(0);
+    	
+    	return leftEncoderPosition;    
+    }
+    
+    public int getRightEncoderPosition() {
+    	int rightEncoderPosition = this.rightMotor.getSelectedSensorPosition(0);
+    	
+    	return rightEncoderPosition;
+    }
+    
     public void extend() {
     	this.set(Calibrations.armExtensionPowerMagnitude);
     }
@@ -60,6 +77,6 @@ public class ArmSubsystem extends Subsystem {
     	this.leftMotor.set(ControlMode.PercentOutput, magnitude);
     	this.rightMotor.set(ControlMode.PercentOutput, magnitude);
     	
-    	System.out.println("RMO: " + this.rightMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());
+    	//System.out.println("RMO: " + this.rightMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());
     }
 }

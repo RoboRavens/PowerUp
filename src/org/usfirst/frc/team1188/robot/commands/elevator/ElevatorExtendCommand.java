@@ -1,27 +1,17 @@
 package org.usfirst.frc.team1188.robot.commands.elevator;
 
-import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class ElevatorExtendCommand extends Command {
-	ElevatorSubsystem elevator;
-	Robot robot;
-    Gamepad operationController;
-    Encoder encoder;
 
-    public ElevatorExtendCommand(ElevatorSubsystem elevator, Gamepad driveController, Encoder encoder) {
-    	requires(elevator);
-    	this.elevator = elevator;
-    	this.operationController = driveController;
-    	this.encoder = encoder;
+    public ElevatorExtendCommand() {
+    	requires(Robot.ELEVATOR_SUBSYSTEM);
+    	
     }
 
     // Called just before this Command runs the first time
@@ -30,11 +20,11 @@ public class ElevatorExtendCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (elevator.getIsAtExtensionLimit() == false) {
-        	elevator.extend();
+    	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit() == false) {
+    		Robot.ELEVATOR_SUBSYSTEM.extend();
     	}
     	else {
-    		elevator.stop();
+    		Robot.ELEVATOR_SUBSYSTEM.stop();
     	}
     }
 
@@ -42,7 +32,7 @@ public class ElevatorExtendCommand extends Command {
     protected boolean isFinished() {
     	boolean isFinished = false;
     	
-    	if (elevator.getIsAtExtensionLimit()) {
+    	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit()) {
     		isFinished = true;
     	}
     	
@@ -51,7 +41,7 @@ public class ElevatorExtendCommand extends Command {
     
     // Called once after isFinished returns true
     protected void end() {
-    	elevator.stop();
+    	Robot.ELEVATOR_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

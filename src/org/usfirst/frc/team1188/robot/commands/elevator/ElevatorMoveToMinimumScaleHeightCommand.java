@@ -1,23 +1,24 @@
 package org.usfirst.frc.team1188.robot.commands.elevator;
 
+import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorMoveToHeightCommand extends Command {
-    double heightLimitInches;
+public class ElevatorMoveToMinimumScaleHeightCommand extends Command {
+	double heightLimitEncoderTicks = ElevatorSubsystem.inchesToTicks(Calibrations.elevatorMinimumScaleHeightInches);
     double speed;
     int tolerance = 5;
     int deceleration = 1500;
     
-    public ElevatorMoveToHeightCommand(double heightLimitInches) {
+    public ElevatorMoveToMinimumScaleHeightCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.ELEVATOR_SUBSYSTEM);
-    	this.heightLimitInches = heightLimitInches;
     }
 
     // Called just before this Command runs the first time
@@ -26,7 +27,7 @@ public class ElevatorMoveToHeightCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double distToTarget = heightLimitInches - Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition();
+    	double distToTarget = heightLimitEncoderTicks - Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition();
     	int direction = (int) Math.signum(distToTarget);
     	//speed = distToTarget / deceleration;
     	// Turn speed into portions of Calibrations.elevatorMaximumSpeed
@@ -47,9 +48,9 @@ public class ElevatorMoveToHeightCommand extends Command {
     	boolean isFinished = false;
     	
     	
-    	System.out.println("GetPos Count: " + Robot.ELEVATOR_SUBSYSTEM.getLeftEncoderPosition() + " Encoder.get: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderValue() + " HLI: " + this.heightLimitInches);
+    	System.out.println("GetPos Count: " + Robot.ELEVATOR_SUBSYSTEM.getLeftEncoderPosition() + " Encoder.get: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderValue() + " HLI: " + this.heightLimitEncoderTicks);
     	
-    	if (Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition() >= this.heightLimitInches) {
+    	if (Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition() >= this.heightLimitEncoderTicks) {
     		Robot.ELEVATOR_SUBSYSTEM.stop();
     		isFinished = true;		
     	} else {

@@ -3,8 +3,8 @@ package org.usfirst.frc.team1188.ravenhardware;
 import org.usfirst.frc.team1188.robot.Calibrations;
 
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Relay.Value;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Lighting {
 	private Relay mainArray;
