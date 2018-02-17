@@ -1,4 +1,4 @@
-# Code standards (DRAFT)
+# Code standards
 Coding standards keep our code consistent.
 ## Casing
 ```java
@@ -39,19 +39,42 @@ public class Example {
         if (condition) {
             // do stuff
         }
+
+        if (condition) {
+            // do stuff
+        } else if (condition2) {
+            // do stuff
+        } else {
+            // do stuff
+        }
+
+        try {
+            // do stuff
+        } catch (Exception e) {
+            // cleanup
+        } finally {
+            // cleanup
+        }
     }
 }
 ```
 
 ## Subsystems
 - Should contain their own hardware instances
-- Should be declared as a `public static` property in Robot.java
+- Should be instantiated as a `public static final` property in Robot.java
+- Controllers should be referenced using `Robot.CONTROLLER_NAME`
 
 ```java
+// ExampleSubsystem.java
 public class ExampleSubsystem extends Subsystem {
     public void initDefaultCommand() {
         setDefaultCommand(new ExampleCommand());
     }
+}
+
+// Robot.java
+public class Robot extends TimedRobot {
+    public static final ExampleSubsystem EXAMPLE_SUBSYSTEM = new ExampleSubsystem();
 }
 ```
 
@@ -59,21 +82,32 @@ public class ExampleSubsystem extends Subsystem {
  - Require subsystem by referencing the static property on Robot, e.g. `Robot.subsystemName`
  - Always access hardware interfaces through methods on the subsystem.
  - When a command is only invoked only while a button is pressed, then have the `isFinished` method always return true. The logic to check the button and run the command should be located in `teleopPeriodic` method of Robot.java.
+ - Controllers should be referenced using `Robot.controllerName`
 
 ```java
 public class ExampleCommand extends Command {
     public ExampleCommand() {
-        requires(Robot.ExampleSubsystem);
+        requires(Robot.EXAMPLE_SUBSYSTEM);
     }
 
     @Override
     protected void execute() {
-        Robot.ExampleSubsystem.doSomething();
+        Robot.EXAMPLE_SUBSYSTEM.doSomething();
     }
 
     @Override
     protected boolean isFinished() {
         return true;
     }
+}
+
+// Robot.java
+// ...
+public void teleopPeriodic() {
+    // use whileHeld if the command's isFinished method always returns true
+    driveController.getButton(ControlsMap.EXAMPLE_BUTTON).whileHeld(new ExampleCommand());
+
+    // use whenPressed if the command's isFinished method returns true only when the command's objective has been completed.
+    driveController.getButton(ControlsMap.SPECIFIC_OBJECTIVE_BUTTON).whenPressed(new CompleteSpecificObjectiveCommand());
 }
 ```
