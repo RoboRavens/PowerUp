@@ -1,14 +1,9 @@
 package org.usfirst.frc.team1188.robot;
 public class Diagnostics {
-	Robot robot;
-	
-	public Diagnostics(Robot robot) {
-		this.robot = robot;
-	}
 	
 	public void outputAutonomousDiagnostics() {
 		//System.out.print("LEncoder: " + round(robot.driveTrain.ravenTank.leftEncoder.getNetInchesTraveled(), 2) + " REncoder: " + round(robot.driveTrain.ravenTank.rightEncoder.getNetInchesTraveled(), 2));
-		System.out.println("DT total IT: " + Math.round(robot.driveTrain.ravenTank.getNetInchesTraveled()));
+		System.out.println("DT total IT: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled()));
 		//System.out.println(" Current heading: " + robot.driveTrain.ravenTank.getCurrentHeading());
 		// System.out.println("Shooter RPM: " + Math.round(robot.fuelShooter.shooterMotorLead.getSpeed() / 2));
 		

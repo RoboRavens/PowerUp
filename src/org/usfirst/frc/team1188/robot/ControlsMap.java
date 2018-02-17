@@ -3,8 +3,6 @@ package org.usfirst.frc.team1188.robot;
 import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 
-import edu.wpi.first.wpilibj.PWM;
-
 public class ControlsMap {
 	// Drive controller
 	public static final ButtonCode driveShiftToLowGearButton = ButtonCode.LEFTBUMPER;

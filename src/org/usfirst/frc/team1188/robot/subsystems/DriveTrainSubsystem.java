@@ -4,34 +4,28 @@ import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveFPSCommand;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class DriveTrainSubsystem extends Subsystem {
-	
+public class DriveTrainSubsystem extends Subsystem {	
 	public Robot robot;
 	Gamepad driveController;
 	public RavenTank ravenTank;
-	
-	public DriveTrainSubsystem(Robot robot, Gamepad driveController) {
-		initializeDriveTrain(robot, driveController);
-		this.ravenTank = new RavenTank(robot);
-	}
-	
-	public DriveTrainSubsystem(Robot robot, Gamepad driveController, Solenoid lowGearSolenoid, Solenoid highGearSolenoid, Lighting shiftedToLowGearLighting) {
-		initializeDriveTrain(robot, driveController);
-		this.ravenTank = new RavenTank(robot, lowGearSolenoid, highGearSolenoid, shiftedToLowGearLighting);
-	}
+	private Solenoid _shiftToLowGearSolenoid = new Solenoid(RobotMap.shiftToLowGearSolenoid);
+	private Solenoid _shiftToHighGearSolenoid = new Solenoid(RobotMap.shiftToHighGearSolenoid);
+	private Relay _carriageStalledRelay = new Relay(RobotMap.carriageStalledLightRelay);
+	private Lighting _carriageStalledLighting = new Lighting(_carriageStalledRelay);
 
-	private void initializeDriveTrain(Robot robot, Gamepad driveController) {
-		this.robot = robot;
-		this.driveController = driveController;
+	
+	public DriveTrainSubsystem() {
+		this.ravenTank = new RavenTank(_shiftToLowGearSolenoid, _shiftToHighGearSolenoid, _carriageStalledLighting);
 	}
 	
     // Put methods for controlling this subsystem
@@ -41,7 +35,7 @@ public class DriveTrainSubsystem extends Subsystem {
         // Set the default command for a subsystem here.
      
     	//setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new DriveTrainDriveFPSCommand(this, driveController));
+    	setDefaultCommand(new DriveTrainDriveFPSCommand());
     }
     
 }

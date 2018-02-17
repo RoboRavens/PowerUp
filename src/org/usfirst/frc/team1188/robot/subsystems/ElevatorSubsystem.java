@@ -1,11 +1,8 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
-import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Calibrations;
-import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStopCommand;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -18,8 +15,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class ElevatorSubsystem extends Subsystem {
-	public Robot robot;
-	Gamepad operatorController;	
 	TalonSRX leftMotor;
 	TalonSRX rightMotor;
 	DigitalInput extensionLimit;
@@ -30,21 +25,18 @@ public class ElevatorSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public ElevatorSubsystem(Robot robot, Gamepad operatorController, Encoder encoder) {
+	public ElevatorSubsystem() {
 		this.rightMotor = new TalonSRX(RobotMap.elevatorMotorRight);
 		this.leftMotor = new TalonSRX(RobotMap.elevatorMotorLeft);
 		this.leftMotor.setInverted(true);
-		
-		this.operatorController = operatorController;
-		this.encoder = encoder;
-		this.robot = robot;
+		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new ElevatorHoldPositionCommand(this, operatorController, encoder));
-    }
+    	setDefaultCommand(new ElevatorHoldPositionCommand());
+    } 
     
     public void extend() {
 		this.extend(Calibrations.elevatorExtensionPowerMagnitude); 
@@ -174,6 +166,10 @@ public class ElevatorSubsystem extends Subsystem {
 		inches += Calibrations.elevatorInchesToEncoderTicksOffsetValue;
 		
 		return inches;
+	}
+	
+	public double getEncoderValue() {
+		return encoder.get();
 	}
 }
 

@@ -3,8 +3,10 @@ package org.usfirst.frc.team1188.robot.subsystems;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullIdleCommand;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

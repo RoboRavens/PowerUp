@@ -38,8 +38,8 @@ public class ElevatorExtendAndHoldCommand extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new ElevatorExtendCommand(elevator, driveController, encoder));
-    	addSequential(new ElevatorHoldPositionCommand(elevator, operationController, encoder));
+    	addSequential(new ElevatorExtendCommand());
+    	addSequential(new ElevatorHoldPositionCommand());
     	
     }
 }

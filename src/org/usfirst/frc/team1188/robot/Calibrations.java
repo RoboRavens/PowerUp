@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1188.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 public final class Calibrations {
 	// Drive calibration
 	// Slew rate of .2 seems to work well for when the lift is lowered, though more testing

@@ -1,25 +1,16 @@
 package org.usfirst.frc.team1188.robot.commands.elevator;
 
-import org.usfirst.frc.team1188.gamepad.Gamepad;
-import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class ElevatorRetractCommand extends Command {
-	ElevatorSubsystem elevator;
-	Robot robot;
-    Gamepad operationController;
 
-    public ElevatorRetractCommand(ElevatorSubsystem elevator, Gamepad driveController) {
-    	requires(elevator);
-    	this.elevator = elevator;
-    	this.operationController = driveController;
+    public ElevatorRetractCommand() {
+    	requires(Robot.ELEVATOR_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
@@ -28,11 +19,11 @@ public class ElevatorRetractCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (elevator.getIsAtRetractionLimit() == false) {
-        	elevator.retract();
+    	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtRetractionLimit() == false) {
+    		Robot.ELEVATOR_SUBSYSTEM.retract();
     	}
     	else {
-    		elevator.stop();
+    		Robot.ELEVATOR_SUBSYSTEM.stop();
     	}
     }
 
@@ -43,7 +34,7 @@ public class ElevatorRetractCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	elevator.stop();
+    	Robot.ELEVATOR_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

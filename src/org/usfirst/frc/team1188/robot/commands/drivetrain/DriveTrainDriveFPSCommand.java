@@ -1,22 +1,14 @@
 package org.usfirst.frc.team1188.robot.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team1188.robot.subsystems.*;
 import org.usfirst.frc.team1188.gamepad.AxisCode;
-import org.usfirst.frc.team1188.gamepad.Gamepad;
-import org.usfirst.frc.team1188.robot.*;
+import org.usfirst.frc.team1188.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveTrainDriveFPSCommand extends Command {
-	Robot robot;
-    DriveTrainSubsystem driveTrain;
-    Gamepad driveController;
 
-    public DriveTrainDriveFPSCommand(DriveTrainSubsystem driveTrain, Gamepad driveController) {
-    	requires(driveTrain);
-    	this.driveTrain = driveTrain;
-    	this.robot = driveTrain.robot;
-    	this.driveController = driveController;
+    public DriveTrainDriveFPSCommand() {
+    	requires(Robot.DRIVE_TRAIN_SUBSYSTEM);
 	}
 
 	// Called just before this Command runs the first time
@@ -26,12 +18,12 @@ public class DriveTrainDriveFPSCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// System.out.println("Executing tank drive command.");
-        double leftYAxisValue = driveController.getAxis(AxisCode.LEFTSTICKY);
-    	double rightYAxisValue = driveController.getAxis(AxisCode.RIGHTSTICKY);
-    	double rightXAxisValue = driveController.getAxis(AxisCode.RIGHTSTICKX);
+        double leftYAxisValue = Robot.DRIVE_CONTROLLER.getAxis(AxisCode.LEFTSTICKY);
+    	double rightYAxisValue = Robot.DRIVE_CONTROLLER.getAxis(AxisCode.RIGHTSTICKY);
+    	double rightXAxisValue = Robot.DRIVE_CONTROLLER.getAxis(AxisCode.RIGHTSTICKX);
     	
     	
-    	driveTrain.ravenTank.drive(leftYAxisValue, rightYAxisValue, rightXAxisValue);
+    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.drive(leftYAxisValue, rightYAxisValue, rightXAxisValue);
     }
 
     // Make this return true when this Command no longer needs to run execute()

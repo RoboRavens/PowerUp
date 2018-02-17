@@ -1,9 +1,11 @@
 package org.usfirst.frc.team1188.ravenhardware;
 
-import org.usfirst.frc.team1188.robot.*;
+import org.usfirst.frc.team1188.robot.Calibrations;
+import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.RobotMap;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -61,21 +63,15 @@ public class RavenTank {
 	
 	Lighting shiftedToLowGearLighting;
 	
-	public RavenTank(Robot robot) {
-		initializeRavenTank(robot);
-	}
-	
-	public RavenTank(Robot robot, Solenoid lowGearSolenoid, Solenoid highGearSolenoid, Lighting shiftedToLowGearLighting) {
+	public RavenTank(Solenoid lowGearSolenoid, Solenoid highGearSolenoid, Lighting shiftedToLowGearLighting) {
 		this.shiftToLowGearSolenoid = lowGearSolenoid;
 		this.shiftToHighGearSolenoid = highGearSolenoid;
 		this.shiftedToLowGearLighting = shiftedToLowGearLighting;
 		
-		initializeRavenTank(robot);
+		initializeRavenTank();
 	}
 
-	private void initializeRavenTank(Robot robot) {
-		this.robot = robot;
-		
+	private void initializeRavenTank() {	
 		slewRate = Calibrations.slewRate;
 		
 		Encoder leftWpiEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
