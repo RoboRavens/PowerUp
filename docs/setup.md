@@ -65,9 +65,9 @@ For more information please also see the online guide to the sources in the "Adv
 [Installing Phoenix Framework onto your FRC robot](https://github.com/CrossTheRoadElec/Phoenix-Documentation#installing-phoenix-framework-onto-your-frc-robot)
 
 ## Helpful Links
-[Overview of FRC Software](http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/144981-frc-software-component-overview)
-[Phoenix Documentation](https://github.com/CrossTheRoadElec/Phoenix-Documentation)
-[Gryo Software](https://github.com/kauailabs/navxmxp)
+[Overview of FRC Software](http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/144981-frc-software-component-overview)  
+[Phoenix Documentation](https://github.com/CrossTheRoadElec/Phoenix-Documentation)  
+[Gryo Software](https://github.com/kauailabs/navxmxp)  
 
 ## Troubleshooting
 ### CAN components not showing up
