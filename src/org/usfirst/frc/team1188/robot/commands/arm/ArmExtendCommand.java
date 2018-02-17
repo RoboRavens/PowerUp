@@ -24,7 +24,7 @@ public class ArmExtendCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	arm.extend();
-    	System.out.println("EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.");
+    	// System.out.println("EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.");
     }
 
     // Make this return true when this Command no longer needs to run execute()
