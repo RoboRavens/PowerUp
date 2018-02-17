@@ -73,6 +73,14 @@ public final class Calibrations {
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
 	
+	public static final double elevatorMinimumScaleHeightInches = 50.25;
+	public static final double elevatorBalancedScaleHeightInches = 64;
+	public static final double elevatorMaximumScaleHeightInches = 76;
+	
+	public static final int elevatorInchesToEncoderTicksConversionValue = 411;
+	public static final int elevatorInchesToEncoderTicksOffsetValue = 10;
+
+	
 	// The safety margin is how far away from the end of travel the encoders will stop the lift.
 	// At low speeds (max of .3), and a lift max value of 30k, 1500 maxes out the elevator.
 	// At higher speeds, a higher value is needed because the elevator will overshoot the target until we have PID.
@@ -93,7 +101,7 @@ public final class Calibrations {
 	public static double lightingFlashes = 10;
 	
 	
-	public static double armExtensionPowerMagnitude = .5;
-	public static double armRetractionPowerMagnitude = .5;
-	public static double armMaximumSpeed = .5;
+	public static double armExtensionPowerMagnitude = .75;
+	public static double armRetractionPowerMagnitude = .75;
+	public static double armMaximumSpeed = .75;
 }

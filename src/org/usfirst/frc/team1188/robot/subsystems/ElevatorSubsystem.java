@@ -159,5 +159,21 @@ public class ElevatorSubsystem extends Subsystem {
 		this.setMotors(Calibrations.elevatorHoldPositionPowerMagnitude);
 		
 	}
+	
+	public static double inchesToTicks(double inches) {
+		double encoderTicks = inches;
+		encoderTicks -= Calibrations.elevatorInchesToEncoderTicksOffsetValue;
+		encoderTicks *= Calibrations.elevatorInchesToEncoderTicksConversionValue;
+		
+		return encoderTicks;
+	}
+	
+	public static double ticksToInches(double encoderTicks) {
+		double inches = encoderTicks;
+		inches /= Calibrations.elevatorInchesToEncoderTicksConversionValue;
+		inches += Calibrations.elevatorInchesToEncoderTicksOffsetValue;
+		
+		return inches;
+	}
 }
 

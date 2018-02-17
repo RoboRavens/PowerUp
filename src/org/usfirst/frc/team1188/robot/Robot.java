@@ -15,7 +15,10 @@ import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendAndHoldCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMaximumScaleHeightCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
@@ -67,7 +70,7 @@ public class Robot extends TimedRobot {
 	public final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
 	// Update to operationController 
 	public final ElevatorSubsystem elevator = new ElevatorSubsystem(this, driveController, elevatorEncoder);
-	public static final ArmSubsystem arm = new ArmSubsystem();
+	public final ArmSubsystem arm = new ArmSubsystem();
 	public static final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
 	public static final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
 	public static final LightSubsystem LightSubsystem = new LightSubsystem();
@@ -116,6 +119,7 @@ public class Robot extends TimedRobot {
 
 		// this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
+		//this.arm.getPosition();
 		
 		if (driveController.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
 			this.elevator.resetEncoders();
@@ -184,6 +188,7 @@ public class Robot extends TimedRobot {
 		
 		 // this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
+		this.arm.getPosition();
 		 
 		 diagnostics.outputTeleopDiagnostics();
 	}
@@ -207,7 +212,7 @@ public class Robot extends TimedRobot {
 	      }		
 	    }
 	    
-		driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
+		//driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
 	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
 		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
 
@@ -221,6 +226,9 @@ public class Robot extends TimedRobot {
 		driveController.getButton(ButtonCode.LEFTSTICK).whileHeld(new IntakeWheelPullCommand(IntakeWheelSubsystem));
 		driveController.getButton(ButtonCode.RIGHTSTICK).whileHeld(new IntakeWheelPushCommand(IntakeWheelSubsystem));
 		
+		operationController.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand(elevator, operationController, elevatorEncoder));
+		operationController.getButton(ButtonCode.Y).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand(elevator, operationController, elevatorEncoder));
+		operationController.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToMaximumScaleHeightCommand(elevator, operationController, elevatorEncoder));
 	}
 
 	/**
