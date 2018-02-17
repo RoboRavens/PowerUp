@@ -24,7 +24,7 @@ public class ArmRetractCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	arm.retract();
-    	System.out.println("RETRACTING ARM.");
+    	System.out.println("RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.");
     }
 
     // Make this return true when this Command no longer needs to run execute()

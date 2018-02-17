@@ -10,11 +10,16 @@ package org.usfirst.frc.team1188.robot;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.Lighting;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendAndHoldCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
+import org.usfirst.frc.team1188.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
@@ -60,7 +65,9 @@ public class Robot extends TimedRobot {
 	Lighting carriageStalledLighting = new Lighting(carriageStalledRelay);
 	
 	public final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(this, driveController, shiftToLowGearSolenoid, shiftToHighGearSolenoid, carriageStalledLighting);
-	public static final ElevatorSubsystem elevator = new ElevatorSubsystem();
+	// Update to operationController 
+	public final ElevatorSubsystem elevator = new ElevatorSubsystem(this, driveController, elevatorEncoder);
+	public static final ArmSubsystem arm = new ArmSubsystem();
 	public static final IntakeClampSubsystem IntakeClampSubystem = new IntakeClampSubsystem();
 	public static final IntakeWheelSubsystem IntakeWheelSubsystem = new IntakeWheelSubsystem();
 	public static final LightSubsystem LightSubsystem = new LightSubsystem();
@@ -82,7 +89,7 @@ public class Robot extends TimedRobot {
 		
 		// Zero the elevator encoders; the robot should always start with the elevator down.
 		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
-		Robot.elevator.resetEncoders();
+		this.elevator.resetEncoders();
 		
 
 		// this.elevator.getPosition();
@@ -206,8 +213,13 @@ public class Robot extends TimedRobot {
 
 		driveController.getButton(ButtonCode.B).whileHeld(new ElevatorHoldPositionCommand(elevator, operationController, elevatorEncoder));
 	    
-		driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
+		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
+		driveController.getButton(ButtonCode.X).whileHeld(new ArmExtendCommand(arm));
+		driveController.getButton(ButtonCode.Y).whileHeld(new ArmRetractCommand(arm));
+		
+		driveController.getButton(ButtonCode.LEFTSTICK).whileHeld(new IntakeWheelPullCommand(IntakeWheelSubsystem));
+		driveController.getButton(ButtonCode.RIGHTSTICK).whileHeld(new IntakeWheelPushCommand(IntakeWheelSubsystem));
 		
 	}
 
