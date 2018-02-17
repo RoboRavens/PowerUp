@@ -17,6 +17,7 @@ public class IntakeWheelSubsystem extends Subsystem {
 	public IntakeWheelSubsystem() {
 		this.intakeMotorLeft = new TalonSRX(RobotMap.intakeMotorLeft);
 		this.intakeMotorRight = new TalonSRX(RobotMap.intakeMotorRight);
+		this.intakeMotorLeft.setInverted(true);
 	}
 	
 

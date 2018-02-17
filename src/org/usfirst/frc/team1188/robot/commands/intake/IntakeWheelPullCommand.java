@@ -1,16 +1,20 @@
 package org.usfirst.frc.team1188.robot.commands.intake;
 
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class IntakeWheelPullCommand extends Command {
+	
+	IntakeWheelSubsystem intakeWheelSubsystem;
 
-    public IntakeWheelPullCommand () {
-         requires(Robot.IntakeWheelSubsystem); 
-         
+    public IntakeWheelPullCommand (IntakeWheelSubsystem intakeWheelSubsystem) {
+         requires(intakeWheelSubsystem); 
+         this.intakeWheelSubsystem = intakeWheelSubsystem;
     }
 
     // Called just before this Command runs the first time
@@ -19,7 +23,8 @@ public class IntakeWheelPullCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.IntakeWheelSubsystem.pull();
+    	intakeWheelSubsystem.pull();
+    	System.out.println("IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -29,7 +34,7 @@ public class IntakeWheelPullCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.IntakeWheelSubsystem.stop();
+    	intakeWheelSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same

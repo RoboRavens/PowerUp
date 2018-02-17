@@ -40,16 +40,16 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void retract() {
-    	this.set(Calibrations.armRetractionPowerMagnitude);
+    	this.set(-1 * Calibrations.armRetractionPowerMagnitude);
     }
     
     public void retract(double magnitude) {
-    	this.set(magnitude);
+    	this.set(-1 * magnitude);
     }
     
     public void stop() {
     	this.set(0);
-    	System.out.println("STOPPING ARM.");
+    	//System.out.println("STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.");
     }
     
     private void set(double magnitude) {
