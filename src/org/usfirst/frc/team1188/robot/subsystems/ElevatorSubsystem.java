@@ -84,7 +84,11 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public int getElevatorPosition() {
-    	return rightMotor.getSelectedSensorPosition(0);
+    	int elevatorPosition;
+    	
+    	elevatorPosition = (rightMotor.getSelectedSensorPosition(0) + leftMotor.getSelectedSensorPosition(0)) / 2;
+    
+    	return elevatorPosition;
     }
     
     public void getIsAtLimits() {
