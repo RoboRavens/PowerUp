@@ -49,7 +49,7 @@ public class ArmSubsystem extends Subsystem {
     
     public void stop() {
     	this.set(0);
-    	//System.out.println("STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.");
+    	// System.out.println("STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.");
     }
     
     private void set(double magnitude) {
@@ -57,7 +57,9 @@ public class ArmSubsystem extends Subsystem {
     	magnitude = Math.max(magnitude, -1);
     	magnitude *= Calibrations.armMaximumSpeed;
     	
-    	leftMotor.set(ControlMode.PercentOutput, magnitude);
-    	rightMotor.set(ControlMode.PercentOutput, magnitude);
+    	this.leftMotor.set(ControlMode.PercentOutput, magnitude);
+    	this.rightMotor.set(ControlMode.PercentOutput, magnitude);
+    	
+    	System.out.println("RMO: " + this.rightMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());
     }
 }

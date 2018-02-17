@@ -206,7 +206,8 @@ public class Robot extends TimedRobot {
 	        driveTrain.ravenTank.setCutPower(false);
 	      }		
 	    }
-		driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 16849));
+	    
+		driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
 	    driveController.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand(elevator, driveController, elevatorEncoder));
 		driveController.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand(elevator, driveController));
 
