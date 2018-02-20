@@ -123,6 +123,11 @@ public class RavenTank {
 		// driveLeftSide.setSlewRate(slewRate);
 	}
 	
+	public void setMaxPower(double maxPower) {
+		driveRight.setMaxPower(maxPower);
+		driveLeft.setMaxPower(maxPower);
+	}
+	
     public void drive(double left, double rightY, double rightX) {
     	left = deadband(left);
     	rightY = deadband(rightY);

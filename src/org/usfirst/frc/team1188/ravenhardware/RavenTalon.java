@@ -6,6 +6,7 @@ public class RavenTalon {
 
 	public Talon talon;
 	protected double outputSpeed;
+	private double maxPower;
 	
 	// The default slew rate of 2 means no acceleration cutting will occur,
 	// as this enables changing between -1 and 1 in a single tick.
@@ -30,7 +31,25 @@ public class RavenTalon {
 		this.maxSlewRate = slewRate;
 	}
 	
+	public void setMaxPower(double newMaxPower) {
+		this.maxPower = newMaxPower;
+	}
+	
 	public void set(double targetOutput) {
+		// prevent targetOutput from being greater than maxPower
+		if (Math.abs(targetOutput) > this.maxPower) {
+			targetOutput = Math.signum(targetOutput) * this.maxPower;
+		}
+		
+		// apply deadband to compensate for controller joystick not returning to exactly 0
+		if (Math.abs(targetOutput) < this.deadband) {
+			targetOutput = 0;
+		}
+		
+		this.setWithSlewRate(targetOutput);
+	}
+	
+	public void setWithSlewRate(double targetOutput) {
 		double newOutputSpeed = outputSpeed;
 		
 		// Never change the speed by more than the difference between target and actual,
@@ -50,12 +69,6 @@ public class RavenTalon {
 			
 			newOutputSpeed = Math.max(newOutputSpeed, -1);
 		}
-		
-		
-		if (Math.abs(targetOutput) < this.deadband && Math.abs(outputSpeed) < this.maxSlewRate) {
-			newOutputSpeed = 0;
-		}
-		
 		
 		// Update and set the output speed.
 		outputSpeed = newOutputSpeed;
