@@ -47,7 +47,7 @@ public class Gamepad {
 		return axisValue;
 	}
 	
-	private int getButtonNumber(ButtonCode button) {
+	public int getButtonNumber(ButtonCode button) {
 		int buttonNumber;
 		
 		switch (button) {

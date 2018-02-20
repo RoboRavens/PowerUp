@@ -65,4 +65,5 @@ public class ControlsMap {
 	public static final int greenLight = 2;
 	public static final int blueLight = 3;
 	public static final int whiteLight = 4;
+	
 }
