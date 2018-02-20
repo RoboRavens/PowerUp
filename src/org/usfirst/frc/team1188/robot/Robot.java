@@ -12,6 +12,7 @@ import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
@@ -29,7 +30,6 @@ import org.usfirst.frc.team1188.robot.subsystems.LEDRainbowSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team188.robot.commands.LED.LEDRainbowCommand;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -217,15 +217,17 @@ public class Robot extends TimedRobot {
 	    
 		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
-		DRIVE_CONTROLLER.getButton(ButtonCode.X).whileHeld(new ArmExtendCommand());
-		DRIVE_CONTROLLER.getButton(ButtonCode.Y).whileHeld(new ArmRetractCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new ArmExtendCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new ArmRetractCommand());
 		
-		DRIVE_CONTROLLER.getButton(ButtonCode.LEFTSTICK).whileHeld(new IntakeWheelPullCommand());
-		DRIVE_CONTROLLER.getButton(ButtonCode.RIGHTSTICK).whileHeld(new IntakeWheelPushCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new IntakeWheelPullCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new IntakeWheelPushCommand());
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToMaximumScaleHeightCommand());
+		
+		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new DriveTrainDriveInchesCommand(100, .5, Calibrations.drivingForward));
 	}
 
 	/**

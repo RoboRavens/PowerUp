@@ -32,8 +32,8 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void getPosition() {
-    	System.out.print("Right: " + this.getRightEncoderPosition() + "    ");
-    	System.out.println("Left: " + this.getLeftEncoderPosition());
+    	//System.out.print("Right: " + this.getRightEncoderPosition() + "    ");
+    	//System.out.println("Left: " + this.getLeftEncoderPosition());
     }
     
     public int getLeftEncoderPosition() {

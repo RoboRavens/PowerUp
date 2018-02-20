@@ -1,18 +1,12 @@
 package org.usfirst.frc.team1188.robot.commands.drivetrain;
 
-import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveTrainDriveInchesCommand extends Command {
-	Robot robot;
-	DriveTrainSubsystem driveTrain;
-	RavenTank ravenTank;
-	
+public class DriveTrainDriveInchesCommand extends Command {	
 	double powerMagnitude;
 	double totalInchesToTravel;
 	double driveTrainNetInchesTraveledAtStart;
@@ -21,22 +15,16 @@ public class DriveTrainDriveInchesCommand extends Command {
 	Timer timeoutTimer;
 	double timeoutSeconds = 9999999;
 	
-    public DriveTrainDriveInchesCommand(DriveTrainSubsystem driveTrain, double inchesToTravel, double powerMagnitude, int direction) {
-    	requires(driveTrain);
-    	this.driveTrain = driveTrain;
-    	this.ravenTank = driveTrain.ravenTank;
-    	this.robot = driveTrain.robot;
+    public DriveTrainDriveInchesCommand(double inchesToTravel, double powerMagnitude, int direction) {
+    	requires(Robot.DRIVE_TRAIN_SUBSYSTEM);
     	this.totalInchesToTravel = inchesToTravel;
     	this.powerMagnitude = powerMagnitude *= direction;
     	this.direction = direction;
     	this.timeoutTimer = new Timer();
     }
     
-    public DriveTrainDriveInchesCommand(DriveTrainSubsystem driveTrain, double inchesToTravel, double powerMagnitude, int direction, double timeoutSeconds) {
-    	requires(driveTrain);
-    	this.driveTrain = driveTrain;
-    	this.ravenTank = driveTrain.ravenTank;
-    	this.robot = driveTrain.robot;
+    public DriveTrainDriveInchesCommand(double inchesToTravel, double powerMagnitude, int direction, double timeoutSeconds) {
+    	requires(Robot.DRIVE_TRAIN_SUBSYSTEM);
     	this.totalInchesToTravel = inchesToTravel;
     	this.powerMagnitude = powerMagnitude *= direction;
     	this.direction = direction;
@@ -46,18 +34,18 @@ public class DriveTrainDriveInchesCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("RT NIT:" + ravenTank.getNetInchesTraveled());
-    	driveTrainNetInchesTraveledAtStart = ravenTank.getNetInchesTraveled();
+    	System.out.println("RT NIT:" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled());
+    	driveTrainNetInchesTraveledAtStart = Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled();
     	timeoutTimer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println(" driving inches.");
-    	ravenTank.fpsTank(powerMagnitude, 0);
+    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.fpsTank(powerMagnitude, 0);
     	
-    	double driveTrainTotalInchesTraveled = ravenTank.getNetInchesTraveled();
+    	double driveTrainTotalInchesTraveled = Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled();
     	netInchesTraveledSoFar = driveTrainTotalInchesTraveled - driveTrainNetInchesTraveledAtStart;
+    	System.out.println(" driving inches: " + driveTrainTotalInchesTraveled);
     	
     	if (direction == Calibrations.drivingBackward) {
     		netInchesTraveledSoFar = driveTrainNetInchesTraveledAtStart - driveTrainTotalInchesTraveled;
@@ -77,7 +65,7 @@ public class DriveTrainDriveInchesCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	ravenTank.stop();
+    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.stop();
     }
 
     // Called when another command which requires one or more of the same
