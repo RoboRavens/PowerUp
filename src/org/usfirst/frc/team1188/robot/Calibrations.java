@@ -50,7 +50,7 @@ public final class Calibrations {
 	public static final int encoderCUI103CyclesPerRevolution = 4096 * 3;
 	// public static final int encoderE4TCyclesPerRevolution = 360;
 	// public static final int encoderE4PCyclesPerRevolution = 250;
-	public static final double driveWheelDiameterInches = 4;
+	public static final double driveWheelDiameterInches = 6;
 	public static final double driveWheelCircumferenceInches = Calibrations.driveWheelDiameterInches * Math.PI;
 	//public static final double driveEncoderE4TCyclesPerInch = (double) Calibrations.encoderE4TCyclesPerRevolution / Calibrations.driveWheelCircumferenceInches;
 	//public static final double driveEncoderE4PCyclesPerInch = (double) Calibrations.encoderE4PCyclesPerRevolution / Calibrations.driveWheelCircumferenceInches;
@@ -66,8 +66,8 @@ public final class Calibrations {
 	// Elevator Lift
 	public static final double elevatorExtensionPowerMagnitude = 1;
 	public static final double elevatorRetractionPowerMagnitude = .4;
-	public static final double elevatorMaximumSpeed = .33;
-	public static final double elevatorHoldPositionPowerMagnitude = .05;
+	public static final double elevatorMaximumSpeed = 1;
+	public static final double elevatorHoldPositionPowerMagnitude = .1;
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
 	

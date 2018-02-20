@@ -20,7 +20,6 @@ public class ElevatorSubsystem extends Subsystem {
 	DigitalInput extensionLimit;
 	DigitalInput retractionLimit;
 	Encoder encoder;
-	
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

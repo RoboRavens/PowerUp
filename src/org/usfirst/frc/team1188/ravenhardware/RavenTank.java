@@ -239,6 +239,7 @@ public class RavenTank {
     public void driveLeftSide(double magnitude) {
 		// System.out.println("Driving left side. Magnitude: " + magnitude);
     	driveLeft.set(magnitude);
+    	System.out.println(" DRIVING LEFT AT " + magnitude + " DRIVING LEFT AT " + magnitude +  " DRIVING LEFT AT " + magnitude + " DRIVING LEFT AT " + magnitude + " DRIVING LEFT AT " + magnitude + " DRIVING LEFT AT " + magnitude + " DRIVING LEFT AT " + magnitude + " DRIVING LEFT AT " + magnitude);
     }
     
     public void driveRightSide(double magnitude) {
@@ -543,7 +544,6 @@ public class RavenTank {
     	double rightInches = this.rightEncoder.getNetInchesTraveled();
     	
     	double netInchesTraveled = (leftInches + rightInches) / 2;
-    	
     	
     	// netInchesTraveled = leftInches;
     	
