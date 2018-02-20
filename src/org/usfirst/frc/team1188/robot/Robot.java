@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team1188.robot;
 
+
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
@@ -24,8 +25,11 @@ import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
+import org.usfirst.frc.team1188.robot.subsystems.LEDRainbowSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
+import org.usfirst.frc.team188.robot.commands.LED.LEDRainbowCommand;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -44,6 +48,7 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
+	
 	Diagnostics diagnostics = new Diagnostics();
 	
 	public static final Gamepad DRIVE_CONTROLLER = new Gamepad(0);
@@ -56,6 +61,7 @@ public class Robot extends TimedRobot {
 	public static final IntakeClampSubsystem INTAKE_CLAMP_SUBSYSTEM = new IntakeClampSubsystem();
 	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
+	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -88,6 +94,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		Robot.LED_RAINBOW_SUBSYSTEM.setDisabledPattern();
 
 	}
 
@@ -134,6 +141,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		
+		Robot.LED_RAINBOW_SUBSYSTEM.setAutonomousPattern();
 	}
 
 	/**
@@ -147,7 +156,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-
+ 
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		
 		// This makes sure that the autonomous stops running when
@@ -157,6 +166,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
+		Robot.LED_RAINBOW_SUBSYSTEM.setEnabledPattern();
 	}
 
 	/**
@@ -193,12 +204,16 @@ public class Robot extends TimedRobot {
 	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false);
 	      }		
 	    }
+	   
 	    
 		//driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
 	    DRIVE_CONTROLLER.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand());
 		DRIVE_CONTROLLER.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand());
 
 		DRIVE_CONTROLLER.getButton(ButtonCode.B).whileHeld(new ElevatorHoldPositionCommand());
+		
+		//LIGHTLINK LED
+		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new LEDRainbowCommand());
 	    
 		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
