@@ -28,6 +28,7 @@ import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LEDRainbowSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
+import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team188.robot.commands.LED.LEDRainbowCommand;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
 	
 	
 	Diagnostics diagnostics = new Diagnostics();
+	public static final LoggerOverlord LOGGER_OVERLORD = new LoggerOverlord(1f);
 	
 	public static final Gamepad DRIVE_CONTROLLER = new Gamepad(0);
 	public static final Gamepad OPERATION_CONTROLLER = new Gamepad(1);

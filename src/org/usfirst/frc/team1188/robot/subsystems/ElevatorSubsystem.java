@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
 import org.usfirst.frc.team1188.robot.Calibrations;
+import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
+import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -86,7 +88,9 @@ public class ElevatorSubsystem extends Subsystem {
     	int elevatorPosition;
     	
     	elevatorPosition = (rightMotor.getSelectedSensorPosition(0) + leftMotor.getSelectedSensorPosition(0)) / 2;
-    
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorRI, "ELEVATOR  RI " + rightMotor.getSelectedSensorPosition(0));
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorLI, "ELEVATOR  LI " + leftMotor.getSelectedSensorPosition(0));
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorAvg, "ELEVATOR AVG: " + elevatorPosition);
     	return elevatorPosition;
     }
     
@@ -149,6 +153,10 @@ public class ElevatorSubsystem extends Subsystem {
 	public void holdPosition() {
 		this.setMotors(Calibrations.elevatorHoldPositionPowerMagnitude);
 		
+	}
+	
+	public double getElevatorHeightPercentage() {
+		return (double)this.getElevatorPosition() / (double)Calibrations.elevatorLiftEncoderMaximumValue;
 	}
 	
 	public static double inchesToTicks(double inches) {
