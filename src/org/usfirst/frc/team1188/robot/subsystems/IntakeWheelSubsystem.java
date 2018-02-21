@@ -2,7 +2,7 @@ package org.usfirst.frc.team1188.robot.subsystems;
 
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.RobotMap;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullIdleCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelStopCommand;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -28,7 +28,7 @@ public class IntakeWheelSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new IntakeWheelPullIdleCommand(this));
+       setDefaultCommand(new IntakeWheelStopCommand(this));
     }
     
     public void pull() {
@@ -36,7 +36,7 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
     
     public void push() {
-		this.set(-1 * Calibrations.intakeWheelPushPowerMagnitude); 
+		this.set(-1 * Calibrations.intakeWheelPushSoftPowerMagnitude); 
 	}
     
     public void idle() {
@@ -48,7 +48,8 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
     
     private void set(double magnitude) {
-    	intakeMotorLeft.set(ControlMode.PercentOutput, magnitude);
+    	System.out.println("Setting intake motors: " + magnitude);
+    	intakeMotorLeft.set(ControlMode.PercentOutput, -1 * magnitude);
     	intakeMotorRight.set(ControlMode.PercentOutput, magnitude);
     }
 

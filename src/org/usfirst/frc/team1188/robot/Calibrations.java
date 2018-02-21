@@ -65,7 +65,7 @@ public final class Calibrations {
 	
 	// Elevator Lift
 	public static final double elevatorExtensionPowerMagnitude = 1;
-	public static final double elevatorRetractionPowerMagnitude = .4;
+	public static final double elevatorRetractionPowerMagnitude = .2;
 	public static final double elevatorMaximumSpeed = 1;
 	public static final double elevatorHoldPositionPowerMagnitude = .1;
 	public static final int elevatorLiftEncoderMinimumValue = 0;
@@ -91,15 +91,17 @@ public final class Calibrations {
 	
 	
 	//Intake Wheel
-	public static double intakeWheelPullPowerMagnitude = .4;
-	public static final double intakeWheelPushPowerMagnitude = .5;
+	public static final double intakeWheelPullPowerMagnitude = 1;
+	public static final double intakeWheelPushSoftPowerMagnitude = 1;
+	public static final double intakeWheelPushHardPowerMagnitude = 1;
+	
 	
 	// Lighting
 	public static double lightingFlashTotalDurationMs = 1000;
 	public static double lightingFlashes = 10;
 	
 	
-	public static double armExtensionPowerMagnitude = .75;
-	public static double armRetractionPowerMagnitude = .75;
+	public static double armExtensionPowerMagnitude = .5;
+	public static double armRetractionPowerMagnitude = .5;
 	public static double armMaximumSpeed = .75;
 }

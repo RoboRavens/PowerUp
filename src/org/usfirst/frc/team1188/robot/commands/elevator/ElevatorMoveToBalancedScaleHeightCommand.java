@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorMoveToBalancedScaleHeightCommand extends Command {
 	double heightLimitEncoderTicks = ElevatorSubsystem.inchesToTicks(Calibrations.elevatorBalancedScaleHeightInches);
-    double speed;
+	double speed = Calibrations.elevatorExtensionPowerMagnitude;
     int tolerance = 5;
     int deceleration = 1500;
     
@@ -32,9 +32,7 @@ public class ElevatorMoveToBalancedScaleHeightCommand extends Command {
     	//speed = distToTarget / deceleration;
     	// Turn speed into portions of Calibrations.elevatorMaximumSpeed
     	// speed = distToTarget / 8192;
-    	
-    	speed = .5;
-    	
+    	    	
     	if (direction > 0) {
     		Robot.ELEVATOR_SUBSYSTEM.extend(speed);
     	} 

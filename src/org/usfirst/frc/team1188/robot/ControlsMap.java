@@ -42,8 +42,8 @@ public class ControlsMap {
 	// public static final int shooterOverrideShootButton = 5;
 	public static final int gearIntakeExtendButton = 6;
 	// public static final int gearIntakeRetractButton = 5;
-	public static final ButtonCode elevatorExtendButton = ButtonCode.START;
-	public static final ButtonCode elevatorRetractButton = ButtonCode.BACK;
+	public static final AxisCode elevatorExtendButton = AxisCode.LEFTSTICKY;
+	public static final AxisCode elevatorRetractButton = AxisCode.LEFTSTICKY;
 	public static final int climberClimbButton = 10;
 	
 	

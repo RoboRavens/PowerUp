@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeWheelPullCommand extends Command {
+public class IntakeWheelPushHardCommand extends Command {
 
-    public IntakeWheelPullCommand () {
-         requires(Robot.INTAKE_WHEEL_SUBSYSTEM); 
+    public IntakeWheelPushHardCommand() {
+        requires(Robot.INTAKE_WHEEL_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
@@ -19,8 +19,8 @@ public class IntakeWheelPullCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.pull();
-    	//System.out.println("IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();");
+    	Robot.INTAKE_WHEEL_SUBSYSTEM.push();
+    	//System.out.println("IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,7 +30,7 @@ public class IntakeWheelPullCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	// Robot.INTAKE_WHEEL_SUBSYSTEM.stop();
+    	Robot.INTAKE_WHEEL_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

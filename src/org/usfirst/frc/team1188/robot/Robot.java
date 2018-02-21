@@ -207,13 +207,17 @@ public class Robot extends TimedRobot {
 	   
 	    
 		//driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
-	    DRIVE_CONTROLLER.getButton(ControlsMap.elevatorExtendButton).whenPressed(new ElevatorExtendCommand());
-		DRIVE_CONTROLLER.getButton(ControlsMap.elevatorRetractButton).whenPressed(new ElevatorRetractCommand());
+	    //OPERATION_CONTROLLER.getButton(ControlsMap.elevatorExtendButton).WhileHeld(new ElevatorExtendCommand());
+		//OPERATION_CONTROLLER.getButton(ControlsMap.elevatorRetractButton).whileHeld(new ElevatorRetractCommand());
+		
+		/*if (OPERATION_CONTROLLER.getAxis(ControlsMap.elevatorExtendButton) > .25) {
+			ELEVATOR_SUBSYSTEM.elevatorExtendCommand();
+		}*/
 
-		DRIVE_CONTROLLER.getButton(ButtonCode.B).whileHeld(new ElevatorHoldPositionCommand());
+		//DRIVE_CONTROLLER.getButton(ButtonCode.B).whileHeld(new ElevatorHoldPositionCommand());
 		
 		//LIGHTLINK LED
-		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new LEDRainbowCommand());
+		//OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new LEDRainbowCommand());
 	    
 		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
@@ -225,7 +229,8 @@ public class Robot extends TimedRobot {
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToMaximumScaleHeightCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorExtendCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractCommand());
 		
 		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new DriveTrainDriveInchesCommand(100, .5, Calibrations.drivingForward));
 	}

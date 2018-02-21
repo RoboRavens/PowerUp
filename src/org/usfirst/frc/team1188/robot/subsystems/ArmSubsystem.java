@@ -32,8 +32,8 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void getPosition() {
-    	//System.out.print("Right: " + this.getRightEncoderPosition() + "    ");
-    	//System.out.println("Left: " + this.getLeftEncoderPosition());
+    	System.out.print("Right: " + this.getRightEncoderPosition() + "    ");
+    	System.out.println("Left: " + this.getLeftEncoderPosition());
     }
     
     public int getLeftEncoderPosition() {
@@ -68,6 +68,7 @@ public class ArmSubsystem extends Subsystem {
     	this.set(0);
     	// System.out.println("STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.STOPPING ARM.");
     }
+    
     
     private void set(double magnitude) {
     	magnitude = Math.min(magnitude, 1);
