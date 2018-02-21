@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1188.ravenhardware;
 
+import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
+
 import edu.wpi.first.wpilibj.Talon;
 
 public class RavenTalon {
@@ -46,6 +49,7 @@ public class RavenTalon {
 			targetOutput = 0;
 		}
 		
+		Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveTargetOutputPower, "target output power " + targetOutput);
 		this.setWithSlewRate(targetOutput);
 	}
 	

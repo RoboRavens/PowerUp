@@ -63,6 +63,9 @@ public final class Calibrations {
 	public static final int drivingForward = -1;
 	public static final int drivingBackward = 1;
 	
+	// Adjust max power based on elevator height
+	public static final double DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT = .4;
+	
 	// Elevator Lift
 	public static final double elevatorExtensionPowerMagnitude = 1;
 	public static final double elevatorRetractionPowerMagnitude = .2;
