@@ -88,9 +88,9 @@ public class ElevatorSubsystem extends Subsystem {
     	int elevatorPosition;
     	
     	elevatorPosition = (rightMotor.getSelectedSensorPosition(0) + leftMotor.getSelectedSensorPosition(0)) / 2;
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorRI, "ELEVATOR  RI " + rightMotor.getSelectedSensorPosition(0));
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorLI, "ELEVATOR  LI " + leftMotor.getSelectedSensorPosition(0));
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorAvg, "ELEVATOR AVG: " + elevatorPosition);
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorRI, "" + rightMotor.getSelectedSensorPosition(0));
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorLI, "" + leftMotor.getSelectedSensorPosition(0));
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorAvg, "" + elevatorPosition);
     	return elevatorPosition;
     }
     

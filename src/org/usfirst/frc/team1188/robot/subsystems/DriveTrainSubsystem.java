@@ -43,9 +43,9 @@ public class DriveTrainSubsystem extends Subsystem {
     	double elevatorHeightPercentage = Robot.ELEVATOR_SUBSYSTEM.getElevatorHeightPercentage();
     	double powerSubtractor = (1 - Calibrations.DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT) * elevatorHeightPercentage;
     	double maxPower = Math.min(1, 1 - powerSubtractor);
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveMaxPower, "max power of " + maxPower);
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorHeightPercent, "elevator height percent" + elevatorHeightPercentage);
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DrivePowerSubtractor, "power subtractor" + powerSubtractor);
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveMaxPower, "" + maxPower);
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorHeightPercent, "" + elevatorHeightPercentage);
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DrivePowerSubtractor, "" + powerSubtractor);
     	this.ravenTank.setMaxPower(maxPower);
     }
 }

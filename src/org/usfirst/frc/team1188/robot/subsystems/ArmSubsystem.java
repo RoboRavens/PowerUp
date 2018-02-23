@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
 import org.usfirst.frc.team1188.robot.Calibrations;
+import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmStopCommand;
+import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -31,9 +33,10 @@ public class ArmSubsystem extends Subsystem {
     	setDefaultCommand(new ArmStopCommand(this));
     }
     
-    public void getPosition() {
-    	System.out.print("Right: " + this.getRightEncoderPosition() + "    ");
-    	System.out.println("Left: " + this.getLeftEncoderPosition());
+    public void periodic() {
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmRI, "" + this.getRightEncoderPosition());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLI, "" + this.getLeftEncoderPosition());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmAvg, "" + this.getEncoderPosition());
     }
     
     public int getLeftEncoderPosition() {
@@ -46,6 +49,22 @@ public class ArmSubsystem extends Subsystem {
     	int rightEncoderPosition = this.rightMotor.getSelectedSensorPosition(0);
     	
     	return rightEncoderPosition;
+    }
+    
+    public int getEncoderPosition() {
+    	int armPosition;
+    	armPosition = (rightMotor.getSelectedSensorPosition(0) + leftMotor.getSelectedSensorPosition(0)) / 2;
+    	return armPosition;
+    }
+    
+    public void resetEncodersToTop() {
+    	this.rightMotor.setSelectedSensorPosition(Calibrations.armEncoderValueAtTop, 0, 0);
+    	this.leftMotor.setSelectedSensorPosition(Calibrations.armEncoderValueAtTop, 0, 0);
+    }
+    
+    public void resetEncodersToBottom() {
+    	this.rightMotor.setSelectedSensorPosition(Calibrations.armEncoderValueAtBottom, 0, 0);
+    	this.leftMotor.setSelectedSensorPosition(Calibrations.armEncoderValueAtBottom, 0, 0);
     }
     
     public void extend() {

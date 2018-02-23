@@ -7,5 +7,8 @@ public enum LoggerOverlordLogID {
 	ElevatorRI,
 	ElevatorLI,
 	ElevatorAvg,
-	DriveTargetOutputPower
+	DriveTargetOutputPower,
+	ArmRI,
+	ArmLI,
+	ArmAvg
 }

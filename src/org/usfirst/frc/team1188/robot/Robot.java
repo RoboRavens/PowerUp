@@ -10,13 +10,11 @@ package org.usfirst.frc.team1188.robot;
 
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
-import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToBottomCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToTopCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.*;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMaximumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
@@ -29,8 +27,8 @@ import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LEDRainbowSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
-import org.usfirst.frc.team188.robot.commands.LED.LEDRainbowCommand;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -64,7 +62,12 @@ public class Robot extends TimedRobot {
 	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
+	
+	public static final DigitalInput INTAKE_PROC_SENSOR_RIGHT = new DigitalInput(5);
 
+
+	Command autonomousCommand;
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -130,23 +133,81 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
-		
 		Robot.LED_RAINBOW_SUBSYSTEM.setAutonomousPattern();
+		
+		m_autonomousCommand = m_chooser.getSelected();
+		// Zero the gyro, grab the selected autonomous mode, and get to work.
+		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
+		autonomousCommand = getAutonomousCommand();
+		
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
+		}
 	}
 
+	
+	public Command getAutonomousCommand() {
+		// Command autonomousCommand = new AutonomousDoNothingCommand();
+		Command autonomousCommand = new AutonomousScoreScaleFarPlateRight();
+		/*
+		switch (autoFromDashboard.toUpperCase()) {
+			case Calibrations.AutonomousGearToMiddleLift:
+				autonomousCommand = new AutonomousPlaceGearOnMiddleLift(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+				break;
+			case Calibrations.AutonomousGearToLeftLift:
+				autonomousCommand = new AutonomousPlaceGearOnLeftLift(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+				break;
+			case Calibrations.AutonomousGearToRightLift:
+				autonomousCommand = new AutonomousPlaceGearOnRightLift(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+				break;
+			case Calibrations.AutonomousShootHighGoal:
+				if (this.isRedAlliance) {
+					autonomousCommand = new AutonomousShootHighGoalCrossBaseLineRedAlliance(driveTrain, fuelPump, fuelIndexer, fuelShooter);
+				}
+				else {
+					autonomousCommand = new AutonomousShootHighGoalCrossBaseLineBlueAlliance(driveTrain, fuelPump, fuelIndexer, fuelShooter);
+				}
+				break;
+			case Calibrations.AutonomousRankingPoint:
+				if (this.isRedAlliance) {
+					autonomousCommand = new AutonomousCollectHopperShootGoalsRedAlliance(driveTrain, fuelPump, fuelIndexer, fuelShooter);
+				}
+				else {
+					autonomousCommand = new AutonomousCollectHopperShootGoalsBlueAlliance(driveTrain, fuelPump, fuelIndexer, fuelShooter);
+				}
+				
+				break;
+			case Calibrations.AutonomousGeartoMiddleLiftScoreHigh:
+				if (this.isRedAlliance) {
+					autonomousCommand = new AutonomousPlaceGearOnMiddleLiftShootHighGoalsRedAlliance(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting, fuelPump, fuelIndexer, fuelShooter);
+				}
+				else {
+					autonomousCommand = new AutonomousPlaceGearOnMiddleLiftShootHighGoalsBlueAlliance(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting, fuelPump, fuelIndexer, fuelShooter);
+				}
+				
+				break;
+			case Calibrations.AutonomousCrossBaseLine:
+				autonomousCommand = new AutonomousCrossBaseLine(driveTrain);
+				break;
+			case Calibrations.AutonomousGeartoMiddleLiftDrive:
+				autonomousCommand = new AutonomousPlaceGearOnMiddleLiftDriveToNeutralZone(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+				
+				if (this.isRedAlliance) {
+					autonomousCommand = new AutonomousPlaceGearOnMiddleLiftDriveToNeutralZoneRedAlliance(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+				}
+				else {
+					autonomousCommand = new AutonomousPlaceGearOnMiddleLiftDriveToNeutralZoneBlueAlliance(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+				}
+				
+				break; 
+				
+		}
+		*/
+	
+		return autonomousCommand;
+	}
+	
+	
 	/**
 	 * This function is called periodically during autonomous.
 	 */
@@ -183,7 +244,7 @@ public class Robot extends TimedRobot {
 		
 		 // this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
-		Robot.ARM_SUBSYSTEM.getPosition();
+		//Robot.ARM_SUBSYSTEM.getPosition();
 		 
 		 diagnostics.outputTeleopDiagnostics();
 	}
@@ -223,18 +284,28 @@ public class Robot extends TimedRobot {
 	    
 		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
-		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new ArmExtendCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new ArmRetractCommand());
 		
-		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new IntakeWheelPullCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new IntakeWheelPushCommand());
+		
+		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPullCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPushCommand());
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorExtendCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractCommand());
 		
-		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new DriveTrainDriveInchesCommand(100, .5, Calibrations.drivingForward));
+		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whenPressed(new ArmMoveToBottomCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.START).whenPressed(new ArmMoveToTopCommand());
+		
+		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.LEFTSTICK)) {
+			Robot.ARM_SUBSYSTEM.resetEncodersToTop();
+		}
+		
+		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.RIGHTSTICK)) {
+			Robot.ARM_SUBSYSTEM.resetEncodersToBottom();
+		}
+		
+		//DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new DriveTrainDriveInchesCommand(100, .5, Calibrations.drivingForward));
 	}
 
 	/**

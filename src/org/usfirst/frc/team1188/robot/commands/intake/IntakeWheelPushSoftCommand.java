@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1188.robot.commands.intake;
 
-import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;

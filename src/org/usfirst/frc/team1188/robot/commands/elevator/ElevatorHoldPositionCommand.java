@@ -15,6 +15,7 @@ public class ElevatorHoldPositionCommand extends Command {
     protected void initialize() {
     	// Set the target position to be whatever the elevator's position is when the command begins.
     	this.targetPosition = Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition();
+    	System.out.println("ElevatorHoldPositionCommand init");
     }
 
     // Called repeatedly when this Command is scheduled to run

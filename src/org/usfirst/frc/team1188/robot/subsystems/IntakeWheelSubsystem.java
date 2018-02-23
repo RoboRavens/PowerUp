@@ -48,7 +48,7 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
     
     private void set(double magnitude) {
-    	System.out.println("Setting intake motors: " + magnitude);
+    	// System.out.println("Setting intake motors: " + magnitude);
     	intakeMotorLeft.set(ControlMode.PercentOutput, -1 * magnitude);
     	intakeMotorRight.set(ControlMode.PercentOutput, magnitude);
     }

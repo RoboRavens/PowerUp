@@ -5,7 +5,7 @@ public final class Calibrations {
 	// Slew rate of .2 seems to work well for when the lift is lowered, though more testing
 	// is necessary - might turn it up or down slightly for increased performance.
 	// public static final double slewRate = .2;
-	public static final double slewRate = .25;
+	public static final double slewRate = 1;
 	
 	// The safe slew rate changes based upon a few variables:
 	// 		- What gear we are in
@@ -40,7 +40,7 @@ public final class Calibrations {
 	
 	// Default drive and gyro modes
 	public static final int defaultDriveMode = Calibrations.fpsTank;
-	public static final int defaultGyroMode = Calibrations.gyroDisabled;
+	public static final int defaultGyroMode = Calibrations.gyroEnabled;
 	
 	//public static final int defaultGyroMode = Calibrations.gyroDisabled;
 	
@@ -74,9 +74,9 @@ public final class Calibrations {
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
 	
-	public static final double elevatorMinimumScaleHeightInches = 50.25;
-	public static final double elevatorBalancedScaleHeightInches = 64;
-	public static final double elevatorMaximumScaleHeightInches = 76;
+	public static final double elevatorMinimumScaleHeightInches = 51;
+	public static final double elevatorBalancedScaleHeightInches = 67;
+	public static final double elevatorMaximumScaleHeightInches = 77;
 	
 	public static final int elevatorInchesToEncoderTicksConversionValue = 411;
 	public static final int elevatorInchesToEncoderTicksOffsetValue = 10;
@@ -97,6 +97,10 @@ public final class Calibrations {
 	public static final double intakeWheelPullPowerMagnitude = 1;
 	public static final double intakeWheelPushSoftPowerMagnitude = 1;
 	public static final double intakeWheelPushHardPowerMagnitude = 1;
+
+	public static final double AutonomousCrossAutoLineDriveForwardInches = 120;
+
+	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .25;
 	
 	
 	// Lighting
@@ -104,7 +108,10 @@ public final class Calibrations {
 	public static double lightingFlashes = 10;
 	
 	
-	public static double armExtensionPowerMagnitude = .5;
-	public static double armRetractionPowerMagnitude = .5;
+	public static double armExtensionPowerMagnitude = .6;
+	public static double armRetractionPowerMagnitude = .6;
 	public static double armMaximumSpeed = .75;
+	public static int armEncoderValueAtBottom = -2048;
+	public static int armEncoderValueAtTop = 0;
+	public static int ARM_ENCODER_BUFFER = 200;
 }
