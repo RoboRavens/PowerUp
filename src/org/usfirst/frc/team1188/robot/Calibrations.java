@@ -89,7 +89,7 @@ public final class Calibrations {
 	
 	public static final int elevatorLiftDownwardSafetyMargin = 1500;
 	
-	
+	public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 2;
 	
 	
 	
@@ -98,7 +98,9 @@ public final class Calibrations {
 	public static final double intakeWheelPushSoftPowerMagnitude = 1;
 	public static final double intakeWheelPushHardPowerMagnitude = 1;
 
-	
+	public static final double AutonomousCrossAutoLineDriveForwardInches = 120;
+
+	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .25;
 	
 	
 	// Lighting

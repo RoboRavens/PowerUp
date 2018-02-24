@@ -133,7 +133,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
 		Robot.LED_RAINBOW_SUBSYSTEM.setAutonomousPattern();
 		
 		m_autonomousCommand = m_chooser.getSelected();
@@ -149,7 +148,7 @@ public class Robot extends TimedRobot {
 	
 	public Command getAutonomousCommand() {
 		// Command autonomousCommand = new AutonomousDoNothingCommand();
-		Command autonomousCommand = new AutonomousScoreLeftSwitchPosition1Command();
+		Command autonomousCommand = new AutonomousScoreScaleFarPlateRight();
 		/*
 		switch (autoFromDashboard.toUpperCase()) {
 			case Calibrations.AutonomousGearToMiddleLift:

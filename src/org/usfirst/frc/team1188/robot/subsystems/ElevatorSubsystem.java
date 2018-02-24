@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,6 +23,7 @@ public class ElevatorSubsystem extends Subsystem {
 	DigitalInput extensionLimit;
 	DigitalInput retractionLimit;
 	Encoder encoder;
+	private Timer _safetyTimer = new Timer();
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -177,6 +179,18 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public double getEncoderValue() {
 		return encoder.get();
+	}
+	
+	public void resetSafetyTimer() {
+		_safetyTimer.reset();
+	}
+	
+	public void startSafetyTimer() {
+		_safetyTimer.start();
+	}
+	
+	public double getSafetyTimer() {
+		return _safetyTimer.get();
 	}
 }
 
