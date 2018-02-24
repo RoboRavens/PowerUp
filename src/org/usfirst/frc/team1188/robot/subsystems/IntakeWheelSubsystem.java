@@ -35,8 +35,16 @@ public class IntakeWheelSubsystem extends Subsystem {
 		this.set(Calibrations.intakeWheelPullPowerMagnitude); 
 	}
     
+    public void pull(double magnitude) {
+		this.set(magnitude); 
+	}
+    
     public void push() {
 		this.set(-1 * Calibrations.intakeWheelPushSoftPowerMagnitude); 
+	}
+    
+    public void push(double magnitude) {
+		this.set(-1 * magnitude); 
 	}
     
     public void idle() {

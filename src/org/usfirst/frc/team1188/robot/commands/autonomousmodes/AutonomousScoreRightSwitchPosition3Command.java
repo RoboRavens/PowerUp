@@ -9,20 +9,14 @@ import org.usfirst.frc.team1188.robot.commands.intake.ForAutonomousIntakeWheelPu
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousScoreLeftSwitchPosition1Command extends CommandGroup{
+public class AutonomousScoreRightSwitchPosition3Command extends CommandGroup{
 	
-	public AutonomousScoreLeftSwitchPosition1Command() {
+	public AutonomousScoreRightSwitchPosition3Command() {
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition1DriveForwardInches,
 				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
-		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
 		addSequential(new ForAutonomousIntakeWheelPushCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
 	}
 
 }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> parent of 8581ec2... Revert "add several autonomous commands"
