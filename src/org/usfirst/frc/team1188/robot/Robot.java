@@ -19,6 +19,7 @@ import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumSca
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
 import org.usfirst.frc.team1188.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
@@ -288,7 +289,13 @@ public class Robot extends TimedRobot {
 		
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPullCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPushCommand());
+		
+		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.LEFTBUMPER)) {
+			new IntakeWheelPushHardCommand().start();
+			if(ELEVATOR_SUBSYSTEM.getEncoderValue() > ElevatorSubsystem.inchesToTicks(Calibrations.elevatorMinimumScaleHeightInches)) {
+				new ArmRetractCommand().start();
+			}
+		}
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
