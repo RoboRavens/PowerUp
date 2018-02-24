@@ -18,7 +18,6 @@ import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedSc
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
 import org.usfirst.frc.team1188.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;

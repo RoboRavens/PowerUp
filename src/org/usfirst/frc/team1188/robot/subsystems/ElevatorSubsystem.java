@@ -22,6 +22,8 @@ public class ElevatorSubsystem extends Subsystem {
 	TalonSRX rightMotor;
 	DigitalInput extensionLimit;
 	DigitalInput retractionLimit;
+	DigitalInput topLimitSwitch;
+	DigitalInput bottomLimitSwitch;
 	Encoder encoder;
 	private Timer _safetyTimer = new Timer();
 
@@ -33,6 +35,9 @@ public class ElevatorSubsystem extends Subsystem {
 		this.leftMotor = new TalonSRX(RobotMap.elevatorMotorLeft);
 		this.leftMotor.setInverted(true);
 		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
+		this.bottomLimitSwitch = new DigitalInput(RobotMap.bottomLimitSwitch);
+		this.topLimitSwitch = new DigitalInput(RobotMap.topLimitSwitch);
+		
 	}
 	
     public void initDefaultCommand() {
@@ -135,6 +140,9 @@ public class ElevatorSubsystem extends Subsystem {
     		isAtRetractionLimit = true;
     	}
     	
+    	if (this.getBottomLimitSwitchValue() == true) {
+    		isAtRetractionLimit = true;
+    	}
     	
     	return isAtRetractionLimit;
     	// return retractionLimit.get();
@@ -145,6 +153,10 @@ public class ElevatorSubsystem extends Subsystem {
     	boolean isAtExtensionLimit = false;
     	
     	if (this.getRightEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
+    		isAtExtensionLimit = true;
+    	}
+    	
+    	if (this.getTopLimitSwitchValue() == true) {
     		isAtExtensionLimit = true;
     	}
     	
@@ -179,6 +191,14 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public double getEncoderValue() {
 		return encoder.get();
+	}
+	
+	public boolean getTopLimitSwitchValue() {
+		return topLimitSwitch.get();
+	}
+	
+	public boolean getBottomLimitSwitchValue() {
+		return bottomLimitSwitch.get();
 	}
 	
 	public void resetSafetyTimer() {
