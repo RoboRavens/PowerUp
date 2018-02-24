@@ -18,13 +18,14 @@ public class IntakeWheelSubsystem extends Subsystem {
 	TalonSRX intakeMotorRight;
 	TalonSRX intakeMotorLeft;
 	DigitalInput intakeSensor;
-	private Timer _safetyTimer = new Timer();
+	private Timer _hasCubeDurationTimer = new Timer();
 		
 	public IntakeWheelSubsystem() {
 		this.intakeMotorLeft = new TalonSRX(RobotMap.intakeMotorLeft);
 		this.intakeMotorRight = new TalonSRX(RobotMap.intakeMotorRight);
 		this.intakeMotorLeft.setInverted(true);
 		this.intakeSensor = new DigitalInput(RobotMap.intakeSensor);
+		_hasCubeDurationTimer.start();
 	}
 	
 
@@ -70,22 +71,18 @@ public class IntakeWheelSubsystem extends Subsystem {
     	intakeMotorRight.set(ControlMode.PercentOutput, magnitude);
     }
     
+    private boolean hasCube() {
+    	return intakeSensor.get();
+    }
+    
     public void periodic() {
-    	if(intakeSensor.get() == false) {
-    		_safetyTimer.reset();
-    		_safetyTimer.start();
-    	} 
-    	
-    	if(_safetyTimer.get() > .5) {
-    		stop();
+    	if(this.hasCube() == false) {
+    		_hasCubeDurationTimer.reset();
     	}
-    	
     }
+    
     private boolean hasCubePullTimeout() {
-    	return _safetyTimer.get() > .5;
+    	return _hasCubeDurationTimer.get() > .5;
     }
-
-
-	
 }
 
