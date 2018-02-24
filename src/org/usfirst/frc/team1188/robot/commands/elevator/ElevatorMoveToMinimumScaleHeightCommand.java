@@ -23,6 +23,8 @@ public class ElevatorMoveToMinimumScaleHeightCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.ELEVATOR_SUBSYSTEM.resetSafetyTimer();
+    	Robot.ELEVATOR_SUBSYSTEM.startSafetyTimer();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -45,6 +47,9 @@ public class ElevatorMoveToMinimumScaleHeightCommand extends Command {
     protected boolean isFinished() {
     	boolean isFinished = false;
     	
+    	if (Robot.ELEVATOR_SUBSYSTEM.getSafetyTimer() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
+    		isFinished = true;
+    	}
     	
     	System.out.println("GetPos Count: " + Robot.ELEVATOR_SUBSYSTEM.getLeftEncoderPosition() + " Encoder.get: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderValue() + " HLI: " + this.heightLimitEncoderTicks);
     	
@@ -60,6 +65,7 @@ public class ElevatorMoveToMinimumScaleHeightCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.ELEVATOR_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same

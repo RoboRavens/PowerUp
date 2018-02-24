@@ -89,7 +89,7 @@ public final class Calibrations {
 	
 	public static final int elevatorLiftDownwardSafetyMargin = 1500;
 	
-	
+	public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 2;
 	
 	
 	
