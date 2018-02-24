@@ -98,7 +98,9 @@ public final class Calibrations {
 	public static final double intakeWheelPushSoftPowerMagnitude = 1;
 	public static final double intakeWheelPushHardPowerMagnitude = 1;
 
-	
+	public static final double AutonomousCrossAutoLineDriveForwardInches = 120;
+
+	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .25;
 	
 	
 	// Lighting
