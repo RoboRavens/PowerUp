@@ -72,7 +72,7 @@ public class IntakeWheelSubsystem extends Subsystem {
     }
     
     private boolean hasCube() {
-    	return intakeSensor.get();
+    	return intakeSensor.get() == false;
     }
     
     public void periodic() {
