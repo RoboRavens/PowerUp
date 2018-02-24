@@ -10,8 +10,8 @@ package org.usfirst.frc.team1188.robot;
 
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToBottomCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToTopCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreLeftSwitchPosition1Command;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
@@ -295,8 +295,8 @@ public class Robot extends TimedRobot {
 		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractCommand());
 		
-		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whenPressed(new ArmMoveToBottomCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.START).whenPressed(new ArmMoveToTopCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new ArmRetractCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new ArmExtendCommand());
 		
 		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.LEFTSTICK)) {
 			Robot.ARM_SUBSYSTEM.resetEncodersToTop();

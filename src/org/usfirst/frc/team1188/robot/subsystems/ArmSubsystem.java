@@ -9,6 +9,7 @@ import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -68,7 +69,7 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void extend() {
-    	this.set(Calibrations.armExtensionPowerMagnitude);
+    	this.extend(Calibrations.armExtensionPowerMagnitude);
     }
     
     public void extend(double magnitude) {
@@ -76,7 +77,7 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void retract() {
-    	this.set(-1 * Calibrations.armRetractionPowerMagnitude);
+    	this.retract(Calibrations.armRetractionPowerMagnitude);
     }
     
     public void retract(double magnitude) {
