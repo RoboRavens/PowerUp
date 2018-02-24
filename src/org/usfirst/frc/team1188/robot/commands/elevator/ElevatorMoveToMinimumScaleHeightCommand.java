@@ -4,6 +4,7 @@ import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -14,17 +15,17 @@ public class ElevatorMoveToMinimumScaleHeightCommand extends Command {
     double speed = Calibrations.elevatorExtensionPowerMagnitude;
     int tolerance = 5;
     int deceleration = 1500;
+    private Timer _safetyTimer = new Timer();
     
     public ElevatorMoveToMinimumScaleHeightCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.ELEVATOR_SUBSYSTEM);
+    	_safetyTimer.start();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ELEVATOR_SUBSYSTEM.resetSafetyTimer();
-    	Robot.ELEVATOR_SUBSYSTEM.startSafetyTimer();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -47,7 +48,7 @@ public class ElevatorMoveToMinimumScaleHeightCommand extends Command {
     protected boolean isFinished() {
     	boolean isFinished = false;
     	
-    	if (Robot.ELEVATOR_SUBSYSTEM.getSafetyTimer() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
+    	if (_safetyTimer.get() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
     		isFinished = true;
     	}
     	

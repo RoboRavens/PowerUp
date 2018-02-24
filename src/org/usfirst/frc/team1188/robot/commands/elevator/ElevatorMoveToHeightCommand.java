@@ -3,6 +3,7 @@ package org.usfirst.frc.team1188.robot.commands.elevator;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,6 +14,7 @@ public class ElevatorMoveToHeightCommand extends Command {
     double speed;
     int tolerance = 5;
     int deceleration = 1500;
+    private Timer _safetyTimer = new Timer();
     
     public ElevatorMoveToHeightCommand(double heightLimitInches) {
         // Use requires() here to declare subsystem dependencies
@@ -23,8 +25,6 @@ public class ElevatorMoveToHeightCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ELEVATOR_SUBSYSTEM.resetSafetyTimer();
-    	Robot.ELEVATOR_SUBSYSTEM.startSafetyTimer();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -49,7 +49,7 @@ public class ElevatorMoveToHeightCommand extends Command {
     protected boolean isFinished() {
     	boolean isFinished = false;
     	
-    	if (Robot.ELEVATOR_SUBSYSTEM.getSafetyTimer() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
+    	if (_safetyTimer.get() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
     		isFinished = true;
     	}
     	
