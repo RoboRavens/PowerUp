@@ -3,8 +3,8 @@ package org.usfirst.frc.team1188.robot.commands.autonomousmodes;
 import org.usfirst.frc.team1188.robot.AutonomousCalibrations;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.commands.drivetrain.*;
-import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

@@ -18,11 +18,4 @@ public class AutonomousScoreLeftSwitchPosition1Command extends CommandGroup{
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new ForAutonomousIntakeWheelPushCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
 	}
-
 }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> parent of 8581ec2... Revert "add several autonomous commands"

@@ -7,6 +7,8 @@ import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelStopCommand;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -15,11 +17,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class IntakeWheelSubsystem extends Subsystem {
 	TalonSRX intakeMotorRight;
 	TalonSRX intakeMotorLeft;
+	DigitalInput intakeSensor;
+	private Timer _safetyTimer = new Timer();
 		
 	public IntakeWheelSubsystem() {
 		this.intakeMotorLeft = new TalonSRX(RobotMap.intakeMotorLeft);
 		this.intakeMotorRight = new TalonSRX(RobotMap.intakeMotorRight);
 		this.intakeMotorLeft.setInverted(true);
+		this.intakeSensor = new DigitalInput(RobotMap.intakeSensor);
 	}
 	
 
@@ -32,15 +37,19 @@ public class IntakeWheelSubsystem extends Subsystem {
     }
     
     public void pull() {
-		this.set(Calibrations.intakeWheelPullPowerMagnitude); 
+		this.pull(Calibrations.intakeWheelPullPowerMagnitude); 
 	}
     
-    public void pull(double magnitude) {
-		this.set(magnitude); 
+    public void pull(double magnitude) { 
+		if(this.hasCubePullTimeout() == true) {
+			this.stop();
+		} else {
+			this.set(magnitude);
+		}
 	}
     
     public void push() {
-		this.set(-1 * Calibrations.intakeWheelPushSoftPowerMagnitude); 
+		this.push(Calibrations.intakeWheelPushSoftPowerMagnitude); 
 	}
     
     public void push(double magnitude) {
@@ -59,6 +68,21 @@ public class IntakeWheelSubsystem extends Subsystem {
     	// System.out.println("Setting intake motors: " + magnitude);
     	intakeMotorLeft.set(ControlMode.PercentOutput, -1 * magnitude);
     	intakeMotorRight.set(ControlMode.PercentOutput, magnitude);
+    }
+    
+    public void periodic() {
+    	if(intakeSensor.get() == false) {
+    		_safetyTimer.reset();
+    		_safetyTimer.start();
+    	} 
+    	
+    	if(_safetyTimer.get() > .5) {
+    		stop();
+    	}
+    	
+    }
+    private boolean hasCubePullTimeout() {
+    	return _safetyTimer.get() > .5;
     }
 
 

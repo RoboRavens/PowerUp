@@ -12,7 +12,7 @@ import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToBottomCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToTopCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.*;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreLeftSwitchPosition1Command;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;

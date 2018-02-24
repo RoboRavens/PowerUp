@@ -28,6 +28,8 @@ public class RobotMap {
 	public static final int leftIntakeClampSolenoid = 2;
 	public static final int rightIntakeClampSolenoid = 3;
 
+	public static final int intakeSensor = 5;
+	
 	// Arm System
 	public static final int armMotorLeft = 5;
 	public static final int armMotorRight = 4;
