@@ -10,7 +10,7 @@ public class Diagnostics {
 	}
 	
 	public void outputTeleopDiagnostics() {
-		// System.out.print("DT total IT: " + Math.round(robot.driveTrain.ravenTank.getNetInchesTraveled()));
+		// System.out.print("DT total IT: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled()));
 		// System.out.println("Navx.getAngle: " + navX.getAngle());
 		// System.out.println("REncoder: " + round(robot.driveTrain.ravenTank.rightEncoder.getNetInchesTraveled(), 2) + " LEncoder: " + round(robot.driveTrain.ravenTank.leftEncoder.getNetInchesTraveled(), 2));
 		

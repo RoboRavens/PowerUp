@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1188.robot.commands.intake;
 
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -26,16 +27,6 @@ public class IntakeWheelStopCommand extends Command {
     	intakeWheelSubsystem.stop();
     	// System.out.println("Has cube: " + this.hasCube());
     	//System.out.println("IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();");
-    }
-    
-    public boolean hasCube() {
-    	boolean hasCube = false;
-    	
-    	if (Robot.INTAKE_PROC_SENSOR_RIGHT.get() == false) {
-    		hasCube = true;
-    	}
-    	
-    	return hasCube;
     }
 
     // Make this return true when this Command no longer needs to run execute()

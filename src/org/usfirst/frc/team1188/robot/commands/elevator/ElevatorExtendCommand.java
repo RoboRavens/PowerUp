@@ -25,11 +25,12 @@ public class ElevatorExtendCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("extending extending extending");
     	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit() == false) {
+    		//System.out.println("extending extending extending");
     		Robot.ELEVATOR_SUBSYSTEM.extend();
     	}
     	else {
+    		//System.out.println("stopping stopping stopping");
     		Robot.ELEVATOR_SUBSYSTEM.stop();
     	}
     }
@@ -38,8 +39,12 @@ public class ElevatorExtendCommand extends Command {
     protected boolean isFinished() {
     	boolean isFinished = false;
     	
+
+		System.out.println("Safety timer: " + this._safetyTimer.get());
+    	
     	if (_safetyTimer.get() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
-    		isFinished = true;
+    		System.out.println("Safety timer timeout");
+    		// isFinished = true;
     	}
     	
     	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit()) {
@@ -52,7 +57,6 @@ public class ElevatorExtendCommand extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.ELEVATOR_SUBSYSTEM.stop();
-    	
     }
 
     // Called when another command which requires one or more of the same

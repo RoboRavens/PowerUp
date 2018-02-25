@@ -18,6 +18,7 @@ import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedSc
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
 import org.usfirst.frc.team1188.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
@@ -62,8 +63,6 @@ public class Robot extends TimedRobot {
 	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
-	
-	public static final DigitalInput INTAKE_PROC_SENSOR_RIGHT = new DigitalInput(5);
 
 
 	Command autonomousCommand;
@@ -286,8 +285,16 @@ public class Robot extends TimedRobot {
 		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
 		
+		/*
+		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.RIGHTBUMPER)) {
+			new IntakeWheelPullCommand().start();
+			if(ELEVATOR_SUBSYSTEM.getEncoderValue() < ElevatorSubsystem.inchesToTicks(Calibrations.elevatorCubePickupMaximumHeight)) {
+				new ArmExtendCommand().start();
+				new ElevatorRetractCommand().start();
+			}
+		}
+			//.whileHeld(new IntakeWheelPullCommand());
 		
-		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPullCommand());
 		
 		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.LEFTBUMPER)) {
 			new IntakeWheelPushHardCommand().start();
@@ -295,6 +302,10 @@ public class Robot extends TimedRobot {
 				new ArmRetractCommand().start();
 			}
 		}
+		*/
+		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPullCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());
+		
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());

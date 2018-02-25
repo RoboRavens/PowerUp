@@ -19,8 +19,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ElevatorSubsystem extends Subsystem {
 	TalonSRX leftMotor;
 	TalonSRX rightMotor;
-	DigitalInput extensionLimit;
-	DigitalInput retractionLimit;
 	DigitalInput topLimitSwitch;
 	DigitalInput bottomLimitSwitch;
 	Encoder encoder;
@@ -138,7 +136,7 @@ public class ElevatorSubsystem extends Subsystem {
     		isAtRetractionLimit = true;
     	}
     	
-    	if (this.getBottomLimitSwitchValue() == true) {
+    	if (this.getBottomLimitSwitchValue() == false) {
     		isAtRetractionLimit = true;
     	}
     	
@@ -151,10 +149,12 @@ public class ElevatorSubsystem extends Subsystem {
     	boolean isAtExtensionLimit = false;
     	
     	if (this.getRightEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
+    		System.out.println("encoder extension limit@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     		isAtExtensionLimit = true;
     	}
     	
-    	if (this.getTopLimitSwitchValue() == true) {
+    	if (this.getTopLimitSwitchValue() == false) {
+    		System.out.println("switch extension limit@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     		isAtExtensionLimit = true;
     	}
     	

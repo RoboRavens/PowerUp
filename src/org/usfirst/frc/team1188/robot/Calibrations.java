@@ -79,6 +79,9 @@ public final class Calibrations {
 	public static final double elevatorBalancedScaleHeightInches = 67;
 	public static final double elevatorMaximumScaleHeightInches = 77;
 	
+	// 
+	public static final double elevatorCubePickupMaximumHeight = 15;
+	
 	public static final int elevatorInchesToEncoderTicksConversionValue = 411;
 	public static final int elevatorInchesToEncoderTicksOffsetValue = 10;
 

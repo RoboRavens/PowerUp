@@ -35,7 +35,15 @@ public class ElevatorRetractCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return _safetyTimer.get() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT;
+    	boolean isFinished = false;
+    	
+    	// isFinished = _safetyTimer.get() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT;
+    	
+    	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtRetractionLimit()) {
+    		isFinished = true;
+    	}
+    	
+    	return isFinished;
     }
 
     // Called once after isFinished returns true
