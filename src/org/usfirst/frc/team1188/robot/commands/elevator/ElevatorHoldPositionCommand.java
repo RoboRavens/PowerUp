@@ -2,16 +2,13 @@ package org.usfirst.frc.team1188.robot.commands.elevator;
 
 import org.usfirst.frc.team1188.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorHoldPositionCommand extends Command {
     int targetPosition;
-    private Timer _safetyTimer = new Timer();
     
     public ElevatorHoldPositionCommand() {
     	requires(Robot.ELEVATOR_SUBSYSTEM);
-    	_safetyTimer.start();
     }
     
     // Called just before this Command runs the first time

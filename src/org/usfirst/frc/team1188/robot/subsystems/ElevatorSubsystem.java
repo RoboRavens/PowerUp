@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,6 +23,7 @@ public class ElevatorSubsystem extends Subsystem {
 	DigitalInput topLimitSwitch;
 	DigitalInput bottomLimitSwitch;
 	Encoder encoder;
+	private Timer _safetyTimer = new Timer();
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -130,36 +132,34 @@ public class ElevatorSubsystem extends Subsystem {
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
     public boolean getIsAtRetractionLimit() {
-    	boolean isAtRetractionLimit = false;
+    	boolean encoderLimit = false;
+    	boolean switchLimit = false;
     	
     	if (this.getRightEncoderPosition() - Calibrations.elevatorLiftDownwardSafetyMargin < Calibrations.elevatorLiftEncoderMinimumValue) {
-    		isAtRetractionLimit = true;
+    		encoderLimit = true;
     	}
     	
-    	if (this.getBottomLimitSwitchValue() == false) {
-    		isAtRetractionLimit = true;
+    	if (this.getBottomLimitSwitchValue() == true) {
+    		switchLimit = true;
     	}
     	
-    	return isAtRetractionLimit;
-    	// return retractionLimit.get();
+    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
     public boolean getIsAtExtensionLimit() {
-    	boolean isAtExtensionLimit = false;
+    	boolean encoderLimit = false;
+    	boolean switchLimit = false;
     	
     	if (this.getRightEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
-    		System.out.println("encoder extension limit@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    		isAtExtensionLimit = true;
+    		encoderLimit = true;
     	}
     	
-    	if (this.getTopLimitSwitchValue() == false) {
-    		System.out.println("switch extension limit@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    		isAtExtensionLimit = true;
+    	if (this.getTopLimitSwitchValue() == true) {
+    		switchLimit = true;
     	}
     	
-    	return isAtExtensionLimit;
-    	// return extensionLimit.get();
+    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit);
     }
 
 	public void holdPosition() {
@@ -198,6 +198,17 @@ public class ElevatorSubsystem extends Subsystem {
 	public boolean getBottomLimitSwitchValue() {
 		return bottomLimitSwitch.get();
 	}
-
+	
+	public void resetSafetyTimer() {
+		_safetyTimer.reset();
+	}
+	
+	public void startSafetyTimer() {
+		_safetyTimer.start();
+	}
+	
+	public double getSafetyTimer() {
+		return _safetyTimer.get();
+	}
 }
 
