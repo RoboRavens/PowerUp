@@ -68,8 +68,8 @@ public final class Calibrations {
 	
 	// Elevator Lift
 	public static final double elevatorExtensionPowerMagnitude = 1;
-	public static final double elevatorRetractionPowerMagnitude = .2;
-	public static final double elevatorMaximumSpeed = 1;
+	public static final double elevatorRetractionPowerMagnitude = .5;
+	public static final double elevatorMaximumSpeed = .5;
 	public static final double elevatorHoldPositionPowerMagnitude = .1;
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;

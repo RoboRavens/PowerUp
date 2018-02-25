@@ -23,7 +23,7 @@ public class OverrideSystem {
 		limitCount -= this.boolToInt(_override1);
 		limitCount -= this.boolToInt(_override2);
 		
-		return limitCount >= 0;
+		return limitCount >= 1;
 	}
 	
 	private int boolToInt(boolean val) {

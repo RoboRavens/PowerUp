@@ -9,6 +9,7 @@ import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,11 +18,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ArmSubsystem extends Subsystem {
 	TalonSRX leftMotor;
 	TalonSRX rightMotor;
+	DigitalInput topLimitSwitch;
+	DigitalInput bottomLimitSwitch;
 	
 	public ArmSubsystem() {
 		this.leftMotor = new TalonSRX(RobotMap.armMotorLeft);
 		this.rightMotor = new TalonSRX(RobotMap.armMotorRight);
 		this.leftMotor.setInverted(true);
+		this.bottomLimitSwitch = new DigitalInput(RobotMap.armBottomLimitSwitch);
+		this.topLimitSwitch = new DigitalInput(RobotMap.armTopLimitSwitch);
 	}
 
     public void initDefaultCommand() {
@@ -32,7 +37,25 @@ public class ArmSubsystem extends Subsystem {
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmRI, "" + this.rightMotor.getSelectedSensorPosition(0));
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLI, "" + this.leftMotor.getSelectedSensorPosition(0));
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmAvg, "" + this.getEncoderPosition());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmUpperLimit, "" + this.getTopLimitSwitchValue());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLowerLimit, "" + this.getBottomLimitSwitchValue());
     }
+    
+	public boolean getTopLimitSwitchValue() {
+		boolean topLimitSwitchValue = false;
+		
+		topLimitSwitchValue = !topLimitSwitch.get();
+		
+		return topLimitSwitchValue;
+	}
+	
+	public boolean getBottomLimitSwitchValue() {
+		boolean bottomLimitSwitchValue = false;
+		
+		bottomLimitSwitchValue = !bottomLimitSwitch.get();
+		
+		return bottomLimitSwitchValue;
+	}
     
     public boolean isAtBottomLimit() {
     	return this.getEncoderPosition() <= Calibrations.armEncoderValueAtBottom + Calibrations.ARM_ENCODER_BUFFER;

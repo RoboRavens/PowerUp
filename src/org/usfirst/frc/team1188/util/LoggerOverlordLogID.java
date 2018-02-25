@@ -12,5 +12,9 @@ public enum LoggerOverlordLogID {
 	ArmLI,
 	ArmAvg,
 	TriggerL,
-	TriggerR
+	TriggerR,
+	ElevatorUpperLimit,
+	ElevatorLowerLimit,
+	ArmUpperLimit,
+	ArmLowerLimit
 }

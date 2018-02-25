@@ -4,6 +4,9 @@ public class RobotMap {
 	// Drive motors
 	public static int leftDriveChannel = 0;
 	public static int rightDriveChannel = 1;
+	
+	public static int armBottomLimitSwitch = 8;
+	public static int armTopLimitSwitch = 9;
 
 	// Drive encoders
 	public static final int leftDriveEncoder1 = 0;
