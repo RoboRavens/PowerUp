@@ -17,9 +17,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ArmSubsystem extends Subsystem {
 	TalonSRX leftMotor;
 	TalonSRX rightMotor;
-
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 	
 	public ArmSubsystem() {
 		this.leftMotor = new TalonSRX(RobotMap.armMotorLeft);
@@ -28,33 +25,25 @@ public class ArmSubsystem extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new ArmStopCommand(this));
     }
     
     public void periodic() {
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmRI, "" + this.getRightEncoderPosition());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLI, "" + this.getLeftEncoderPosition());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmRI, "" + this.rightMotor.getSelectedSensorPosition(0));
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLI, "" + this.leftMotor.getSelectedSensorPosition(0));
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmAvg, "" + this.getEncoderPosition());
     }
     
-    public int getLeftEncoderPosition() {
-    	int leftEncoderPosition = this.leftMotor.getSelectedSensorPosition(0);
-    	
-    	return leftEncoderPosition;    
+    public boolean isAtBottomLimit() {
+    	return this.getEncoderPosition() <= Calibrations.armEncoderValueAtBottom + Calibrations.ARM_ENCODER_BUFFER;
     }
     
-    public int getRightEncoderPosition() {
-    	int rightEncoderPosition = this.rightMotor.getSelectedSensorPosition(0);
-    	
-    	return rightEncoderPosition;
+    public boolean isAtTopLimit() {
+    	return this.getEncoderPosition() >= Calibrations.armEncoderValueAtTop - Calibrations.ARM_ENCODER_BUFFER;
     }
     
     public int getEncoderPosition() {
-    	int armPosition;
-    	armPosition = (rightMotor.getSelectedSensorPosition(0) + leftMotor.getSelectedSensorPosition(0)) / 2;
-    	return armPosition;
+    	return (rightMotor.getSelectedSensorPosition(0) + leftMotor.getSelectedSensorPosition(0)) / 2;
     }
     
     public void resetEncodersToTop() {

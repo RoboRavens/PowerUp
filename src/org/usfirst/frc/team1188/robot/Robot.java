@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1188.robot;
 
 
+import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
@@ -27,6 +28,8 @@ import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LEDRainbowSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
+import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
+import org.usfirst.frc.team1188.util.OverrideSystem;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -64,7 +67,8 @@ public class Robot extends TimedRobot {
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
 	
 	public static final DigitalInput INTAKE_PROC_SENSOR_RIGHT = new DigitalInput(5);
-
+	
+	public static final OverrideSystem OVERRIDE_SYSTEM = new OverrideSystem();
 
 	Command autonomousCommand;
 	
@@ -285,7 +289,10 @@ public class Robot extends TimedRobot {
 	    
 		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
-		
+	    Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.TriggerL, "" + AxisCode.LEFTTRIGGER);
+	    Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.TriggerR, "" + AxisCode.RIGHTTRIGGER);
+	    Robot.OVERRIDE_SYSTEM.setOverride1(OPERATION_CONTROLLER.getAxis(AxisCode.LEFTTRIGGER) > .5f);
+	    Robot.OVERRIDE_SYSTEM.setOverride2(OPERATION_CONTROLLER.getAxis(AxisCode.RIGHTTRIGGER) > .5f);
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPullCommand());
 		

@@ -134,34 +134,34 @@ public class ElevatorSubsystem extends Subsystem {
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
     public boolean getIsAtRetractionLimit() {
-    	boolean isAtRetractionLimit = false;
+    	boolean encoderLimit = false;
+    	boolean switchLimit = false;
     	
     	if (this.getRightEncoderPosition() - Calibrations.elevatorLiftDownwardSafetyMargin < Calibrations.elevatorLiftEncoderMinimumValue) {
-    		isAtRetractionLimit = true;
+    		encoderLimit = true;
     	}
     	
     	if (this.getBottomLimitSwitchValue() == true) {
-    		isAtRetractionLimit = true;
+    		switchLimit = true;
     	}
     	
-    	return isAtRetractionLimit;
-    	// return retractionLimit.get();
+    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
     public boolean getIsAtExtensionLimit() {
-    	boolean isAtExtensionLimit = false;
+    	boolean encoderLimit = false;
+    	boolean switchLimit = false;
     	
     	if (this.getRightEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
-    		isAtExtensionLimit = true;
+    		encoderLimit = true;
     	}
     	
     	if (this.getTopLimitSwitchValue() == true) {
-    		isAtExtensionLimit = true;
+    		switchLimit = true;
     	}
     	
-    	return isAtExtensionLimit;
-    	// return extensionLimit.get();
+    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit);
     }
 
 	public void holdPosition() {

@@ -10,5 +10,7 @@ public enum LoggerOverlordLogID {
 	DriveTargetOutputPower,
 	ArmRI,
 	ArmLI,
-	ArmAvg
+	ArmAvg,
+	TriggerL,
+	TriggerR
 }
