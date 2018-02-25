@@ -3,24 +3,23 @@ package org.usfirst.frc.team1188.robot.commands.elevator;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class ElevatorExtendCommand extends Command {
-	
-	private Timer _safetyTimer = new Timer();
 
     public ElevatorExtendCommand() {
     	requires(Robot.ELEVATOR_SUBSYSTEM);
-    	_safetyTimer.start();
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("ElevatorExtendCommand init");
+    	Robot.ELEVATOR_SUBSYSTEM.resetSafetyTimer();
+    	Robot.ELEVATOR_SUBSYSTEM.startSafetyTimer();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,7 +37,7 @@ public class ElevatorExtendCommand extends Command {
     protected boolean isFinished() {
     	boolean isFinished = false;
     	
-    	if (_safetyTimer.get() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
+    	if (Robot.ELEVATOR_SUBSYSTEM.getSafetyTimer() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
     		isFinished = true;
     	}
     	
