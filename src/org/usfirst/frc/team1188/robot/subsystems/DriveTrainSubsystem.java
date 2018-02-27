@@ -47,6 +47,11 @@ public class DriveTrainSubsystem extends Subsystem {
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorHeightPercent, "" + elevatorHeightPercentage);
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DrivePowerSubtractor, "" + powerSubtractor);
     	this.ravenTank.setMaxPower(maxPower);
+    	
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveEncoderLeftInches, "" + this.ravenTank.leftEncoder.getNetInchesTraveled() * -1);
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveEncoderRightInches, "" + this.ravenTank.rightEncoder.getNetInchesTraveled());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveNetInchesTraveled, "" + this.ravenTank.getNetInchesTraveled());
+    	
     }
 }
 

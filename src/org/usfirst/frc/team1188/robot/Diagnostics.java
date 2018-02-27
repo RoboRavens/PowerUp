@@ -69,8 +69,9 @@ public class Diagnostics {
 	}
 
 	public void outputDisabledDiagnostics() {
-		System.out.println("Arm retraction: " + Robot.ARM_SUBSYSTEM.getIsAtRetractionLimit() + " Arm extension: " + Robot.ARM_SUBSYSTEM.getIsAtExtensionLimit());
+		// System.out.println("Arm retraction: " + Robot.ARM_SUBSYSTEM.getIsAtRetractionLimit() + " Arm extension: " + Robot.ARM_SUBSYSTEM.getIsAtExtensionLimit());
 		
+		Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition(); // this method logs values
 		
 		// System.out.println("-410 mod 360: " + -410 % 360);
 		// robot.driveTrain.ravenTank.getStaticGyroAdjustment();
