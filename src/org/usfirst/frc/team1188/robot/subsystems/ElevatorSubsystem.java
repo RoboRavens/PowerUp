@@ -20,8 +20,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ElevatorSubsystem extends Subsystem {
 	TalonSRX leftMotor;
 	TalonSRX rightMotor;
-	DigitalInput extensionLimit;
-	DigitalInput retractionLimit;
 	DigitalInput topLimitSwitch;
 	DigitalInput bottomLimitSwitch;
 	Encoder encoder;
@@ -98,6 +96,8 @@ public class ElevatorSubsystem extends Subsystem {
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorRI, "" + rightMotor.getSelectedSensorPosition(0));
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorLI, "" + leftMotor.getSelectedSensorPosition(0));
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorAvg, "" + elevatorPosition);
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorUpperLimit, "" + this.getTopLimitSwitchValue());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorLowerLimit, "" + this.getBottomLimitSwitchValue());
     	return elevatorPosition;
     }
     
@@ -145,13 +145,15 @@ public class ElevatorSubsystem extends Subsystem {
     		switchLimit = true;
     	}
     	
-    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit);
+    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
     public boolean getIsAtExtensionLimit() {
+    	boolean isAtLimit = false;
     	boolean encoderLimit = false;
     	boolean switchLimit = false;
+    	
     	
     	if (this.getRightEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
     		encoderLimit = true;
@@ -161,7 +163,9 @@ public class ElevatorSubsystem extends Subsystem {
     		switchLimit = true;
     	}
     	
-    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit);
+    	isAtLimit = Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);
+    	
+    	return isAtLimit;
     }
 
 	public void holdPosition() {
@@ -194,11 +198,19 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 	
 	public boolean getTopLimitSwitchValue() {
-		return topLimitSwitch.get();
+		boolean topLimitSwitchValue = false;
+		
+		topLimitSwitchValue = !topLimitSwitch.get();
+		
+		return topLimitSwitchValue;
 	}
 	
 	public boolean getBottomLimitSwitchValue() {
-		return bottomLimitSwitch.get();
+		boolean bottomLimitSwitchValue = false;
+		
+		bottomLimitSwitchValue = !bottomLimitSwitch.get();
+		
+		return bottomLimitSwitchValue;
 	}
 	
 	public void resetSafetyTimer() {

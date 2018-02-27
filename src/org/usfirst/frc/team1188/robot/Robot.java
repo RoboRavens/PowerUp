@@ -19,6 +19,7 @@ import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedSc
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
 import org.usfirst.frc.team1188.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
@@ -66,9 +67,8 @@ public class Robot extends TimedRobot {
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
 	
-	public static final DigitalInput INTAKE_PROC_SENSOR_RIGHT = new DigitalInput(5);
-	
 	public static final OverrideSystem OVERRIDE_SYSTEM = new OverrideSystem();
+
 
 	Command autonomousCommand;
 	
@@ -289,12 +289,17 @@ public class Robot extends TimedRobot {
 	    
 		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
 	    
-	    Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.TriggerL, "" + AxisCode.LEFTTRIGGER);
-	    Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.TriggerR, "" + AxisCode.RIGHTTRIGGER);
-	    Robot.OVERRIDE_SYSTEM.setOverride1(OPERATION_CONTROLLER.getAxis(AxisCode.LEFTTRIGGER) > .5f);
-	    Robot.OVERRIDE_SYSTEM.setOverride2(OPERATION_CONTROLLER.getAxis(AxisCode.RIGHTTRIGGER) > .5f);
 		
-		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPullCommand());
+		/*
+		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.RIGHTBUMPER)) {
+			new IntakeWheelPullCommand().start();
+			if(ELEVATOR_SUBSYSTEM.getEncoderValue() < ElevatorSubsystem.inchesToTicks(Calibrations.elevatorCubePickupMaximumHeight)) {
+				new ArmExtendCommand().start();
+				new ElevatorRetractCommand().start();
+			}
+		}
+			//.whileHeld(new IntakeWheelPullCommand());
+		
 		
 		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.LEFTBUMPER)) {
 			new IntakeWheelPushHardCommand().start();
@@ -302,6 +307,10 @@ public class Robot extends TimedRobot {
 				new ArmRetractCommand().start();
 			}
 		}
+		*/
+		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPullCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());
+		
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());

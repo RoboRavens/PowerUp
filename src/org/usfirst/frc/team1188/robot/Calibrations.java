@@ -68,8 +68,8 @@ public final class Calibrations {
 	
 	// Elevator Lift
 	public static final double elevatorExtensionPowerMagnitude = 1;
-	public static final double elevatorRetractionPowerMagnitude = .2;
-	public static final double elevatorMaximumSpeed = 1;
+	public static final double elevatorRetractionPowerMagnitude = .5;
+	public static final double elevatorMaximumSpeed = .5;
 	public static final double elevatorHoldPositionPowerMagnitude = .1;
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
@@ -78,6 +78,9 @@ public final class Calibrations {
 	public static final double elevatorMinimumScaleHeightInches = 51;
 	public static final double elevatorBalancedScaleHeightInches = 67;
 	public static final double elevatorMaximumScaleHeightInches = 77;
+	
+	// 
+	public static final double elevatorCubePickupMaximumHeight = 15;
 	
 	public static final int elevatorInchesToEncoderTicksConversionValue = 411;
 	public static final int elevatorInchesToEncoderTicksOffsetValue = 10;
@@ -101,6 +104,10 @@ public final class Calibrations {
 
 	
 	
+	public static final double AXIS_IS_PRESSED_VALUE = .25;
+
+	
+	
 	
 	// Lighting
 	public static double lightingFlashTotalDurationMs = 1000;
@@ -110,7 +117,7 @@ public final class Calibrations {
 	public static double armExtensionPowerMagnitude = .6;
 	public static double armRetractionPowerMagnitude = .6;
 	public static double armMaximumSpeed = .75;
-	public static int armEncoderValueAtBottom = -2048;
-	public static int armEncoderValueAtTop = 0;
-	public static int ARM_ENCODER_BUFFER = 200;
+	public static int armEncoderValueExtended = -2048;
+	public static int armEncoderValueRetracted = 0;
+	public static int ARM_ENCODER_BUFFER = 300;
 }

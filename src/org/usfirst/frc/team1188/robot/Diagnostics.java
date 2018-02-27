@@ -10,7 +10,11 @@ public class Diagnostics {
 	}
 	
 	public void outputTeleopDiagnostics() {
-		// System.out.print("DT total IT: " + Math.round(robot.driveTrain.ravenTank.getNetInchesTraveled()));
+		// System.out.println("Arm encoder value: " + Robot.ARM_SUBSYSTEM.getEncoderPosition());
+		
+		// System.out.println("Arm retraction: " + Robot.ARM_SUBSYSTEM.getIsAtRetractionLimit() + " Arm extension: " + Robot.ARM_SUBSYSTEM.getIsAtExtensionLimit());
+		
+		// System.out.print("DT total IT: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled()));
 		// System.out.println("Navx.getAngle: " + navX.getAngle());
 		// System.out.println("REncoder: " + round(robot.driveTrain.ravenTank.rightEncoder.getNetInchesTraveled(), 2) + " LEncoder: " + round(robot.driveTrain.ravenTank.leftEncoder.getNetInchesTraveled(), 2));
 		
@@ -65,6 +69,9 @@ public class Diagnostics {
 	}
 
 	public void outputDisabledDiagnostics() {
+		System.out.println("Arm retraction: " + Robot.ARM_SUBSYSTEM.getIsAtRetractionLimit() + " Arm extension: " + Robot.ARM_SUBSYSTEM.getIsAtExtensionLimit());
+		
+		
 		// System.out.println("-410 mod 360: " + -410 % 360);
 		// robot.driveTrain.ravenTank.getStaticGyroAdjustment();
 		//System.out.println("REncoder: " + round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.rightEncoder.getNetInchesTraveled(), 2) + " LEncoder: " + round(robot.driveTrain.ravenTank.leftEncoder.getNetInchesTraveled(), 2));
