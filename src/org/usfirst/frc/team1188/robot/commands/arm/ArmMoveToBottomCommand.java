@@ -28,7 +28,7 @@ public class ArmMoveToBottomCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	boolean isFinished = false;
-    	if (Robot.ARM_SUBSYSTEM.isAtBottomLimit()) {
+    	if (Robot.ARM_SUBSYSTEM.getIsAtRetractionLimit()) {
     		Robot.ARM_SUBSYSTEM.stop();
     		isFinished = true;
     	} 

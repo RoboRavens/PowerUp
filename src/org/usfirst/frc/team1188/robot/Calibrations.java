@@ -104,6 +104,10 @@ public final class Calibrations {
 
 	
 	
+	public static final double AXIS_IS_PRESSED_VALUE = .25;
+
+	
+	
 	
 	// Lighting
 	public static double lightingFlashTotalDurationMs = 1000;
@@ -113,7 +117,7 @@ public final class Calibrations {
 	public static double armExtensionPowerMagnitude = .6;
 	public static double armRetractionPowerMagnitude = .6;
 	public static double armMaximumSpeed = .75;
-	public static int armEncoderValueAtBottom = -2048;
-	public static int armEncoderValueAtTop = 0;
-	public static int ARM_ENCODER_BUFFER = 200;
+	public static int armEncoderValueExtended = -2048;
+	public static int armEncoderValueRetracted = 0;
+	public static int ARM_ENCODER_BUFFER = 300;
 }

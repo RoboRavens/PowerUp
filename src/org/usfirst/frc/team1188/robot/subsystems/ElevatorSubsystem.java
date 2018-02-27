@@ -145,7 +145,7 @@ public class ElevatorSubsystem extends Subsystem {
     		switchLimit = true;
     	}
     	
-    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit);
+    	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
@@ -163,7 +163,7 @@ public class ElevatorSubsystem extends Subsystem {
     		switchLimit = true;
     	}
     	
-    	isAtLimit = Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit);
+    	isAtLimit = Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);
     	
     	return isAtLimit;
     }
