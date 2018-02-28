@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousScoreRightSwitchPosition3Command extends CommandGroup{
 	
 	public AutonomousScoreRightSwitchPosition3Command() {
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition1DriveForwardInches,
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreRightSwitchPosition1DriveForwardInches,
 				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));

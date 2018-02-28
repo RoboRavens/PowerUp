@@ -12,15 +12,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousScoreRightSwitchPosition1Command extends CommandGroup{
 	
 	public AutonomousScoreRightSwitchPosition1Command() {
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3FirstDriveForwardInches,
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreRightSwitchPosition3FirstDriveForwardInches,
 				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3SecondDriveForwardInches,
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreRightSwitchPosition3SecondDriveForwardInches,
 				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3ThirdDriveForwardInches,
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreRightSwitchPosition3ThirdDriveForwardInches,
 				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
