@@ -24,6 +24,7 @@ public class ElevatorSubsystem extends Subsystem {
 	DigitalInput bottomLimitSwitch;
 	Encoder encoder;
 	private Timer _safetyTimer = new Timer();
+	private int _targetEncoderPosition;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -35,7 +36,12 @@ public class ElevatorSubsystem extends Subsystem {
 		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 		this.bottomLimitSwitch = new DigitalInput(RobotMap.bottomLimitSwitch);
 		this.topLimitSwitch = new DigitalInput(RobotMap.topLimitSwitch);
+		this._targetEncoderPosition = Calibrations.elevatorLiftEncoderMinimumValue;
 		
+	}
+	
+	public void setTargetEncoderPosition(int position) {
+		this._targetEncoderPosition = position;
 	}
 	
     public void initDefaultCommand() {

@@ -19,6 +19,7 @@ public class ElevatorRetractCommand extends Command {
     	System.out.println("ElevatorRetractCommand init");
     	Robot.ELEVATOR_SUBSYSTEM.resetSafetyTimer();
     	Robot.ELEVATOR_SUBSYSTEM.startSafetyTimer();
+    	Robot.ELEVATOR_SUBSYSTEM.setTargetEncoderPosition(Calibrations.elevatorLiftEncoderMinimumValue);
     }
 
     // Called repeatedly when this Command is scheduled to run
