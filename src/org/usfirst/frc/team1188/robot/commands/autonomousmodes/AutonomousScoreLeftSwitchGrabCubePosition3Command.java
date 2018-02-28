@@ -11,12 +11,21 @@ import org.usfirst.frc.team1188.robot.commands.intake.ForAutonomousIntakeWheelPu
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousScoreLeftSwitchGrabCubePosition1Command extends CommandGroup{
+public class AutonomousScoreLeftSwitchGrabCubePosition3Command extends CommandGroup{
 	
-	public AutonomousScoreLeftSwitchGrabCubePosition1Command() {
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition1DriveForwardInches,
+	public AutonomousScoreLeftSwitchGrabCubePosition3Command() {
+		
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3FirstDriveForwardInches,
 				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
-    			Calibrations.drivingForward));
+				Calibrations.drivingForward));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3SecondDriveForwardInches,
+				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
+				Calibrations.drivingForward));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3ThirdDriveForwardInches,
+				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
+				Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new ForAutonomousIntakeWheelPushCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
@@ -30,6 +39,8 @@ public class AutonomousScoreLeftSwitchGrabCubePosition1Command extends CommandGr
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
 		addSequential(new ForAutonomousIntakeWheelPullCommand(AutonomousCalibrations.AutonomousGrabCubeIntakePullPowerMagnitude));
+	
 	}
+	
 
 }
