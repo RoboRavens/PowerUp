@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1188.util;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +31,8 @@ public class LoggerOverlord {
 	private void print() {
 		System.out.println("-------------");
 		System.out.println("time" + Timer.getFPGATimestamp());
+		ArrayList<String> outputList = new ArrayList<String>();
+		
 		
 		int maxNameLength = 0;
 		for (Map.Entry<LoggerOverlordLogID, String> entry : _map.entrySet()) {
@@ -36,8 +41,14 @@ public class LoggerOverlord {
 		}
 		
 		for (Map.Entry<LoggerOverlordLogID, String> entry : _map.entrySet()) {
-			System.out.println(padRight(entry.getKey().name(), maxNameLength) + ": " + entry.getValue());
+			outputList.add(padRight(entry.getKey().name(), maxNameLength) + ": " + entry.getValue());
 		}
+		
+		Collections.sort(outputList);
+		for (String logLine : outputList) {
+			System.out.println(logLine);
+		}
+		
 		System.out.println("-------------");
 		
 		for (Map.Entry<LoggerOverlordLogID, String> entry : _map.entrySet()) {

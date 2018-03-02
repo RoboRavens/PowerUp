@@ -37,8 +37,10 @@ public class ArmSubsystem extends Subsystem {
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmRI, "" + this.rightMotor.getSelectedSensorPosition(0));
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLI, "" + this.leftMotor.getSelectedSensorPosition(0));
     	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmAvg, "" + this.getEncoderPosition());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmUpperLimit, "" + this.getExtensionLimitSwitchValue());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLowerLimit, "" + this.getRetractionLimitSwitchValue());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmUpperLimitSwitch, "" + this.getExtensionLimitSwitchValue());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLowerLimitSwitch, "" + this.getRetractionLimitSwitchValue());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmIsAtExtensionLimit, "" + this.getIsAtExtensionLimit());
+    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmIsAtRetractionLimit, "" + this.getIsAtRetractionLimit());
     }
     
 	public boolean getExtensionLimitSwitchValue() {

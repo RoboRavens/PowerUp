@@ -12,7 +12,8 @@ public class Diagnostics {
 	public void outputTeleopDiagnostics() {
 		// System.out.println("Arm encoder value: " + Robot.ARM_SUBSYSTEM.getEncoderPosition());
 		
-		System.out.println("Elevator retraction: " + Robot.ELEVATOR_SUBSYSTEM.getIsAtRetractionLimit() + " Elevator extension: " + Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit());
+		// System.out.println("Elevator retraction: " + Robot.ELEVATOR_SUBSYSTEM.getIsAtRetractionLimit() + " Elevator extension: " + Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit());
+		// System.out.println("Arm retraction: " + Robot.ARM_SUBSYSTEM.getIsAtRetractionLimit() + " Arm extension: " + Robot.ARM_SUBSYSTEM.getIsAtExtensionLimit());
 		
 		// System.out.print("DT total IT: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled()));
 		// System.out.println("Navx.getAngle: " + navX.getAngle());
@@ -70,8 +71,8 @@ public class Diagnostics {
 
 	public void outputDisabledDiagnostics() {
 		// System.out.println("Arm retraction: " + Robot.ARM_SUBSYSTEM.getIsAtRetractionLimit() + " Arm extension: " + Robot.ARM_SUBSYSTEM.getIsAtExtensionLimit());
-		
-		Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition(); // this method logs values
+		// System.out.println("Arm retraction limit switch: " + Robot.ARM_SUBSYSTEM.getRetractionLimitSwitchValue() + " Arm extension limit switch: " + Robot.ARM_SUBSYSTEM.getExtensionLimitSwitchValue());
+		// Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition(); // this method logs values
 		
 		// System.out.println("-410 mod 360: " + -410 % 360);
 		// robot.driveTrain.ravenTank.getStaticGyroAdjustment();

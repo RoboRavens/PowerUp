@@ -32,6 +32,7 @@ import org.usfirst.frc.team1188.util.OverrideSystem;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 //import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -67,6 +68,8 @@ public class Robot extends TimedRobot {
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
 	
 	public static final OverrideSystem OVERRIDE_SYSTEM = new OverrideSystem();
+	
+	public static final Solenoid ARM_HOLD_BACK = new Solenoid(RobotMap.armHoldBackSolenoid);
 
 
 	Command autonomousCommand;
@@ -82,7 +85,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-
+		
 		driverStation = DriverStation.getInstance();
 		//NetworkTable table = NetworkTable.getTable("limelight");
 		//table.putDouble("ledMode", 1);
@@ -96,6 +99,7 @@ public class Robot extends TimedRobot {
 		// Zero the elevator encoders; the robot should always start with the elevator down.
 		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
 		Robot.ELEVATOR_SUBSYSTEM.resetEncoders();
+		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
 		
 
 		// this.elevator.getPosition();
@@ -240,7 +244,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
+		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
 		Robot.LED_RAINBOW_SUBSYSTEM.setAutonomousPattern();
 		
 		m_autonomousCommand = m_chooser.getSelected();
@@ -379,7 +383,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
- 
+		ARM_HOLD_BACK.set(true); // retract support solenoid
+		
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		
 		// This makes sure that the autonomous stops running when

@@ -67,7 +67,7 @@ public final class Calibrations {
 	public static final double DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT = .4;
 	
 	// Elevator Lift
-	public static final double elevatorExtensionPowerMagnitude = .66;
+	public static final double elevatorExtensionPowerMagnitude = .8;
 	public static final double elevatorRetractionPowerMagnitude = .33;
 	public static final double elevatorMaximumSpeed = 1.0;
 	public static final double elevatorHoldPositionPowerMagnitude = .1;
@@ -93,7 +93,7 @@ public final class Calibrations {
 	
 	public static final int elevatorLiftDownwardSafetyMargin = 1500;
 	
-	public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 20;
+	public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 3.5;
 	
 	
 	
@@ -119,7 +119,7 @@ public final class Calibrations {
 	
 	public static double armExtensionPowerMagnitude = 1;
 	public static double armRetractionPowerMagnitude = 1;
-	public static double armMaximumSpeed = 1;
+	public static double armMaximumSpeed = .75;
 	public static int armEncoderValueExtended = -2048;
 	public static int armEncoderValueRetracted = 0;
 	public static int ARM_ENCODER_BUFFER = 300;

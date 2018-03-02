@@ -18,6 +18,8 @@ public enum LoggerOverlordLogID {
 	TriggerR,
 	ElevatorUpperLimit,
 	ElevatorLowerLimit,
-	ArmUpperLimit,
-	ArmLowerLimit
+	ArmUpperLimitSwitch,
+	ArmLowerLimitSwitch,
+	ArmIsAtExtensionLimit,
+	ArmIsAtRetractionLimit
 }
