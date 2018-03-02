@@ -3,38 +3,47 @@ package org.usfirst.frc.team1188.robot.commands.autonomousmodes;
 import org.usfirst.frc.team1188.robot.AutonomousCalibrations;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutonomousScoreLeftScalePosition3Command extends CommandGroup {
+public class AutonomousLeftScaleRightPositionCommand extends CommandGroup {
 
-    public AutonomousScoreLeftScalePosition3Command() {
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveLeftScalePosition3FirstDriveForwardInches,
+    public AutonomousLeftScaleRightPositionCommand() {
+    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideScaleElevatorDownSegmentInches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward));
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveLeftScalePosition3SecondDriveForwardInches,
+    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideScaleLateralMovementInches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward));
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveLeftScalePosition3ThirdDriveForwardInches,
+    	
+    	
+    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveOppositeSideScaleElevatorUpSegmentInches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward));
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
-    	addSequential(new DriveTrainDriveInchesCommand(30,
+    	
+    	addSequential(new ElevatorExtendCommand());
+    	addParallel(new ArmRetractFullyCommand());
+    	
+    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
     			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
-    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-    	addSequential(new ElevatorExtendCommand());
-    	addSequential(new IntakeWheelPushHardCommand());
+    	addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
+    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
+    			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
+    			Calibrations.drivingBackward));
     	addSequential(new ElevatorRetractCommand());
     }
 }

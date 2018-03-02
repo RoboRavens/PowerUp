@@ -11,13 +11,10 @@ import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
-public class AutonomousScoreRightScalePosition1Command extends CommandGroup {
-
-    public AutonomousScoreRightScalePosition1Command() {
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveRightScalePosition1FirstDriveForwardInches,
+public class AutonomousScoreRightScaleGrabCubePosition1Command extends CommandGroup{
+	
+	public AutonomousScoreRightScaleGrabCubePosition1Command() {
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveRightScalePosition1FirstDriveForwardInches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward));
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
@@ -38,5 +35,6 @@ public class AutonomousScoreRightScalePosition1Command extends CommandGroup {
     	addSequential(new ElevatorRetractCommand());
     	
     
-    }
+	}
+
 }

@@ -1,15 +1,20 @@
 package org.usfirst.frc.team1188.robot.commands.intake;
 
+import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ForAutonomousIntakeWheelPushCommand extends Command{
+public class IntakeWheelsSpitCommand extends Command{
 	double magnitude;
+	Timer durationTimer;
 
-	public ForAutonomousIntakeWheelPushCommand(double magnitude) {
+	public IntakeWheelsSpitCommand(double magnitude) {
 		// TODO Auto-generated constructor stub
 		this.magnitude = magnitude;
+		this.durationTimer = new Timer();
+		this.durationTimer.start();
 	}
 	// Called just before this Command runs the first time
     protected void initialize() {
@@ -17,13 +22,19 @@ public class ForAutonomousIntakeWheelPushCommand extends Command{
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.push(magnitude);
-    	//System.out.println("IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();");
+    	// Robot.INTAKE_WHEEL_SUBSYSTEM.push(magnitude);
+    	Robot.INTAKE_WHEEL_SUBSYSTEM.push();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+    	boolean isFinished = false;
+    	
+    	if (durationTimer.get() > Calibrations.IntakeSpitTimer) {
+    		isFinished = true;
+    	}
+    	
+        return isFinished;
     }
 
     // Called once after isFinished returns true

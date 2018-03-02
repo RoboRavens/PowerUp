@@ -17,6 +17,7 @@ public class ArmExtendCommand extends Command {
         // eg. requires(chassis);
     	requires(Robot.ARM_SUBSYSTEM);
     	_safetyTimer.start();
+    	//System.out.println("Starting StartingStartingStartingStartingStartingStarting");
     }
 
     // Called just before this Command runs the first time
@@ -27,7 +28,7 @@ public class ArmExtendCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.ARM_SUBSYSTEM.extend();
-    	// System.out.println("EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.");
+    	 //System.out.println("EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.EXTENDING ARM.");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,6 +36,7 @@ public class ArmExtendCommand extends Command {
     	boolean isFinished = false;
     	if (_safetyTimer.get() > .1) {
     		isFinished = true;
+    		//System.out.println("Is finishing Is finidhing Is finishing Is finishing Is finishing Is finishing Is finishing Is finishing");
     	}
     	
     	if (isFinished) {

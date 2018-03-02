@@ -42,11 +42,11 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
     
     public void pull(double magnitude) { 
-		if(this.hasCubePullTimeout() == true) {
-			this.stop();
-		} else {
+		//if(this.hasCubePullTimeout() == true) {
+		//	this.stop();
+		//} else {
 			this.set(magnitude);
-		}
+		//}
 	}
     
     public void push() {
