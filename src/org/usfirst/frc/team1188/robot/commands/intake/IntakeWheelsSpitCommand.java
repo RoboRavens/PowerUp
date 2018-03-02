@@ -11,6 +11,7 @@ public class IntakeWheelsSpitCommand extends Command{
 	Timer durationTimer;
 
 	public IntakeWheelsSpitCommand(double magnitude) {
+		requires(Robot.INTAKE_WHEEL_SUBSYSTEM);
 		// TODO Auto-generated constructor stub
 		this.magnitude = magnitude;
 		this.durationTimer = new Timer();
@@ -18,12 +19,14 @@ public class IntakeWheelsSpitCommand extends Command{
 	}
 	// Called just before this Command runs the first time
     protected void initialize() {
+    	this.durationTimer.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// Robot.INTAKE_WHEEL_SUBSYSTEM.push(magnitude);
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.push();
+    	System.out.println("IntakeWheelsSpitCommand execute@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    	Robot.INTAKE_WHEEL_SUBSYSTEM.pull();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -14,7 +14,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousOppositeSideSwitchFirstForwardSegmentInches = 72;
 	public static final double AutonomousOppositeSideSwitchLateralMovementInches = 102;
 	public static final double AutonomousOppositeSideSwitchSecondForwardSegmentInches = 72;
-	public static final double AutonomousScoreLeftSwitchDriveForwardPowerMagnitude = .25;
+	public static final double AutonomousScoreSwitchDriveForwardPowerMagnitude = .6;
 	
 	public static final double AutonomousScoreLeftSwitchGrabCubePosition1FirstDriveForwardInches = 118;
 	public static final double AutonomousScoreLeftSwitchGrabCubePosition1SecondDriveForwardInches = 132;
@@ -36,7 +36,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousScoreRightSwitchPosition3FirstDriveForwardInches = 50;
 	public static final double AutonomousScoreRightSwitchPosition3SecondDriveForwardInches = 226.5;
 	public static final double AutonomousScoreRightSwitchPosition3ThirdDriveForwardInches = 118;
-	public static final double AutonomousScoreRightSwitchDriveForwardPowerMagnitude = .25;
+	public static final double AutonomousScoreRightSwitchDriveForwardPowerMagnitude = .6;
 	
 	public static final double AutonomousScoreRightSwitchGrabCubePosition3FirstDriveForwardInches = 118;
 	public static final double AutonomousScoreRightSwitchGrabCubePosition3SecondDriveForwardInches = 132;
