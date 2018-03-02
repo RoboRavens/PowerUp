@@ -7,7 +7,7 @@ public class AutonomousCalibrations {
 	public static final String Scale = "SCALE";
 	
 	
-	public static final double AutonomousCrossAutoLineDriveForwardInches = 120;
+	public static final double AutonomousCrossAutoLineDriveForwardInches = 90;
 	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .5;
 	
 	public static final double AutonomousScoreLeftSwitchPosition1DriveForwardInches = 140;
