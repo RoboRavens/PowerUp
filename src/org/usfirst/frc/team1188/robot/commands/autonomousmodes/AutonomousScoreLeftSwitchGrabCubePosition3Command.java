@@ -7,7 +7,7 @@ import org.usfirst.frc.team1188.robot.commands.arm.ForAutonomousArmExtendCommand
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.ForAutonomousIntakeWheelPullCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.ForAutonomousIntakeWheelPushCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -15,27 +15,27 @@ public class AutonomousScoreLeftSwitchGrabCubePosition3Command extends CommandGr
 	
 	public AutonomousScoreLeftSwitchGrabCubePosition3Command() {
 		
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3FirstDriveForwardInches,
-				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideSwitchFirstForwardSegmentInches,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
 				Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3SecondDriveForwardInches,
-				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideSwitchLateralMovementInches,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
 				Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchPosition3ThirdDriveForwardInches,
-				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideSwitchSecondForwardSegmentInches,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
 				Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
-		addSequential(new ForAutonomousIntakeWheelPushCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
+		addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchGrabCubePosition3FirstDriveForwardInches,
-				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
 		addParallel(new ForAutonomousArmExtendCommand(AutonomousCalibrations.AutonomousArmExtensionEncoderDistance));
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreLeftSwitchGrabCubePosition3SecondDriveForwardInches,
-				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
 		addSequential(new ForAutonomousIntakeWheelPullCommand(AutonomousCalibrations.AutonomousGrabCubeIntakePullPowerMagnitude));

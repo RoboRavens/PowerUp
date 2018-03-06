@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ArmMoveToBottomCommand extends Command {
+public class ArmRetractFullyCommand extends Command {
 	
-    public ArmMoveToBottomCommand() {
+    public ArmRetractFullyCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.ARM_SUBSYSTEM);
@@ -21,9 +21,7 @@ public class ArmMoveToBottomCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ARM_SUBSYSTEM.retract();
-    	// System.out.println("RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.RETRACTING ARM.");
-    }
+    	Robot.ARM_SUBSYSTEM.retract();    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

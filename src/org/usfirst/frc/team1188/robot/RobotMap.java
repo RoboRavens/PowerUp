@@ -42,4 +42,6 @@ public class RobotMap {
 	
 	public static final int carriageStalledLightRelay = 1;
 	
+	public static final int armHoldBackSolenoid = 6;
+	
 }

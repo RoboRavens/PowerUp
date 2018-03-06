@@ -5,18 +5,18 @@ import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.ForAutonomousIntakeWheelPushCommand;
+import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousScoreRightSwitchPosition3Command extends CommandGroup{
+public class AutonomousScoreRightSwitchRightPositionCommand extends CommandGroup{
 	
-	public AutonomousScoreRightSwitchPosition3Command() {
+	public AutonomousScoreRightSwitchRightPositionCommand() {
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreRightSwitchPosition1DriveForwardInches,
-				AutonomousCalibrations.AutonomousScoreLeftSwitchDriveForwardPowerMagnitude,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-		addSequential(new ForAutonomousIntakeWheelPushCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
+		addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
 	}
 
 }

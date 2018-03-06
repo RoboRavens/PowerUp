@@ -12,15 +12,15 @@ import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmJoystickControlCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreLeftSwitchPosition1Command;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.*;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
 import org.usfirst.frc.team1188.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
@@ -29,11 +29,15 @@ import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LEDRainbowSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
-import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
 import org.usfirst.frc.team1188.util.OverrideSystem;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Direction;
+import edu.wpi.first.wpilibj.Relay.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 //import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -50,7 +54,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	
+
+	public DriverStation driverStation;
 	
 	Diagnostics diagnostics = new Diagnostics();
 	public static final LoggerOverlord LOGGER_OVERLORD = new LoggerOverlord(1f);
@@ -67,10 +72,21 @@ public class Robot extends TimedRobot {
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
 	
+	public static final Relay HAS_CUBE_LEDS = new Relay(0);
+	
+	// public static final ArmJoystickControlCommand ARM_JOYSTICK_CONTROL_COMMAND = new ArmJoystickControlCommand();
+	
 	public static final OverrideSystem OVERRIDE_SYSTEM = new OverrideSystem();
+	
+	public static final Solenoid ARM_HOLD_BACK = new Solenoid(RobotMap.armHoldBackSolenoid);
 
 
 	Command autonomousCommand;
+	
+	public boolean isRedAlliance;	
+
+	String autoFromDashboard;
+	String positionFromDashboard;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -78,9 +94,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
+		driverStation = DriverStation.getInstance();
 		//NetworkTable table = NetworkTable.getTable("limelight");
 		//table.putDouble("ledMode", 1);
-		System.out.println("disable limelight");
+		// System.out.println("disable limelight");
 		
 		// m_chooser.addDefault("Default Auto", new Command());
 		// m_chooser.addObject(name, object);
@@ -90,6 +108,7 @@ public class Robot extends TimedRobot {
 		// Zero the elevator encoders; the robot should always start with the elevator down.
 		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
 		Robot.ELEVATOR_SUBSYSTEM.resetEncoders();
+		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
 		
 
 		// this.elevator.getPosition();
@@ -110,8 +129,42 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+		autoFromDashboard = SmartDashboard.getString("DB/String 0", "myDefaultData");
+		outputAutoModeToDashboardStringOne(autoFromDashboard);
+		
+		
+		// autoFromDashboard = SmartDashboard.getString("DB/String 0", "myDefaultData");
+		positionFromDashboard = SmartDashboard.getString("DB/String 2", "myDefaultData");
+		
+		outputPositionToDashboardStringThree(positionFromDashboard);
+		// outputAutoModeToDashboardStringOne(autoFromDashboard);
+		
+		// System.out.println("Deployed");
 
-		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
+		// DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
+		
+		Alliance alliance = driverStation.getAlliance();
+		
+		String allianceString = "";
+		
+		if (alliance.compareTo(Alliance.Blue) == 0) {
+			allianceString = "Blue alliance";
+			this.isRedAlliance = false;
+		}
+		else if (alliance.compareTo(Alliance.Red) == 0) {
+			allianceString = "Red alliance";
+			this.isRedAlliance = true;
+		}
+		else {
+			allianceString = "Alliance not identified.";
+			this.isRedAlliance = false;
+		}
+	
+		SmartDashboard.putString("DB/String 4", allianceString);
+		
+
+		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
 		
 		diagnostics.outputDisabledDiagnostics();
 
@@ -124,6 +177,68 @@ public class Robot extends TimedRobot {
 		}
 	}
 
+	public void outputAutoModeToDashboardStringOne(String autoMode) {
+		String autonomousModeConfirmation = "Confirmed - auto mode: ";
+		String autonomousModeName = "";
+	
+		switch (autoFromDashboard.toUpperCase()) {
+			case AutonomousCalibrations.DoNothing:
+				autonomousModeName += "Do nothing.";
+			break;
+			case AutonomousCalibrations.CrossLine:
+				autonomousModeName += "Cross auto line.";
+				break;
+			case AutonomousCalibrations.Switch:
+				autonomousModeName += "Score in switch.";
+				break;
+			case AutonomousCalibrations.Scale:
+				autonomousModeName += "Score on scale.";
+				break;
+				
+			default:
+				autonomousModeConfirmation = "ERROR!";
+				autonomousModeName = "Mode not recognized.";
+				break;	
+		}
+		
+		putSmartDashboardAutonomousMode(autonomousModeConfirmation, autonomousModeName);
+	}
+	
+	public void putSmartDashboardAutonomousMode(String autonomousModeConfirmation, String autonomousModeName) {
+		SmartDashboard.putString("DB/String 1", autonomousModeConfirmation);
+		SmartDashboard.putString("DB/String 6", autonomousModeName);
+	}
+	
+	
+	public void outputPositionToDashboardStringThree(String position) {
+		String positionConfirmation = "Confirmed - position: ";
+		String startingPosition = "";
+	
+		switch (position.toUpperCase()) {
+			case "LEFT":
+				startingPosition += "Left.";
+				break;
+			case "MIDDLE":
+				startingPosition += "Middle.";
+				break;
+			case "RIGHT":
+				startingPosition += "Right.";
+				break;
+			default:
+				positionConfirmation = "ERROR!";
+				startingPosition = "Position not recognized.";
+				break;	
+		}
+		
+		putSmartDashboardStartingPosition(positionConfirmation, startingPosition);
+	}
+	
+	public void putSmartDashboardStartingPosition(String positionConfirmation, String startingPosition) {
+		SmartDashboard.putString("DB/String 3", positionConfirmation);
+		SmartDashboard.putString("DB/String 8", startingPosition);
+	}
+	
+	
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
 	 * between different autonomous modes using the dashboard. The sendable
@@ -137,7 +252,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
+		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
 		Robot.LED_RAINBOW_SUBSYSTEM.setAutonomousPattern();
 		
 		m_autonomousCommand = m_chooser.getSelected();
@@ -152,64 +267,116 @@ public class Robot extends TimedRobot {
 
 	
 	public Command getAutonomousCommand() {
-		// Command autonomousCommand = new AutonomousDoNothingCommand();
-		Command autonomousCommand = new AutonomousScoreLeftSwitchPosition1Command();
-		/*
+		// Three possibilities:
+		// Drive forward and score in switch,
+		// move left to score in switch,
+		// and move right to score in switch.
+		
+		
+		autonomousCommand = new AutonomousCrossAutoLineCommand();
+		
+
 		switch (autoFromDashboard.toUpperCase()) {
-			case Calibrations.AutonomousGearToMiddleLift:
-				autonomousCommand = new AutonomousPlaceGearOnMiddleLift(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+			case AutonomousCalibrations.DoNothing:
+				autonomousCommand = new AutonomousDoNothingCommand();
 				break;
-			case Calibrations.AutonomousGearToLeftLift:
-				autonomousCommand = new AutonomousPlaceGearOnLeftLift(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+			case AutonomousCalibrations.CrossLine:
+				autonomousCommand = new AutonomousCrossAutoLineCommand();
 				break;
-			case Calibrations.AutonomousGearToRightLift:
-				autonomousCommand = new AutonomousPlaceGearOnRightLift(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
+			case AutonomousCalibrations.Switch:
+				autonomousCommand = this.getAutonomousSwitchCommand();
 				break;
-			case Calibrations.AutonomousShootHighGoal:
-				if (this.isRedAlliance) {
-					autonomousCommand = new AutonomousShootHighGoalCrossBaseLineRedAlliance(driveTrain, fuelPump, fuelIndexer, fuelShooter);
-				}
-				else {
-					autonomousCommand = new AutonomousShootHighGoalCrossBaseLineBlueAlliance(driveTrain, fuelPump, fuelIndexer, fuelShooter);
-				}
+			case AutonomousCalibrations.Scale:
+				autonomousCommand = this.getAutonomousScaleCommand();
 				break;
-			case Calibrations.AutonomousRankingPoint:
-				if (this.isRedAlliance) {
-					autonomousCommand = new AutonomousCollectHopperShootGoalsRedAlliance(driveTrain, fuelPump, fuelIndexer, fuelShooter);
-				}
-				else {
-					autonomousCommand = new AutonomousCollectHopperShootGoalsBlueAlliance(driveTrain, fuelPump, fuelIndexer, fuelShooter);
-				}
-				
-				break;
-			case Calibrations.AutonomousGeartoMiddleLiftScoreHigh:
-				if (this.isRedAlliance) {
-					autonomousCommand = new AutonomousPlaceGearOnMiddleLiftShootHighGoalsRedAlliance(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting, fuelPump, fuelIndexer, fuelShooter);
-				}
-				else {
-					autonomousCommand = new AutonomousPlaceGearOnMiddleLiftShootHighGoalsBlueAlliance(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting, fuelPump, fuelIndexer, fuelShooter);
-				}
-				
-				break;
-			case Calibrations.AutonomousCrossBaseLine:
-				autonomousCommand = new AutonomousCrossBaseLine(driveTrain);
-				break;
-			case Calibrations.AutonomousGeartoMiddleLiftDrive:
-				autonomousCommand = new AutonomousPlaceGearOnMiddleLiftDriveToNeutralZone(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
-				
-				if (this.isRedAlliance) {
-					autonomousCommand = new AutonomousPlaceGearOnMiddleLiftDriveToNeutralZoneRedAlliance(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
-				}
-				else {
-					autonomousCommand = new AutonomousPlaceGearOnMiddleLiftDriveToNeutralZoneBlueAlliance(driveTrain, gearCarriage, carriageStalledLighting, carriageExtendedLighting);
-				}
-				
-				break; 
-				
+					
 		}
-		*/
+		
+		
+		
 	
 		return autonomousCommand;
+	}
+	
+	private Command getAutonomousSwitchCommand() {
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		Command switchCommand = new AutonomousCrossAutoLineCommand();
+		
+		if (gameData.length() > 0) {
+			if (gameData.charAt(0) == 'L') {
+				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
+					// Left switch, left position. Drive forward and then score on the switch.
+					switchCommand = new AutonomousDriveStraightScoreInSwitchCommand();
+				}
+				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
+					// Left switch, middle position. Drive diagonally and then score on the switch.
+					switchCommand = new AutonomousLeftSwitchMiddlePositionCommand();
+				}
+				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
+					// Left switch, right position. UGUUU
+					switchCommand = new AutonomousLeftSwitchRightPositionCommand();
+				}
+			}
+			else {
+				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
+					// Right switch, left position. Ugh.
+					switchCommand = new AutonomousScoreRightSwitchLeftPositionCommand();
+				}
+				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
+					// Right switch, middle position. Drive diagonally and then score on the switch.
+					switchCommand = new AutonomousRightSwitchMiddlePositionCommand();
+				}
+				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
+					// Right switch, right position. Easy.
+					switchCommand = new AutonomousDriveStraightScoreInSwitchCommand();
+				}
+			}
+		}
+		
+		return switchCommand;
+	}
+	
+	private Command getAutonomousScaleCommand() {
+
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		Command scaleCommand = new AutonomousCrossAutoLineCommand();
+		
+		if (gameData.length() > 0) {
+			if (gameData.charAt(0) == 'L') {
+				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
+					// Left switch, left position. Drive forward and then score on the switch.
+					scaleCommand = new AutonomousLeftScaleLeftPositionCommand();
+				}
+				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
+					// Left switch, middle position. Drive diagonally and then score on the switch.
+					// scaleCommand = new AutonomousScoreLeftSwitchMiddlePositionCommand();
+				}
+				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
+					// Left switch, right position. UGUUU
+					scaleCommand = new AutonomousLeftScaleRightPositionCommand();
+				}
+			}
+			else {
+				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
+					// Right switch, left position. Ugh.
+					scaleCommand = new AutonomousRightScaleLeftPositionCommand();
+				}
+				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
+					// Right switch, middle position. Drive diagonally and then score on the switch.
+					// scaleCommand = new AutonomousScoreRightSwitchMiddlePositionCommand();
+				}
+				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
+					// Right switch, right position. Easy.
+					scaleCommand = new AutonomousRightScaleRightPositionCommand();
+				}
+			}
+		}
+		
+		return scaleCommand;
 	}
 	
 	
@@ -224,7 +391,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
- 
+		ARM_HOLD_BACK.set(true); // retract support solenoid
+		
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		
 		// This makes sure that the autonomous stops running when
@@ -247,6 +415,9 @@ public class Robot extends TimedRobot {
 		
 		runOperatorControls();
 		
+		//System.out.println("teleop setting on");
+		//this.HAS_CUBE_LEDS.set(Value.kForward);
+		
 		 // this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 		//Robot.ARM_SUBSYSTEM.getPosition();
@@ -256,13 +427,16 @@ public class Robot extends TimedRobot {
 	
 	public void runOperatorControls() {
 		// Drive Train
-		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton) || OPERATION_CONTROLLER.getButtonValue(ControlsMap.operationShiftToLowGearButton)) {
+		
+		/*
+		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
 			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToLowGear();
 		}
 		
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToLowGearButton)) {
 			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToHighGear();
 		}
+		*/
 		
 	    if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) {
 	      if (DRIVE_CONTROLLER.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
@@ -308,6 +482,19 @@ public class Robot extends TimedRobot {
 			}
 		}
 		*/
+	    
+	    /*
+	    double armPowerValue = Robot.DRIVE_CONTROLLER.getAxis(AxisCode.RIGHTSTICKY);
+	    Robot.ARM_JOYSTICK_CONTROL_COMMAND.setPowerValue(armPowerValue);
+	    if (Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER)) {
+	    	if (Math.abs(armPowerValue) > .1 && Robot.ARM_JOYSTICK_CONTROL_COMMAND.isRunning() == false) {
+	    		Robot.ARM_JOYSTICK_CONTROL_COMMAND.start();
+	    	}
+	    } else {
+	    	Robot.ARM_JOYSTICK_CONTROL_COMMAND.cancel();
+	    }
+	    */
+	    
 		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPullCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());
 		

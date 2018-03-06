@@ -13,7 +13,7 @@ public class DriveTrainDriveInchesCommand extends Command {
 	double netInchesTraveledSoFar = 0;
 	int direction;
 	Timer timeoutTimer;
-	double timeoutSeconds = 9999999;
+	double timeoutSeconds = 3;
 	
     public DriveTrainDriveInchesCommand(double inchesToTravel, double powerMagnitude, int direction) {
     	requires(Robot.DRIVE_TRAIN_SUBSYSTEM);

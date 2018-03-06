@@ -11,22 +11,21 @@ import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
-public class AutonomousScoreLeftScalePosition1Command extends CommandGroup {
-
-    public AutonomousScoreLeftScalePosition1Command() {
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveLeftScalePosition1Inches,
+public class AutonomousScoreRightScaleGrabCubePosition3Command extends CommandGroup{
+	
+	public AutonomousScoreRightScaleGrabCubePosition3Command() {
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveRightScalePosition3DriveForwardInches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward));
-    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
+    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
     	addSequential(new DriveTrainDriveInchesCommand(30,
     			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
-    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
+    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
     	addSequential(new ElevatorExtendCommand());
     	addSequential(new IntakeWheelPushHardCommand());
     	addSequential(new ElevatorRetractCommand());
-    }
+	}
+	
+
 }
