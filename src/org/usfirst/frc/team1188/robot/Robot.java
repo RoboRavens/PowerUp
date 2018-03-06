@@ -8,9 +8,11 @@
 package org.usfirst.frc.team1188.robot;
 
 
+import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmJoystickControlCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.*;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
@@ -32,6 +34,9 @@ import org.usfirst.frc.team1188.util.OverrideSystem;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Direction;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -66,6 +71,10 @@ public class Robot extends TimedRobot {
 	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
+	
+	public static final Relay HAS_CUBE_LEDS = new Relay(0);
+	
+	// public static final ArmJoystickControlCommand ARM_JOYSTICK_CONTROL_COMMAND = new ArmJoystickControlCommand();
 	
 	public static final OverrideSystem OVERRIDE_SYSTEM = new OverrideSystem();
 	
@@ -120,7 +129,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		
 		
 		autoFromDashboard = SmartDashboard.getString("DB/String 0", "myDefaultData");
 		outputAutoModeToDashboardStringOne(autoFromDashboard);
@@ -407,6 +415,9 @@ public class Robot extends TimedRobot {
 		
 		runOperatorControls();
 		
+		//System.out.println("teleop setting on");
+		//this.HAS_CUBE_LEDS.set(Value.kForward);
+		
 		 // this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 		//Robot.ARM_SUBSYSTEM.getPosition();
@@ -416,6 +427,8 @@ public class Robot extends TimedRobot {
 	
 	public void runOperatorControls() {
 		// Drive Train
+		
+		/*
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
 			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToLowGear();
 		}
@@ -423,6 +436,7 @@ public class Robot extends TimedRobot {
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToLowGearButton)) {
 			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToHighGear();
 		}
+		*/
 		
 	    if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) {
 	      if (DRIVE_CONTROLLER.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
@@ -468,6 +482,19 @@ public class Robot extends TimedRobot {
 			}
 		}
 		*/
+	    
+	    /*
+	    double armPowerValue = Robot.DRIVE_CONTROLLER.getAxis(AxisCode.RIGHTSTICKY);
+	    Robot.ARM_JOYSTICK_CONTROL_COMMAND.setPowerValue(armPowerValue);
+	    if (Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER)) {
+	    	if (Math.abs(armPowerValue) > .1 && Robot.ARM_JOYSTICK_CONTROL_COMMAND.isRunning() == false) {
+	    		Robot.ARM_JOYSTICK_CONTROL_COMMAND.start();
+	    	}
+	    } else {
+	    	Robot.ARM_JOYSTICK_CONTROL_COMMAND.cancel();
+	    }
+	    */
+	    
 		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPullCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());
 		

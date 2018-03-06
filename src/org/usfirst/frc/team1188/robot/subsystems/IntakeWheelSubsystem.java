@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
 import org.usfirst.frc.team1188.robot.Calibrations;
+import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelStopCommand;
 
@@ -8,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -76,8 +78,15 @@ public class IntakeWheelSubsystem extends Subsystem {
     }
     
     public void periodic() {
-    	if(this.hasCube() == false) {
+    	if (this.hasCube() == false) {
     		_hasCubeDurationTimer.reset();
+    	}
+    	
+    	if (this.hasCube()) {
+    		Robot.HAS_CUBE_LEDS.set(Value.kForward);
+    	}
+    	else {
+    		Robot.HAS_CUBE_LEDS.set(Value.kOff);
     	}
     }
     

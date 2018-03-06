@@ -67,10 +67,10 @@ public final class Calibrations {
 	public static final double DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT = .4;
 	
 	// Elevator Lift
-	public static final double elevatorExtensionPowerMagnitude = .8;
+	public static final double elevatorExtensionPowerMagnitude = 1.0;
 	public static final double elevatorRetractionPowerMagnitude = .33;
 	public static final double elevatorMaximumSpeed = 1.0;
-	public static final double elevatorHoldPositionPowerMagnitude = .1;
+	public static final double elevatorHoldPositionPowerMagnitude = .15;
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
 	

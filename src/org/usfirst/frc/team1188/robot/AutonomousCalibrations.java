@@ -7,7 +7,7 @@ public class AutonomousCalibrations {
 	public static final String Scale = "SCALE";
 	
 	
-	public static final double AutonomousCrossAutoLineDriveForwardInches = 90;
+	public static final double AutonomousCrossAutoLineDriveForwardInches = 190;
 	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .5;
 	
 	public static final double AutonomousScoreLeftSwitchPosition1DriveForwardInches = 140;
@@ -55,8 +55,8 @@ public class AutonomousCalibrations {
 	public static final double AutonomousArmExtensionPowerMagnitude = .3;
 	public static final double AutonomousArmExtensionEncoderDistance = 2048;
 	public static final double AutonomousScoreSwitchMiddlePositionLateralDriveForwardInches = 60;
-	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardFirstSegmentInches = 72;
-	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches = 72;
+	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardFirstSegmentInches = 22;
+	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches = 122;
 	
 	
 }
