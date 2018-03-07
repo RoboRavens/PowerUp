@@ -5,6 +5,7 @@ import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmStopCommand;
 import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
+import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -34,13 +35,13 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void periodic() {
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmRI, "" + this.rightMotor.getSelectedSensorPosition(0));
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLI, "" + this.leftMotor.getSelectedSensorPosition(0));
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmAvg, "" + this.getEncoderPosition());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmUpperLimitSwitch, "" + this.getExtensionLimitSwitchValue());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmLowerLimitSwitch, "" + this.getRetractionLimitSwitchValue());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmIsAtExtensionLimit, "" + this.getIsAtExtensionLimit());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ArmIsAtRetractionLimit, "" + this.getIsAtRetractionLimit());
+    	PCDashboardDiagnostics.SubsystemData("Arm", "EncoderRight", "" + this.rightMotor.getSelectedSensorPosition(0));
+    	PCDashboardDiagnostics.SubsystemData("Arm", "EncoderLeft", "" + this.leftMotor.getSelectedSensorPosition(0));
+    	PCDashboardDiagnostics.SubsystemData("Arm", "EncoderAvg", "" + this.getEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemData("Arm", "LimitSwitchExtension", "" + this.getExtensionLimitSwitchValue());
+    	PCDashboardDiagnostics.SubsystemData("Arm", "LimitSwitchRetraction", "" + this.getRetractionLimitSwitchValue());
+    	PCDashboardDiagnostics.SubsystemData("Arm", "LimitFinalExtension", "" + this.getIsAtExtensionLimit());
+    	PCDashboardDiagnostics.SubsystemData("Arm", "LimitFinalRetraction", "" + this.getIsAtRetractionLimit());
     }
     
 	public boolean getExtensionLimitSwitchValue() {
