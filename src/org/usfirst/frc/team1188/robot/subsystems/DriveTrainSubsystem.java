@@ -7,7 +7,7 @@ import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveFPSCommand;
-import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
+import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -43,15 +43,12 @@ public class DriveTrainSubsystem extends Subsystem {
     	double elevatorHeightPercentage = Robot.ELEVATOR_SUBSYSTEM.getElevatorHeightPercentage();
     	double powerSubtractor = (1 - Calibrations.DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT) * elevatorHeightPercentage;
     	double maxPower = Math.min(1, 1 - powerSubtractor);
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveMaxPower, "" + maxPower);
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorHeightPercent, "" + elevatorHeightPercentage);
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DrivePowerSubtractor, "" + powerSubtractor);
     	this.ravenTank.setMaxPower(maxPower);
     	
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveEncoderLeftInches, "" + this.ravenTank.leftEncoder.getNetInchesTraveled() * -1);
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveEncoderRightInches, "" + this.ravenTank.rightEncoder.getNetInchesTraveled());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.DriveNetInchesTraveled, "" + this.ravenTank.getNetInchesTraveled());
-    	
+    	PCDashboardDiagnostics.SubsystemData("DriveTrain", "PowerMax", "" + maxPower);
+    	PCDashboardDiagnostics.SubsystemData("DriveTrain", "EncoderLeftInchesTraveled", "" + this.ravenTank.leftEncoder.getNetInchesTraveled() * -1);
+    	PCDashboardDiagnostics.SubsystemData("DriveTrain", "EncoderRightInchesTraveled", "" + this.ravenTank.rightEncoder.getNetInchesTraveled());
+    	PCDashboardDiagnostics.SubsystemData("DriveTrain", "EncoderAvgInchesTraveled", "" + this.ravenTank.rightEncoder.getNetInchesTraveled());
     }
 }
 

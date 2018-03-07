@@ -4,7 +4,7 @@ import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
-import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
+import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -86,7 +86,7 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public int getLeftEncoderPosition() {
-    	return leftMotor.getSelectedSensorPosition(0);
+    	return this.leftMotor.getSelectedSensorPosition(0);
     }
     
     public int getRightEncoderPosition() {
@@ -95,15 +95,19 @@ public class ElevatorSubsystem extends Subsystem {
     	return rightEncoderPosition;
     }
     
+    public void periodic() {
+    	PCDashboardDiagnostics.SubsystemData("Elevator", "EncoderRight", "" + this.getRightEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemData("Elevator", "EncoderLeft", "" + this.getLeftEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemData("Elevator", "EncoderAvg", "" + this.getElevatorPosition());
+    	PCDashboardDiagnostics.SubsystemData("Elevator", "LimitSwitchTop", "" + this.getTopLimitSwitchValue());
+    	PCDashboardDiagnostics.SubsystemData("Elevator", "LimitSwitchBottom", "" + this.getBottomLimitSwitchValue());
+    	PCDashboardDiagnostics.SubsystemData("Elevator", "LimitFinalExtension", "" + this.getIsAtExtensionLimit());
+    	PCDashboardDiagnostics.SubsystemData("Elevator", "LimitFinalRetraction", "" + this.getIsAtRetractionLimit());
+    }
+    
     public int getElevatorPosition() {
     	int elevatorPosition;
-    	
-    	elevatorPosition = (rightMotor.getSelectedSensorPosition(0) + leftMotor.getSelectedSensorPosition(0)) / 2;
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorRI, "" + rightMotor.getSelectedSensorPosition(0));
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorLI, "" + leftMotor.getSelectedSensorPosition(0));
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorAvg, "" + elevatorPosition);
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorUpperLimit, "" + this.getTopLimitSwitchValue());
-    	Robot.LOGGER_OVERLORD.log(LoggerOverlordLogID.ElevatorLowerLimit, "" + this.getBottomLimitSwitchValue());
+    	elevatorPosition = (this.getLeftEncoderPosition() + this.getRightEncoderPosition()) / 2;
     	return elevatorPosition;
     }
     

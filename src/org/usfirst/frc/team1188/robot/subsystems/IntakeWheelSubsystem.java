@@ -4,6 +4,7 @@ import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelStopCommand;
+import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -78,6 +79,8 @@ public class IntakeWheelSubsystem extends Subsystem {
     }
     
     public void periodic() {
+    	PCDashboardDiagnostics.SubsystemData("IntakeWheel", "HasCube", "" + this.hasCube());
+    	
     	if (this.hasCube() == false) {
     		_hasCubeDurationTimer.reset();
     	}

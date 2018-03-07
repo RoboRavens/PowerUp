@@ -4,7 +4,6 @@ import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmStopCommand;
-import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
 import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
