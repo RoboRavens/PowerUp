@@ -72,7 +72,8 @@ public class Robot extends TimedRobot {
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
 	
-	public static final Relay HAS_CUBE_LEDS = new Relay(0);
+	public static final Relay HAS_CUBE_LEDS = new Relay(RobotMap.hasCubeLEDLightRelay);
+	//public static final Relay UNDERGLOW = new Relay(RobotMap.underglowLightRelay);
 	
 	// public static final ArmJoystickControlCommand ARM_JOYSTICK_CONTROL_COMMAND = new ArmJoystickControlCommand();
 	
@@ -164,7 +165,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putString("DB/String 4", allianceString);
 		
 
-		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
+		//Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
 		
 		diagnostics.outputDisabledDiagnostics();
 

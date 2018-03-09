@@ -16,7 +16,7 @@ public final class Calibrations {
 	
 	public static final double cutPowerModeMovementRatio = .3;
 	public static final double cutPowerModeTurnRatio = .5;
-	public static final double gyroAdjustmentScaleFactor = .03;
+	public static final double gyroAdjustmentScaleFactor = .03; // Could possibly cause gyro issues
 	public static final double gyroCooldownTimerTime = .5;
 	public static final double translationMaxTurnScaling = .5;
 	public static final double gyroAutoTurnAcceptableErrorDegrees = 4;

@@ -20,7 +20,7 @@ public class RavenTank {
     // Gyro orientationGyro;
     Timer gyroCooldownTimer;
     
-    AHRS orientationGyro = new AHRS(SPI.Port.kMXP);
+    public AHRS orientationGyro = new AHRS(SPI.Port.kMXP);
     
     AHRS.BoardYawAxis boardYawAxis;
     double lastAccelerationX;
@@ -50,6 +50,8 @@ public class RavenTank {
 	protected boolean drivingThroughObstacle = false;
 	protected boolean turning = false;
 	protected boolean waiting = false;
+	
+	public double gyroAdjust;
 	
 	public boolean userControlOfCutPower = true;
 
@@ -356,7 +358,7 @@ public class RavenTank {
     	
     	
     	// Mod to eliminate extra rotations.
-    	double gyroAdjust = (heading - gyroTargetHeading) % 360;
+    	gyroAdjust = (heading - gyroTargetHeading) % 360;
     	
     	
     	if (gyroAdjust < 0) {

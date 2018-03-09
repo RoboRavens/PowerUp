@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousScoreLeftScaleGrabCubePosition1Command extends CommandGroup{
 	
 	public AutonomousScoreLeftScaleGrabCubePosition1Command() {
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveLeftScalePosition1Inches,
+		/*addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveLeftScalePosition1Inches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingForward));
+    			Calibrations.drivingForward));*/
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
     	addSequential(new DriveTrainDriveInchesCommand(30,
     			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
