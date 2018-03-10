@@ -24,6 +24,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousDriveStraightToScaleForwardElevatorDownSegmentInches = 150; // Was 288
 	public static final double AutonomousDriveStraightToScaleForwardElevatorLiftingSegmentInches = 138;
 	public static final double AutonomousDriveStraightToScaleApproachScaleInches = 8;
+    public static final double AutonomousDriveLeftScalePosition1Inches = 77;
 	public static final double AutonomousDriveLeftScalePosition3FirstDriveForwardInches = 95;
 	public static final double AutonomousDriveLeftScalePosition3SecondDriveForwardInches = 260;
 	public static final double AutonomousDriveOppositeSideScaleElevatorUpSegmentInches = 83;

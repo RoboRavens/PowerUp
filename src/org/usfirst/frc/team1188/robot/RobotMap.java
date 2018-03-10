@@ -17,6 +17,10 @@ public class RobotMap {
 	public static final int shiftToLowGearSolenoid = 0;
 	public static final int shiftToHighGearSolenoid = 1;
 	
+	//Relays 
+	public static final int hasCubeLEDLightRelay = 0;
+	public static final int underglowLightRelay = 1;
+	
 	// Elevator System
 	public static final int elevatorEncoder1 = 20;
 	public static final int elevatorEncoder2 = 21;
@@ -39,8 +43,6 @@ public class RobotMap {
 	// Arm System
 	public static final int armMotorLeft = 5;
 	public static final int armMotorRight = 4;
-	
-	public static final int carriageStalledLightRelay = 1;
 	
 	public static final int armHoldBackSolenoid = 6;
 	

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
 import org.usfirst.frc.team1188.gamepad.Gamepad;
-import org.usfirst.frc.team1188.ravenhardware.Lighting;
+import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
@@ -22,11 +22,9 @@ public class DriveTrainSubsystem extends Subsystem {
 	public RavenTank ravenTank;
 	private Solenoid _shiftToLowGearSolenoid = new Solenoid(RobotMap.shiftToLowGearSolenoid);
 	private Solenoid _shiftToHighGearSolenoid = new Solenoid(RobotMap.shiftToHighGearSolenoid);
-	private Relay _carriageStalledRelay = new Relay(RobotMap.carriageStalledLightRelay);
-	private Lighting _carriageStalledLighting = new Lighting(_carriageStalledRelay);
 	
 	public DriveTrainSubsystem() {
-		this.ravenTank = new RavenTank(_shiftToLowGearSolenoid, _shiftToHighGearSolenoid, _carriageStalledLighting);
+		this.ravenTank = new RavenTank(_shiftToLowGearSolenoid, _shiftToHighGearSolenoid);
 	}
 	
     // Put methods for controlling this subsystem

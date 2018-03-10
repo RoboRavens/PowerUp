@@ -6,15 +6,14 @@ import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team188.robot.commands.LED.LEDRainbowCommand;
 
-import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class LEDRainbowSubsystem extends Subsystem{
+public class LEDSubsystem extends Subsystem{
 	
 	public static final Gamepad CONTROLLER = Robot.OPERATION_CONTROLLER;
 	public LightLink led;
 	
-	public LEDRainbowSubsystem() {
+	public LEDSubsystem() {
 		this.led = new LightLink();
 	}
 	

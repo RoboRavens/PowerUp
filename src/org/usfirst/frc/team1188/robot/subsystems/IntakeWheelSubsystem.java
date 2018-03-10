@@ -85,11 +85,11 @@ public class IntakeWheelSubsystem extends Subsystem {
     		_hasCubeDurationTimer.reset();
     	}
     	
-    	if (this.hasCube()) {
-    		Robot.HAS_CUBE_LEDS.set(Value.kForward);
+    	if (this.hasCube() == false) {
+    		Robot.HAS_CUBE_LEDS_RELAY.set(Value.kForward);
     	}
     	else {
-    		Robot.HAS_CUBE_LEDS.set(Value.kOff);
+    		Robot.HAS_CUBE_LEDS_RELAY.set(Value.kOff);
     	}
     }
     
