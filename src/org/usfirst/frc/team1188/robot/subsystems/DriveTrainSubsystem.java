@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
+import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
@@ -39,14 +40,23 @@ public class DriveTrainSubsystem extends Subsystem {
     
     public void periodic() {
     	double elevatorHeightPercentage = Robot.ELEVATOR_SUBSYSTEM.getElevatorHeightPercentage();
+    	//double elevatorHeightPercentage = Robot.DRIVE_CONTROLLER.getAxis(AxisCode.LEFTSTICKX);
     	double powerSubtractor = (1 - Calibrations.DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT) * elevatorHeightPercentage;
     	double maxPower = Math.min(1, 1 - powerSubtractor);
     	this.ravenTank.setMaxPower(maxPower);
+    	
+    	double slewRateDifference = Calibrations.slewRateMaximum - Calibrations.slewRateMinimum;
+    	double slewRateSubtraction = slewRateDifference * elevatorHeightPercentage;
+    	double slewRate = Calibrations.slewRateMaximum - slewRateSubtraction;
+    	slewRate = Math.max(Calibrations.slewRateMinimum, slewRate);
+    	slewRate = Math.min(Calibrations.slewRateMaximum, slewRate);
+    	this.ravenTank.setSlewRate(slewRate);
     	
     	PCDashboardDiagnostics.SubsystemData("DriveTrain", "PowerMax", "" + maxPower);
     	PCDashboardDiagnostics.SubsystemData("DriveTrain", "EncoderLeftInchesTraveled", "" + this.ravenTank.leftEncoder.getNetInchesTraveled() * -1);
     	PCDashboardDiagnostics.SubsystemData("DriveTrain", "EncoderRightInchesTraveled", "" + this.ravenTank.rightEncoder.getNetInchesTraveled());
     	PCDashboardDiagnostics.SubsystemData("DriveTrain", "EncoderAvgInchesTraveled", "" + this.ravenTank.rightEncoder.getNetInchesTraveled());
+    	PCDashboardDiagnostics.SubsystemData("DriveTrain", "SlewRate", "" + slewRate);
     }
 }
 

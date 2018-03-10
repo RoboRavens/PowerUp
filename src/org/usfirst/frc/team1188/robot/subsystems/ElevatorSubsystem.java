@@ -184,7 +184,15 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 	
 	public double getElevatorHeightPercentage() {
-		return (double)this.getElevatorPosition() / (double)Calibrations.elevatorLiftEncoderMaximumValue;
+		double encoderMax = (double)Calibrations.elevatorLiftEncoderMaximumValue;
+		double encoderMin = (double)Calibrations.elevatorLiftEncoderMinimumValue;
+		double encoderCurrent = this.getElevatorPosition();
+		
+		double heightPercentage = (encoderCurrent - encoderMin)/(encoderMax - encoderMin);
+		heightPercentage = Math.min(1, heightPercentage);
+		heightPercentage = Math.max(0, heightPercentage);
+		
+		return heightPercentage;
 	}
 	
 	public static double inchesToTicks(double inches) {
