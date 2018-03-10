@@ -20,7 +20,7 @@ public class RavenTank {
     // Gyro orientationGyro;
     Timer gyroCooldownTimer;
     
-    public AHRS orientationGyro = new AHRS(SPI.Port.kMXP);
+    AHRS orientationGyro = new AHRS(SPI.Port.kMXP);
     
     AHRS.BoardYawAxis boardYawAxis;
     double lastAccelerationX;
@@ -64,12 +64,19 @@ public class RavenTank {
 	
 	protected boolean isInHighGear = Calibrations.driveTrainStartingIsInHighGear;
 	
-	Lighting shiftedToLowGearLighting;
+	RavenLighting shiftedToLowGearLighting;
 	
-	public RavenTank(Solenoid lowGearSolenoid, Solenoid highGearSolenoid, Lighting shiftedToLowGearLighting) {
+	public RavenTank(Solenoid lowGearSolenoid, Solenoid highGearSolenoid, RavenLighting shiftedToLowGearLighting) {
 		this.shiftToLowGearSolenoid = lowGearSolenoid;
 		this.shiftToHighGearSolenoid = highGearSolenoid;
 		this.shiftedToLowGearLighting = shiftedToLowGearLighting;
+		
+		initializeRavenTank();
+	}
+
+	public RavenTank(Solenoid lowGearSolenoid, Solenoid highGearSolenoid) {
+		this.shiftToLowGearSolenoid = lowGearSolenoid;
+		this.shiftToHighGearSolenoid = highGearSolenoid;
 		
 		initializeRavenTank();
 	}
@@ -371,7 +378,7 @@ public class RavenTank {
     	
     	
     	// Mod to eliminate extra rotations.
-    	gyroAdjust = (heading - gyroTargetHeading) % 360;
+    	double gyroAdjust = (heading - gyroTargetHeading) % 360;
     	
     	
     	if (gyroAdjust < 0) {

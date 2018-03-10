@@ -10,6 +10,7 @@ package org.usfirst.frc.team1188.robot;
 
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
+import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousCrossAutoLineCommand;
@@ -36,7 +37,7 @@ import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
-import org.usfirst.frc.team1188.robot.subsystems.LEDRainbowSubsystem;
+import org.usfirst.frc.team1188.robot.subsystems.LEDSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team1188.util.OverrideSystem;
@@ -78,10 +79,12 @@ public class Robot extends TimedRobot {
 	public static final IntakeClampSubsystem INTAKE_CLAMP_SUBSYSTEM = new IntakeClampSubsystem();
 	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
-	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
+	public static final LEDSubsystem LED_SUBSYSTEM = new LEDSubsystem();
 	
-	public static final Relay HAS_CUBE_LEDS = new Relay(RobotMap.hasCubeLEDLightRelay);
-	//public static final Relay UNDERGLOW = new Relay(RobotMap.underglowLightRelay);
+	public static final Relay HAS_CUBE_LEDS_RELAY = new Relay(RobotMap.hasCubeLEDLightRelay);
+	public static final Relay UNDERGLOW_RELAY = new Relay(RobotMap.underglowLightRelay);
+	public static final RavenLighting HAS_CUBE_LEDS = new RavenLighting(HAS_CUBE_LEDS_RELAY);
+	public static final RavenLighting UNDERGLOW = new RavenLighting(UNDERGLOW_RELAY);
 	
 	// public static final ArmJoystickControlCommand ARM_JOYSTICK_CONTROL_COMMAND = new ArmJoystickControlCommand();
 	
@@ -131,7 +134,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		Robot.LED_RAINBOW_SUBSYSTEM.setDisabledPattern();
+		Robot.LED_SUBSYSTEM.setDisabledPattern();
 
 	}
 
@@ -262,7 +265,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
-		Robot.LED_RAINBOW_SUBSYSTEM.setAutonomousPattern();
+		Robot.LED_SUBSYSTEM.setAutonomousPattern();
 		
 		m_autonomousCommand = m_chooser.getSelected();
 		// Zero the gyro, grab the selected autonomous mode, and get to work.
@@ -416,7 +419,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
-		Robot.LED_RAINBOW_SUBSYSTEM.setEnabledPattern();
+		Robot.LED_SUBSYSTEM.setEnabledPattern();
 	}
 
 	/**

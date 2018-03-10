@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.I2C;
 
 public class LightLink {
     public class Color {
-        public static final int ORANGE = 0x02;
+    	public static final int RED = 0x01;
+    	public static final int ORANGE = 0x02;
         public static final int YELLOW = 0x03;
         public static final int GREEN = 0x04;
         public static final int BLUE = 0x05;
@@ -85,7 +86,7 @@ public class LightLink {
 
     public void set(int color, int action, int speed, int strip) {
         synchronized (LL_LOCK) {
-        	System.out.println("Inside synchronized. Params: color: " + color + " action: " + action + " " + " speed: " + speed + " strip: " + strip);
+        	//System.out.println("Inside synchronized. Params: color: " + color + " action: " + action + " " + " speed: " + speed + " strip: " + strip);
             i2c.writeBulk(buildCommand(strip, color, action, speed));
         }
     }
