@@ -13,11 +13,27 @@ public class PCDashboardDiagnostics {
 	 * @param name The name of the data to be included in diagnostics
 	 * @param data The data to be included in diagnostics
 	 */
-	public static void SubsystemData(String subsystemName, String name, String data) {
+	public static void SubsystemString(String subsystemName, String name, String data) {
 		_table.getEntry("Subsystem/" + subsystemName + "/" + name).setString(data);
 	}
 	
-	public static void AdHocData(String name, String data) {
+	public static void SubsystemNumber(String subsystemName, String name, Number data) {
+		_table.getEntry("Subsystem/" + subsystemName + "/" + name).setNumber(data);
+	}
+	
+	public static void SubsystemBoolean(String subsystemName, String name, boolean data) {
+		_table.getEntry("Subsystem/" + subsystemName + "/" + name).setBoolean(data);
+	}
+	
+	public static void AdHocString(String name, String data) {
 		_table.getEntry("AdHoc/" + name).setString(data);
+	}
+	
+	public static void AdHocNumber(String name, Number data) {
+		_table.getEntry("AdHoc/" + name).setNumber(data);
+	}
+	
+	public static void AdHocBoolean(String name, boolean data) {
+		_table.getEntry("AdHoc/" + name).setBoolean(data);
 	}
 }

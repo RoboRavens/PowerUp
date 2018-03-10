@@ -79,7 +79,7 @@ public class IntakeWheelSubsystem extends Subsystem {
     }
     
     public void periodic() {
-    	PCDashboardDiagnostics.SubsystemData("IntakeWheel", "HasCube", "" + this.hasCube());
+    	PCDashboardDiagnostics.SubsystemBoolean("IntakeWheel", "HasCube", this.hasCube());
     	
     	if (this.hasCube() == false) {
     		_hasCubeDurationTimer.reset();
