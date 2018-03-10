@@ -2,6 +2,7 @@ package org.usfirst.frc.team1188.robot.commands.drivetrain;
 
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Calibrations;
+import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.subsystems.DriveTrainSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -15,19 +16,28 @@ public class DriveTrainTurnRelativeDegreesCommand extends Command {
 	// Negative degrees means turn left; positive means turn right.
 	double degreesToTurn;
 	double driveTrainOriginalHeading;
+	double temporaryGyroScaleFactor;
+	double previousGyroScaleFactor;
 	
-    public DriveTrainTurnRelativeDegreesCommand(DriveTrainSubsystem driveTrain, double degreesToTurn) {
+    public DriveTrainTurnRelativeDegreesCommand(DriveTrainSubsystem driveTrain, double degreesToTurn, double gyroScaleFactor) {
         requires(driveTrain);
         this.ravenTank = driveTrain.ravenTank;
         this.degreesToTurn = degreesToTurn;
         this.safetyTimer = new Timer();
+        this.previousGyroScaleFactor = Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroAdjustmentScaleFactor();
+        this.temporaryGyroScaleFactor = gyroScaleFactor;
     }
 
+    public DriveTrainTurnRelativeDegreesCommand(DriveTrainSubsystem driveTrain, double degreesToTurn) {
+    	this(driveTrain, degreesToTurn, Calibrations.driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor);
+    }
+    
     // Called just before this Command runs the first time
     protected void initialize() {
     	driveTrainOriginalHeading = ravenTank.getCurrentHeading();
     	ravenTank.turnRelativeDegrees(degreesToTurn);
     	safetyTimer.start();
+    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroAdjustmentScaleFactor(temporaryGyroScaleFactor);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -54,6 +64,7 @@ public class DriveTrainTurnRelativeDegreesCommand extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	ravenTank.setGyroTargetHeadingToCurrentHeading();
+    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroAdjustmentScaleFactor(previousGyroScaleFactor);
     	ravenTank.stop();
     }
 

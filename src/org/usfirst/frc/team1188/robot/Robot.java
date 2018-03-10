@@ -8,13 +8,23 @@
 package org.usfirst.frc.team1188.robot;
 
 
-import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmJoystickControlCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.*;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousCrossAutoLineCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousDoNothingCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousDriveStraightScoreInSwitchCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftScaleLeftPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftScaleRightPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftSwitchMiddlePositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftSwitchRightPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightScaleLeftPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightScaleRightPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSwitchMiddlePositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreRightSwitchLeftPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
@@ -32,12 +42,10 @@ import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team1188.util.OverrideSystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Relay.Direction;
-import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 //import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -165,7 +173,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putString("DB/String 4", allianceString);
 		
 
-		//Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
+		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
 		
 		diagnostics.outputDisabledDiagnostics();
 
@@ -260,6 +268,10 @@ public class Robot extends TimedRobot {
 		// Zero the gyro, grab the selected autonomous mode, and get to work.
 		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
 		autonomousCommand = getAutonomousCommand();
+		
+		// DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
+		DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
+		autonomousCommand = new DriveTrainDriveInchesCommand(120, .75, Calibrations.drivingForward);
 		
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
@@ -393,8 +405,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		ARM_HOLD_BACK.set(true); // retract support solenoid
-		
-		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
+		DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
+		// DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
@@ -429,7 +441,7 @@ public class Robot extends TimedRobot {
 	public void runOperatorControls() {
 		// Drive Train
 		
-		/*
+		
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
 			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToLowGear();
 		}
@@ -437,7 +449,7 @@ public class Robot extends TimedRobot {
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToLowGearButton)) {
 			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToHighGear();
 		}
-		*/
+		
 		
 	    if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) {
 	      if (DRIVE_CONTROLLER.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
@@ -496,9 +508,10 @@ public class Robot extends TimedRobot {
 	    }
 	    */
 	    
+	    DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new DriveTrainTurnRelativeDegreesCommand(DRIVE_TRAIN_SUBSYSTEM, 90, Calibrations.driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor));
+	    
 		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPullCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());
-		
+		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());		
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1188.robot.commands.arm;
 
-import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**

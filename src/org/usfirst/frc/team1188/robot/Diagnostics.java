@@ -1,20 +1,20 @@
 package org.usfirst.frc.team1188.robot;
 
-import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 public class Diagnostics {
 	
 	public void outputAutonomousDiagnostics() {
 		//System.out.print("LEncoder: " + round(robot.driveTrain.ravenTank.leftEncoder.getNetInchesTraveled(), 2) + " REncoder: " + round(robot.driveTrain.ravenTank.rightEncoder.getNetInchesTraveled(), 2));
-		System.out.println("DT total IT: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled()));
+		// System.out.println("DT total IT: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled()));
 		//System.out.println(" Current heading: " + robot.driveTrain.ravenTank.getCurrentHeading());
 		// System.out.println("Shooter RPM: " + Math.round(robot.fuelShooter.shooterMotorLead.getSpeed() / 2));
+		System.out.println(/* "GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+*/"Crnt head: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()) + " Crnt Angle " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle()) + " Target heading: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroTargetHeading()));
 		
 	}
 	
 	public void outputTeleopDiagnostics() {
-		System.out.println("GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+" GyroCurrentHeading "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()+" GyroCurrentAngle "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
+		// System.out.println("GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+" GyroCurrentHeading "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()+" GyroCurrentAngle "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
 		
 		// System.out.println("Arm encoder value: " + Robot.ARM_SUBSYSTEM.getEncoderPosition());
 		
@@ -57,6 +57,9 @@ public class Diagnostics {
 		// robot.driveTrain.ravenTank.outputHighestJerk();
 		
 		// System.out.println();
+		
+		System.out.println(/* "GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+*/"Crnt head: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()) + " Crnt Angle " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle()) + " Target heading: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroTargetHeading()));
+		
 	}
 	
 	public double round(double value, int digits) {
@@ -90,7 +93,9 @@ public class Diagnostics {
 		PCDashboardDiagnostics.AdHocData("GyroAdjust", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust);
 		PCDashboardDiagnostics.AdHocData("GyroCurrentHeading", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading());
 		PCDashboardDiagnostics.AdHocData("GyroCurrentAngle", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
-		System.out.println("GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+" GyroCurrentHeading "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()+" GyroCurrentAngle "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
+		PCDashboardDiagnostics.AdHocData("WheelLeftEncoder", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.leftEncoder.getNetInchesTraveled());
+		PCDashboardDiagnostics.AdHocData("WheelRightEncoder", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.rightEncoder.getNetInchesTraveled());
+		//System.out.println(/* "GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+*/"Crnt head: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()) + " Crnt Angle " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle()) + " Target heading: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroTargetHeading()));
 		//PCDashboardDiagnostics.AdHocData(name, data);
 		
 	}

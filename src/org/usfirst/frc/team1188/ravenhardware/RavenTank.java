@@ -52,6 +52,7 @@ public class RavenTank {
 	protected boolean waiting = false;
 	
 	public double gyroAdjust;
+	double gyroAdjustmentScaleFactor = Calibrations.gyroAdjustmentDefaultScaleFactor;
 	
 	public boolean userControlOfCutPower = true;
 
@@ -61,7 +62,7 @@ public class RavenTank {
 	protected Solenoid shiftToLowGearSolenoid;
 	protected Solenoid shiftToHighGearSolenoid;
 	
-	protected boolean isInHighGear = Calibrations.DriveTrainStartingIsInHighGear;
+	protected boolean isInHighGear = Calibrations.driveTrainStartingIsInHighGear;
 	
 	Lighting shiftedToLowGearLighting;
 	
@@ -107,6 +108,14 @@ public class RavenTank {
 	public void setGyroMode(int gyroMode) {
     	this.gyroMode = gyroMode;
     }
+	
+	public double getGyroAdjustmentScaleFactor() {
+		return gyroAdjustmentScaleFactor;
+	}
+	
+	public void setGyroAdjustmentScaleFactor(double newValue) {
+		gyroAdjustmentScaleFactor = newValue;
+	}
 	
 	public double deadband(double input) {
 		double output = input;
@@ -299,6 +308,10 @@ public class RavenTank {
     }
     */
     
+    public double getGyroTargetHeading() {
+    	return this.gyroTargetHeading;
+    }
+    
     public double setGyroTargetHeadingToCurrentHeading(){    	
     	this.gyroTargetHeading = getCurrentHeading();
     	
@@ -382,7 +395,7 @@ public class RavenTank {
     	// Mod again in case the directional snippet was applied.
     	gyroAdjust = Math.round(gyroAdjust) % 360;
     	
-    	gyroAdjust *= Calibrations.gyroAdjustmentScaleFactor;
+    	gyroAdjust *= gyroAdjustmentScaleFactor;
     	
         // System.out.println("Gyro adjust: " + gyroAdjust + " gyro: " + this.orientationGyro.getAngle() +  "Zero" + gyroZero);
     	
