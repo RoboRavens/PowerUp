@@ -392,7 +392,7 @@ public class RavenTank {
     	
     	// This snippet ensures that the robot will spin in the fastest direction to zero
     	// if it ends up more than 180 degrees off of intention.
-    	if (gyroAdjust > 180){
+    	if (gyroAdjust > 180) {
     		gyroAdjust = gyroAdjust - 360;
     	}
     	

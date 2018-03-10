@@ -44,6 +44,7 @@ import org.usfirst.frc.team1188.util.OverrideSystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -65,6 +66,7 @@ public class Robot extends TimedRobot {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	public DriverStation driverStation;
+	public PowerDistributionPanel PDP = new PowerDistributionPanel();
 	
 	Diagnostics diagnostics = new Diagnostics();
 	public static final LoggerOverlord LOGGER_OVERLORD = new LoggerOverlord(1f);
@@ -440,12 +442,13 @@ public class Robot extends TimedRobot {
 		//Robot.ARM_SUBSYSTEM.getPosition();
 		 
 		 diagnostics.outputTeleopDiagnostics();
+		 System.out.println(PDP.getVoltage());
 	}
 	
 	public void runOperatorControls() {
 		// Drive Train
-		
-		
+		 
+		/*
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
 			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToLowGear();
 		}
@@ -463,6 +466,22 @@ public class Robot extends TimedRobot {
 	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false);
 	      }		
 	    }
+	    
+	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.A)) {
+	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(180);
+	    }
+	    
+	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.B)) {
+	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(90);
+	    }
+	    
+	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.X)) {
+	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(270);
+	    }
+	    
+	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.Y)) {
+	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(0);
+	    }
 	   
 	    
 		//driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
@@ -473,7 +492,7 @@ public class Robot extends TimedRobot {
 			ELEVATOR_SUBSYSTEM.elevatorExtendCommand();
 		}*/
 
-		//DRIVE_CONTROLLER.getButton(ButtonCode.B).whileHeld(new ElevatorHoldPositionCommand());
+		//DRIVE_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorHoldPositionCommand());
 		
 		//LIGHTLINK LED
 		//OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new LEDRainbowCommand());
