@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
 		
 		// Zero the elevator encoders; the robot should always start with the elevator down.
 		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
-		Robot.ELEVATOR_SUBSYSTEM.resetEncoders();
+		Robot.ELEVATOR_SUBSYSTEM.resetEncodersToBottom();
 		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
 		
 
@@ -187,7 +187,7 @@ public class Robot extends TimedRobot {
 		//this.arm.getPosition();
 		
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
-			Robot.ELEVATOR_SUBSYSTEM.resetEncoders();
+			Robot.ELEVATOR_SUBSYSTEM.resetEncodersToBottom();
 		}
 	}
 

@@ -8,7 +8,6 @@ import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesC
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

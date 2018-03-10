@@ -4,9 +4,12 @@ import org.usfirst.frc.team1188.robot.AutonomousCalibrations;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
-import org.usfirst.frc.team1188.robot.commands.drivetrain.*;
-import org.usfirst.frc.team1188.robot.commands.elevator.*;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**

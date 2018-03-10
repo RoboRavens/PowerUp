@@ -115,9 +115,14 @@ public class ElevatorSubsystem extends Subsystem {
     	System.out.print(" Extension Limit: " + this.getIsAtExtensionLimit() + " Retraction Limit: " + this.getIsAtRetractionLimit());
     }
     
-    public void resetEncoders() {
+    public void resetEncodersToBottom() {
     	this.rightMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
     	this.leftMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
+    }
+    
+    public void resetEncodersToTop() {
+    	this.rightMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMaximumValue, 0, 0);
+    	this.leftMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMaximumValue, 0, 0);
     }
     
     private void set(double magnitude) {
@@ -155,6 +160,10 @@ public class ElevatorSubsystem extends Subsystem {
     		switchLimit = true;
     	}
     	
+    	if (encoderLimit == false && switchLimit == true) {
+    		this.resetEncodersToBottom();
+    	}
+    	
     	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);
     }
     
@@ -171,6 +180,10 @@ public class ElevatorSubsystem extends Subsystem {
     	
     	if (this.getTopLimitSwitchValue() == true) {
     		switchLimit = true;
+    	}
+    	
+    	if (encoderLimit == false && switchLimit == true) {
+    		this.resetEncodersToTop();
     	}
     	
     	isAtLimit = Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);

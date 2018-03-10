@@ -36,6 +36,7 @@ public class ArmExtendFullyCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.ARM_SUBSYSTEM.expectArmToBeAtBottom();
     	Robot.ARM_SUBSYSTEM.stop();
     }
 
@@ -43,4 +44,5 @@ public class ArmExtendFullyCommand extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+    
 }

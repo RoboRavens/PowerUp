@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
-import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
-import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
 import org.usfirst.frc.team1188.ravenhardware.RavenTank;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
@@ -10,7 +8,6 @@ import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveFPSCommand;
 import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
