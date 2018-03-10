@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1188.gamepad;
 
+import org.usfirst.frc.team1188.robot.Calibrations;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -16,6 +18,17 @@ public class Gamepad {
 	
 	public JoystickButton getButton(ButtonCode button) {
 		return new JoystickButton(joystick, getButtonNumber(button));
+	}
+	
+	public boolean getAxisIsPressed(AxisCode axis) {
+		boolean isPressed = false;
+		double axisValue = this.getAxis(axis);
+		
+		if (axisValue >= Calibrations.AXIS_IS_PRESSED_VALUE) {
+			isPressed = true;
+		}
+		
+		return isPressed;
 	}
 	
 	public double getAxis(AxisCode axis) {
