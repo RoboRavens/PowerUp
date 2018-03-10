@@ -52,7 +52,7 @@ public class RavenTank {
 	protected boolean waiting = false;
 	
 	public double gyroAdjust;
-	double gyroAdjustmentScaleFactor = Calibrations.gyroAdjustmentDefaultScaleFactor;
+	double _gyroAdjustmentScaleFactor = Calibrations.gyroAdjustmentDefaultScaleFactor;
 	
 	public boolean userControlOfCutPower = true;
 
@@ -117,13 +117,16 @@ public class RavenTank {
     }
 	
 	public double getGyroAdjustmentScaleFactor() {
-		return gyroAdjustmentScaleFactor;
+		return _gyroAdjustmentScaleFactor;
 	}
 	
-	public void setGyroAdjustmentScaleFactor(double newValue) {
-		gyroAdjustmentScaleFactor = newValue;
+	public void setGyroAdjustmentScaleFactor(double gyroAdjustmentScaleFactor) {
+		_gyroAdjustmentScaleFactor = gyroAdjustmentScaleFactor;
 	}
 	
+	public void resetGyroAdjustmentScaleFactor() {
+		this.setGyroAdjustmentScaleFactor(Calibrations.gyroAdjustmentDefaultScaleFactor);
+	}
 	public double deadband(double input) {
 		double output = input;
 		
@@ -402,7 +405,7 @@ public class RavenTank {
     	// Mod again in case the directional snippet was applied.
     	gyroAdjust = Math.round(gyroAdjust) % 360;
     	
-    	gyroAdjust *= gyroAdjustmentScaleFactor;
+    	gyroAdjust *= _gyroAdjustmentScaleFactor;
     	
         // System.out.println("Gyro adjust: " + gyroAdjust + " gyro: " + this.orientationGyro.getAngle() +  "Zero" + gyroZero);
     	
@@ -619,6 +622,10 @@ public class RavenTank {
 		
 	}
     
+	public double getGyroAngle() {
+		return orientationGyro.getAngle();
+	}
+	
     /*
     public double getPowerCoefficient() {
     	double decelerationRangeInches = Calibrations.decelerationInchesPerMotorOutputMagnitude * this.automatedDrivingSpeed;

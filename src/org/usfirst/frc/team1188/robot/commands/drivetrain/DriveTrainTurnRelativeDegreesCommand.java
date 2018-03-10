@@ -35,9 +35,9 @@ public class DriveTrainTurnRelativeDegreesCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	driveTrainOriginalHeading = ravenTank.getCurrentHeading();
+    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroAdjustmentScaleFactor(temporaryGyroScaleFactor);
     	ravenTank.turnRelativeDegrees(degreesToTurn);
     	safetyTimer.start();
-    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroAdjustmentScaleFactor(temporaryGyroScaleFactor);
     }
 
     // Called repeatedly when this Command is scheduled to run
