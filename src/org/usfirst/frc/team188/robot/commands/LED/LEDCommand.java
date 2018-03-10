@@ -4,9 +4,9 @@ import org.usfirst.frc.team1188.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LEDRainbowCommand extends Command{
+public class LEDCommand extends Command{
 	
-	public LEDRainbowCommand() {
+	public LEDCommand() {
 		requires(Robot.LED_SUBSYSTEM);
 	}
 	
