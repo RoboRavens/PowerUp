@@ -409,6 +409,7 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		ARM_HOLD_BACK.set(true); // retract support solenoid
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
+		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetGyroAdjustmentScaleFactor();
 		// DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		
 		// This makes sure that the autonomous stops running when
