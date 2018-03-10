@@ -5,7 +5,8 @@ public final class Calibrations {
 	// Slew rate of .2 seems to work well for when the lift is lowered, though more testing
 	// is necessary - might turn it up or down slightly for increased performance.
 	// public static final double slewRate = .2;
-	public static final double slewRate = .35;
+	public static final double slewRateMinimum = .2;
+	public static final double slewRateMaximum = .35;
 	
 	// The safe slew rate changes based upon a few variables:
 	// 		- What gear we are in

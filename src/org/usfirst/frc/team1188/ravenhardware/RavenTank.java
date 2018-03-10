@@ -27,13 +27,13 @@ public class RavenTank {
     double lastAccelerationY;
     double highestJerkX;
     double highestJerkY;
+    private double _slewRate;
     
     protected int driveMode;
 	protected int gyroMode;
 	protected boolean cutPower;
 	protected double gyroTargetHeading;
 	// protected double orientation = 0;
-	protected double slewRate = Calibrations.slewRate;
 	
 	// Joystick calibrationStick = new Joystick(RobotMap.calibrationJoystick);
 	
@@ -56,8 +56,8 @@ public class RavenTank {
 	
 	public boolean userControlOfCutPower = true;
 
-	RavenTalon driveLeft = new RavenTalon(RobotMap.leftDriveChannel, slewRate);
-	RavenTalon driveRight = new RavenTalon(RobotMap.rightDriveChannel, slewRate);
+	RavenTalon driveLeft = new RavenTalon(RobotMap.leftDriveChannel, _slewRate);
+	RavenTalon driveRight = new RavenTalon(RobotMap.rightDriveChannel, _slewRate);
 	
 	protected Solenoid shiftToLowGearSolenoid;
 	protected Solenoid shiftToHighGearSolenoid;
@@ -82,7 +82,7 @@ public class RavenTank {
 	}
 
 	private void initializeRavenTank() {	
-		slewRate = Calibrations.slewRate;
+		_slewRate = Calibrations.slewRateMaximum;
 		
 		Encoder leftWpiEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
 		Encoder rightWpiEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
@@ -138,7 +138,7 @@ public class RavenTank {
 	}
 	
 	public void setSlewRate(double slewRate) {
-		slewRate = Calibrations.slewRate;
+		_slewRate = slewRate;
 		// TODO: Implement setSlewRate
 		// driveRightSide.setSlewRate(slewRate);
 		// driveLeftSide.setSlewRate(slewRate);
@@ -581,7 +581,7 @@ public class RavenTank {
     }
     
     public double getSlewRate() {
-    	return this.slewRate;
+    	return this._slewRate;
     }
     
     /*
