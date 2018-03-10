@@ -5,7 +5,7 @@ public final class Calibrations {
 	// Slew rate of .2 seems to work well for when the lift is lowered, though more testing
 	// is necessary - might turn it up or down slightly for increased performance.
 	// public static final double slewRate = .2;
-	public static final double slewRate = 1;
+	public static final double slewRate = .35;
 	
 	// The safe slew rate changes based upon a few variables:
 	// 		- What gear we are in
@@ -16,11 +16,13 @@ public final class Calibrations {
 	
 	public static final double cutPowerModeMovementRatio = .3;
 	public static final double cutPowerModeTurnRatio = .5;
-	public static final double gyroAdjustmentScaleFactor = .03; // Could possibly cause gyro issues
+	//public static final double gyroAdjustmentScaleFactor = .011; // Could possibly cause gyro issues
+	public static final double gyroAdjustmentDefaultScaleFactor = .03;
+	public static final double driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor = .011;
 	public static final double gyroCooldownTimerTime = .5;
 	public static final double translationMaxTurnScaling = .5;
-	public static final double gyroAutoTurnAcceptableErrorDegrees = 4;
-	public static final boolean DriveTrainStartingIsInHighGear = false;
+	public static final double gyroAutoTurnAcceptableErrorDegrees = 1;
+	public static final boolean driveTrainStartingIsInHighGear = false;
 	
 	// Drive collision
 	public static final double DriveTrainCollisionJerkThreshold = 4;
@@ -33,7 +35,7 @@ public final class Calibrations {
 	public static final int gyroEnabled = 1;
 	
 	// Any turn taking too long to complete (e.g. wheel scrub has halted the turn) will abandon after this number of seconds.
-	public static final double DriveTrainTurnRelativeDegreesSafetyTimerSeconds = 1;
+	public static final double DriveTrainTurnRelativeDegreesSafetyTimerSeconds = 3;
 	
 	// Deadband
 	public static final double deadbandMagnitude = .1;

@@ -6,7 +6,6 @@ import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team188.robot.commands.LED.LEDRainbowCommand;
 
-import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class LEDSubsystem extends Subsystem{
