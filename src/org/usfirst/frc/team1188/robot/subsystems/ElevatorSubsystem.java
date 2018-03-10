@@ -96,13 +96,13 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void periodic() {
-    	PCDashboardDiagnostics.SubsystemData("Elevator", "EncoderRight", "" + this.getRightEncoderPosition());
-    	PCDashboardDiagnostics.SubsystemData("Elevator", "EncoderLeft", "" + this.getLeftEncoderPosition());
-    	PCDashboardDiagnostics.SubsystemData("Elevator", "EncoderAvg", "" + this.getElevatorPosition());
-    	PCDashboardDiagnostics.SubsystemData("Elevator", "LimitSwitchTop", "" + this.getTopLimitSwitchValue());
-    	PCDashboardDiagnostics.SubsystemData("Elevator", "LimitSwitchBottom", "" + this.getBottomLimitSwitchValue());
-    	PCDashboardDiagnostics.SubsystemData("Elevator", "LimitFinalExtension", "" + this.getIsAtExtensionLimit());
-    	PCDashboardDiagnostics.SubsystemData("Elevator", "LimitFinalRetraction", "" + this.getIsAtRetractionLimit());
+    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderRight", this.getRightEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderLeft", this.getLeftEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderAvg", this.getElevatorPosition());
+    	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchTop", this.getTopLimitSwitchValue());
+    	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchBottom", this.getBottomLimitSwitchValue());
+    	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitFinalExtension", this.getIsAtExtensionLimit());
+    	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitFinalRetraction", this.getIsAtRetractionLimit());
     }
     
     public int getElevatorPosition() {

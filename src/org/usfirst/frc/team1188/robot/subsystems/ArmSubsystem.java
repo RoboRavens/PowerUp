@@ -34,13 +34,13 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void periodic() {
-    	PCDashboardDiagnostics.SubsystemData("Arm", "EncoderRight", "" + this.rightMotor.getSelectedSensorPosition(0));
-    	PCDashboardDiagnostics.SubsystemData("Arm", "EncoderLeft", "" + this.leftMotor.getSelectedSensorPosition(0));
-    	PCDashboardDiagnostics.SubsystemData("Arm", "EncoderAvg", "" + this.getEncoderPosition());
-    	PCDashboardDiagnostics.SubsystemData("Arm", "LimitSwitchExtension", "" + this.getExtensionLimitSwitchValue());
-    	PCDashboardDiagnostics.SubsystemData("Arm", "LimitSwitchRetraction", "" + this.getRetractionLimitSwitchValue());
-    	PCDashboardDiagnostics.SubsystemData("Arm", "LimitFinalExtension", "" + this.getIsAtExtensionLimit());
-    	PCDashboardDiagnostics.SubsystemData("Arm", "LimitFinalRetraction", "" + this.getIsAtRetractionLimit());
+    	PCDashboardDiagnostics.SubsystemNumber("Arm", "EncoderRight", this.rightMotor.getSelectedSensorPosition(0));
+    	PCDashboardDiagnostics.SubsystemNumber("Arm", "EncoderLeft", this.leftMotor.getSelectedSensorPosition(0));
+    	PCDashboardDiagnostics.SubsystemNumber("Arm", "EncoderAvg", this.getEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchExtension", this.getExtensionLimitSwitchValue());
+    	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchRetraction", this.getRetractionLimitSwitchValue());
+    	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitFinalExtension", this.getIsAtExtensionLimit());
+    	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitFinalRetraction", this.getIsAtRetractionLimit());
     }
     
 	public boolean getExtensionLimitSwitchValue() {
