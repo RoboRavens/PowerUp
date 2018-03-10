@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1188.robot.commands.arm;
 
+import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,7 +28,7 @@ public class ArmExtendFullyCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	boolean isFinished = false;
-    	if (Robot.ARM_SUBSYSTEM.getIsAtExtensionLimit()) {
+    	if (Robot.ARM_SUBSYSTEM.getEncoderPosition() >= Calibrations.armEncoderValueAtTop - Calibrations.ARM_ENCODER_BUFFER) {
     		Robot.ARM_SUBSYSTEM.stop();
     		isFinished = true;
     	} 

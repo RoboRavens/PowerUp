@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LEDRainbowCommand extends Command{
 	
 	public LEDRainbowCommand() {
-		requires(Robot.LED_RAINBOW_SUBSYSTEM);
+		requires(Robot.LED_SUBSYSTEM);
 	}
 	
 	// Called just before this Command runs the first time
@@ -15,8 +15,9 @@ public class LEDRainbowCommand extends Command{
     }
     
  // Called repeatedly when this Command is scheduled to run
-    protected void execute() {     
-        Robot.LED_RAINBOW_SUBSYSTEM.run();
+    public void execute() {     
+        Robot.LED_SUBSYSTEM.run();
+        // System.out.println("running command@@@@@@@@@@@@@@@");
     }
 
 	@Override

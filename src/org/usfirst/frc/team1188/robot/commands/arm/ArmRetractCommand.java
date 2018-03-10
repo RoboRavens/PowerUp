@@ -21,7 +21,6 @@ public class ArmRetractCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	_safetyTimer.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,21 +31,12 @@ public class ArmRetractCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean isFinished = false;
-    	if (_safetyTimer.get() > .1) {
-    		isFinished = true;
-    	}
-    	
-    	if (isFinished) {
-    		Robot.ARM_SUBSYSTEM.stop();
-    	}
-    	
-        return isFinished;
+        return _safetyTimer.get() > .1;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	// Robot.ARM_SUBSYSTEM.stop();
+    	Robot.ARM_SUBSYSTEM.stop();
     }
 
     // Called when another command which requires one or more of the same
