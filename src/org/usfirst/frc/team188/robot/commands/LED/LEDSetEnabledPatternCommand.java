@@ -4,9 +4,9 @@ import org.usfirst.frc.team1188.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LEDRainbowSetAutonomousPatternCommand extends Command{
+public class LEDSetEnabledPatternCommand extends Command{
 	
-	public LEDRainbowSetAutonomousPatternCommand() {
+	public LEDSetEnabledPatternCommand() {
 		requires(Robot.LED_SUBSYSTEM);
 	}
 	
@@ -16,13 +16,13 @@ public class LEDRainbowSetAutonomousPatternCommand extends Command{
     
  // Called repeatedly when this Command is scheduled to run
     protected void execute() {     
-        Robot.LED_SUBSYSTEM.setAutonomousPattern();
+        Robot.LED_SUBSYSTEM.setEnabledPattern();
     }
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	
 	// Called once after isFinished returns true

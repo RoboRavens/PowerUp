@@ -4,7 +4,7 @@ import org.team401.LightLink;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team188.robot.commands.LED.LEDRainbowCommand;
+import org.usfirst.frc.team188.robot.commands.LED.LEDCommand;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -20,41 +20,73 @@ public class LEDSubsystem extends Subsystem{
 	public void run() {
 		
 		if (Robot.DRIVE_CONTROLLER.getButtonValue(ButtonCode.A)) { 
-			led.off(0);
-			led.off(1);
-			led.off(2);
-			led.off(3);
+			off();
 		}
 		
 		if (Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit() == true) {
-			led.rainbow(0, 0);
+			rainbow(0);
 			//System.out.println("Lighting UP Lighting UP Lighting UP Lighting UP Lighting UP Lighting UP Lighting UP");
 		}
 	}
 	
 	public void setDisabledPattern() {	
-		led.breathe(1, 0, 0);
-		led.breathe(1, 0, 5);
-		led.breathe(1, 0, 2);
-		led.breathe(1, 0, 3);
+		breathe(1, 0);
 	}
 	
 	public void setEnabledPattern() {
-		led.breathe(5, 0, 0);
-		led.breathe(5, 0, 1);
-		led.breathe(5, 0, 2);
-		led.breathe(5, 0, 3);
+		breathe(5, 0);
 	}
 	
 	public void setAutonomousPattern() {
-		led.breathe(2);
+		breathe(2, 0);
+	}
+	
+	public void breathe(int color, int speed) {
+		led.breathe(color, speed, 0);
+		led.breathe(color, speed, 1);
+		led.breathe(color, speed, 2);
+		led.breathe(color, speed, 3);
+	}
+	
+	public void race(int color, int speed) {
+		led.race(color, speed, 0);
+		led.race(color, speed, 1);
+		led.race(color, speed, 2);
+		led.race(color, speed, 3);
+	}
+	
+	public void blink(int color, int speed) {
+		led.blink(color, speed, 0);
+		led.blink(color, speed, 1);
+		led.blink(color, speed, 2);
+		led.blink(color, speed, 3);
+	}
+	
+	public void bounce(int color, int speed) {
+		led.bounce(color, speed, 0);
+		led.bounce(color, speed, 1);
+		led.bounce(color, speed, 2);
+		led.bounce(color, speed, 3);
+	}
+	
+	public void rainbow(int speed) {
+		led.rainbow(speed, 0);
+		led.rainbow(speed, 1);
+		led.rainbow(speed, 2);
+		led.rainbow(speed, 3);
+	}
+	
+	public void off() {
+		led.off(0);
+		led.off(1);
+		led.off(2);
+		led.off(3);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
 		 // Set the default command for a subsystem here.
-		setDefaultCommand(new LEDRainbowCommand());
+		setDefaultCommand(new LEDCommand());
 		
 	}
-
 }

@@ -41,6 +41,7 @@ import org.usfirst.frc.team1188.robot.subsystems.LEDSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team1188.util.OverrideSystem;
+import org.usfirst.frc.team188.robot.commands.LED.LEDBlinkFor2SecondsCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -118,7 +119,7 @@ public class Robot extends TimedRobot {
 		// m_chooser.addObject(name, object);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		
+		driverStation.getMatchTime();
 		// Zero the elevator encoders; the robot should always start with the elevator down.
 		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
 		Robot.ELEVATOR_SUBSYSTEM.resetEncoders();
@@ -442,7 +443,22 @@ public class Robot extends TimedRobot {
 		//Robot.ARM_SUBSYSTEM.getPosition();
 		 
 		 diagnostics.outputTeleopDiagnostics();
-		 System.out.println(PDP.getVoltage());
+		 // System.out.println(PDP.getVoltage());
+		 
+		 if (driverStation.getMatchTime() == 90 || driverStation.getMatchTime() == 60 || driverStation.getMatchTime() == 30 || driverStation.getMatchTime() == 10) {
+			LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand();
+			command.start();
+		 }
+	}
+	
+	public boolean getMatchIsAtTime(int matchSecond) {
+		boolean isFinished = false;
+		double matchTime = driverStation.getMatchTime();
+		if (matchTime > matchSecond - .5 && matchTime < matchSecond + .5) {
+			isFinished = true;
+		}
+		
+		return isFinished;
 	}
 	
 	public void runOperatorControls() {
@@ -466,7 +482,8 @@ public class Robot extends TimedRobot {
 	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false);
 	      }		
 	    }
-	    
+	    */
+		
 	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.A)) {
 	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(180);
 	    }
