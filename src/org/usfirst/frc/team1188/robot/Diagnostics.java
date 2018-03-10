@@ -14,7 +14,7 @@ public class Diagnostics {
 	}
 	
 	public void outputTeleopDiagnostics() {
-		System.out.println("GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+" GyroCurrentHeading "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()+" GyroCurrentAngle "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
+		// System.out.println("GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+" GyroCurrentHeading "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()+" GyroCurrentAngle "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
 		
 		// System.out.println("Arm encoder value: " + Robot.ARM_SUBSYSTEM.getEncoderPosition());
 		
@@ -87,10 +87,10 @@ public class Diagnostics {
 		// System.out.println("Shooter RPM: " + Math.round(robot.fuelShooter.shooterMotorLead.getSpeed() / 2));
 		//System.out.println("DT total IT: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled()));
 		
-		PCDashboardDiagnostics.AdHocData("GyroAdjust", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust);
-		PCDashboardDiagnostics.AdHocData("GyroCurrentHeading", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading());
-		PCDashboardDiagnostics.AdHocData("GyroCurrentAngle", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
-		System.out.println("GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+" GyroCurrentHeading "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()+" GyroCurrentAngle "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
+//		PCDashboardDiagnostics.AdHocData("GyroAdjust", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust);
+//		PCDashboardDiagnostics.AdHocData("GyroCurrentHeading", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading());
+//		PCDashboardDiagnostics.AdHocData("GyroCurrentAngle", "" + Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
+//		System.out.println("GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+" GyroCurrentHeading "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()+" GyroCurrentAngle "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.orientationGyro.getAngle());
 		//PCDashboardDiagnostics.AdHocData(name, data);
 		
 	}

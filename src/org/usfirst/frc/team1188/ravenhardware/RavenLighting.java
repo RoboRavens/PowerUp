@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.Timer;
 
-public class Lighting {
+public class RavenLighting {
 	private Relay mainArray;
 	Timer timer;
 	boolean toggling;
 	boolean onForSeconds = false;
 	double secondsDuration = 0;
 	
-	public Lighting (Relay relay) {
+	public RavenLighting (Relay relay) {
 		mainArray = relay;
 		timer = new Timer();
 		toggling = false;

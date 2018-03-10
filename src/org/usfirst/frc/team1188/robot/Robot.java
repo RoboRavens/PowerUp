@@ -11,6 +11,7 @@ package org.usfirst.frc.team1188.robot;
 import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
+import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmJoystickControlCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
@@ -72,8 +73,10 @@ public class Robot extends TimedRobot {
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LEDRainbowSubsystem LED_RAINBOW_SUBSYSTEM = new LEDRainbowSubsystem();
 	
-	public static final Relay HAS_CUBE_LEDS = new Relay(RobotMap.hasCubeLEDLightRelay);
-	//public static final Relay UNDERGLOW = new Relay(RobotMap.underglowLightRelay);
+	public static final Relay HAS_CUBE_LEDS_RELAY = new Relay(RobotMap.hasCubeLEDLightRelay);
+	public static final Relay UNDERGLOW_RELAY = new Relay(RobotMap.underglowLightRelay);
+	public static final RavenLighting HAS_CUBE_LEDS = new RavenLighting(HAS_CUBE_LEDS_RELAY);
+	public static final RavenLighting UNDERGLOW = new RavenLighting(UNDERGLOW_RELAY);
 	
 	// public static final ArmJoystickControlCommand ARM_JOYSTICK_CONTROL_COMMAND = new ArmJoystickControlCommand();
 	
