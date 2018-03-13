@@ -140,8 +140,8 @@ public class RavenTank {
 	public void setSlewRate(double slewRate) {
 		_slewRate = slewRate;
 		// TODO: Implement setSlewRate
-		// driveRightSide.setSlewRate(slewRate);
-		// driveLeftSide.setSlewRate(slewRate);
+		 this.driveRight.setSlewRate(_slewRate);
+		 this.driveLeft.setSlewRate(_slewRate);
 	}
 	
 	public void setMaxPower(double maxPower) {
@@ -212,12 +212,12 @@ public class RavenTank {
     	
     	if (detectCollisions() == true) {
     		shiftToLowGear();
-    		shiftedToLowGearLighting.turnOnForSeconds(3);
+    		//shiftedToLowGearLighting.turnOnForSeconds(3);
     	}
     }
     
     public boolean detectCollisions() {
-    	shiftedToLowGearLighting.maintainSecondsState();
+    	//shiftedToLowGearLighting.maintainSecondsState();
     	boolean collisionDetected = false;
     	
     	double currentAccelerationX = orientationGyro.getWorldLinearAccelX();
