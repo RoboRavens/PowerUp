@@ -25,8 +25,7 @@ public class RobotMap {
 	public static final int elevatorEncoder1 = 20;
 	public static final int elevatorEncoder2 = 21;
 	
-	public static final int elevatorMotorLeft = 3;
-	public static final int elevatorMotorRight = 2;
+	public static final int elevatorMotor = 2;
 	
 	public static final int topLimitSwitch = 7;
 	public static final int bottomLimitSwitch = 6;
@@ -41,8 +40,7 @@ public class RobotMap {
 	public static final int intakeSensor = 5;
 	
 	// Arm System
-	public static final int armMotorLeft = 5;
-	public static final int armMotorRight = 4;
+	public static final int armMotor = 4;
 	
 	public static final int armHoldBackSolenoid = 6;
 	

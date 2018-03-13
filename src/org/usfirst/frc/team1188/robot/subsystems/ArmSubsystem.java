@@ -16,15 +16,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class ArmSubsystem extends Subsystem {
-	TalonSRX leftMotor;
-	TalonSRX rightMotor;
+	TalonSRX armMotor;
 	DigitalInput extensionLimitSwitch;
 	DigitalInput retractionLimitSwitch;
 	
 	public ArmSubsystem() {
-		this.leftMotor = new TalonSRX(RobotMap.armMotorLeft);
-		this.rightMotor = new TalonSRX(RobotMap.armMotorRight);
-		this.leftMotor.setInverted(true);
+		this.armMotor = new TalonSRX(RobotMap.armMotor);
 		this.retractionLimitSwitch = new DigitalInput(RobotMap.armRetractionLimitSwitch);
 		this.extensionLimitSwitch = new DigitalInput(RobotMap.armExtensionLimitSwitch);
 	}
@@ -34,8 +31,7 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void periodic() {
-    	PCDashboardDiagnostics.SubsystemNumber("Arm", "EncoderRight", this.rightMotor.getSelectedSensorPosition(0));
-    	PCDashboardDiagnostics.SubsystemNumber("Arm", "EncoderLeft", this.leftMotor.getSelectedSensorPosition(0));
+    	PCDashboardDiagnostics.SubsystemNumber("Arm", "Encoder", this.armMotor.getSelectedSensorPosition(0));
     	PCDashboardDiagnostics.SubsystemNumber("Arm", "EncoderAvg", this.getEncoderPosition());
     	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchExtension", this.getExtensionLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchRetraction", this.getRetractionLimitSwitchValue());
@@ -146,17 +142,16 @@ public class ArmSubsystem extends Subsystem {
     
     
     public int getEncoderPosition() {
-    	return (rightMotor.getSelectedSensorPosition(0) + leftMotor.getSelectedSensorPosition(0)) / 2;
+    	return (armMotor.getSelectedSensorPosition(0));
     }
     
     public void resetEncodersToTop() {
-    	this.rightMotor.setSelectedSensorPosition(Calibrations.armEncoderValueRetracted, 0, 0);
-    	this.leftMotor.setSelectedSensorPosition(Calibrations.armEncoderValueRetracted, 0, 0);
+    	this.armMotor.setSelectedSensorPosition(Calibrations.armEncoderValueRetracted, 0, 0);
+    	
     }
     
     public void resetEncodersToBottom() {
-    	this.rightMotor.setSelectedSensorPosition(Calibrations.armEncoderValueExtended, 0, 0);
-    	this.leftMotor.setSelectedSensorPosition(Calibrations.armEncoderValueExtended, 0, 0);
+    	this.armMotor.setSelectedSensorPosition(Calibrations.armEncoderValueExtended, 0, 0);
     }
     
     /*
@@ -212,9 +207,8 @@ public class ArmSubsystem extends Subsystem {
     	magnitude = Math.max(magnitude, -1);
     	magnitude *= Calibrations.armMaximumSpeed;
     	
-    	this.leftMotor.set(ControlMode.PercentOutput, magnitude);
-    	this.rightMotor.set(ControlMode.PercentOutput, magnitude);
+    	this.armMotor.set(ControlMode.PercentOutput, magnitude);
     	
-    	//System.out.println("RMO: " + this.rightMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());
+    	//System.out.println("RMO: " + this.SSSMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());
     }
 }
