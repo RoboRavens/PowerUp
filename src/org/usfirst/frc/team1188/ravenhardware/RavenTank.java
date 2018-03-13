@@ -212,12 +212,12 @@ public class RavenTank {
     	
     	if (detectCollisions() == true) {
     		shiftToLowGear();
-    		shiftedToLowGearLighting.turnOnForSeconds(3);
+    		//shiftedToLowGearLighting.turnOnForSeconds(3);
     	}
     }
     
     public boolean detectCollisions() {
-    	shiftedToLowGearLighting.maintainSecondsState();
+    	//shiftedToLowGearLighting.maintainSecondsState();
     	boolean collisionDetected = false;
     	
     	double currentAccelerationX = orientationGyro.getWorldLinearAccelX();
