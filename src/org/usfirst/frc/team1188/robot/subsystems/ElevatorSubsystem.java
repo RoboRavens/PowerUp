@@ -18,8 +18,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class ElevatorSubsystem extends Subsystem {
-	TalonSRX leftMotor;
-	TalonSRX rightMotor;
+	TalonSRX elevatorMotor;
 	DigitalInput topLimitSwitch;
 	DigitalInput bottomLimitSwitch;
 	Encoder encoder;
@@ -30,9 +29,7 @@ public class ElevatorSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	public ElevatorSubsystem() {
-		this.rightMotor = new TalonSRX(RobotMap.elevatorMotorRight);
-		this.leftMotor = new TalonSRX(RobotMap.elevatorMotorLeft);
-		this.leftMotor.setInverted(true);
+		this.elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
 		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 		this.bottomLimitSwitch = new DigitalInput(RobotMap.bottomLimitSwitch);
 		this.topLimitSwitch = new DigitalInput(RobotMap.topLimitSwitch);
@@ -81,23 +78,17 @@ public class ElevatorSubsystem extends Subsystem {
 	}
     
     public void getPosition() {
-    	System.out.print("Right: " + this.getRightEncoderPosition());
-    	System.out.println("Left: " + this.getLeftEncoderPosition());
+    	System.out.print("Elevator Position: " + this.getEncoderPosition());
     }
     
-    public int getLeftEncoderPosition() {
-    	return this.leftMotor.getSelectedSensorPosition(0);
-    }
-    
-    public int getRightEncoderPosition() {
-    	int rightEncoderPosition = this.rightMotor.getSelectedSensorPosition(0);
+    public int getEncoderPosition() {
+    	int EncoderPosition = this.elevatorMotor.getSelectedSensorPosition(0);
     	
-    	return rightEncoderPosition;
+    	return EncoderPosition;
     }
     
     public void periodic() {
-    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderRight", this.getRightEncoderPosition());
-    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderLeft", this.getLeftEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "Encoder", this.getEncoderPosition());
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderAvg", this.getElevatorPosition());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchTop", this.getTopLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchBottom", this.getBottomLimitSwitchValue());
@@ -107,7 +98,7 @@ public class ElevatorSubsystem extends Subsystem {
     
     public int getElevatorPosition() {
     	int elevatorPosition;
-    	elevatorPosition = (this.getLeftEncoderPosition() + this.getRightEncoderPosition()) / 2;
+    	elevatorPosition = (this.getEncoderPosition());
     	return elevatorPosition;
     }
     
@@ -116,13 +107,11 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void resetEncodersToBottom() {
-    	this.rightMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
-    	this.leftMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
+    	this.elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
     }
     
     public void resetEncodersToTop() {
-    	this.rightMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMaximumValue, 0, 0);
-    	this.leftMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMaximumValue, 0, 0);
+    	this.elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMaximumValue, 0, 0);
     }
     
     private void set(double magnitude) {
@@ -143,8 +132,7 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     private void setMotors(double magnitude) {
-    	leftMotor.set(ControlMode.PercentOutput, magnitude);
-    	rightMotor.set(ControlMode.PercentOutput, magnitude);
+    	elevatorMotor.set(ControlMode.PercentOutput, magnitude);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
@@ -152,7 +140,7 @@ public class ElevatorSubsystem extends Subsystem {
     	boolean encoderLimit = false;
     	boolean switchLimit = false;
     	
-    	if (this.getRightEncoderPosition() - Calibrations.elevatorLiftDownwardSafetyMargin < Calibrations.elevatorLiftEncoderMinimumValue) {
+    	if (this.getEncoderPosition() - Calibrations.elevatorLiftDownwardSafetyMargin < Calibrations.elevatorLiftEncoderMinimumValue) {
     		encoderLimit = true;
     	}
     	
@@ -174,7 +162,7 @@ public class ElevatorSubsystem extends Subsystem {
     	boolean switchLimit = false;
     	
     	
-    	if (this.getRightEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
+    	if (this.getEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
     		encoderLimit = true;
     	}
     	
