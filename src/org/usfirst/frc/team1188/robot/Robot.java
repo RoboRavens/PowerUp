@@ -445,9 +445,18 @@ public class Robot extends TimedRobot {
 		 diagnostics.outputTeleopDiagnostics();
 		 // System.out.println(PDP.getVoltage());
 		 
-		 if (driverStation.getMatchTime() == 90 || driverStation.getMatchTime() == 60 || driverStation.getMatchTime() == 30 || driverStation.getMatchTime() == 10) {
-			LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand();
-			command.start();
+		 if (getMatchIsAtTime(90)) {
+			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(4);
+			    command.start();
+		 } else if (getMatchIsAtTime(60)) {
+			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(3);
+				command.start();
+		 } else if (getMatchIsAtTime(30)) {
+			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(2);
+				command.start();
+		 } else if (getMatchIsAtTime(10)) {
+			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(1);
+				command.start();
 		 }
 	}
 	
@@ -579,3 +588,4 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 	}
 }
+
