@@ -77,6 +77,8 @@ public final class Calibrations {
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
 	
+	public static final double elevatorConsideredMovingEncoderRate = 0;
+	
 	
 	public static final double elevatorMinimumScaleHeightInches = 51;
 	public static final double elevatorBalancedScaleHeightInches = 67;

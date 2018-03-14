@@ -4,6 +4,7 @@ import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStopCommand;
 import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -24,6 +25,7 @@ public class ElevatorSubsystem extends Subsystem {
 	Encoder encoder;
 	private Timer _safetyTimer = new Timer();
 	private int _targetEncoderPosition;
+	private double _expectedPower;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -88,6 +90,11 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void periodic() {
+    	elevatorSubsystemDiagnostics();
+    	checkExpectedSpeedVersusPower();
+    }
+    
+    public void elevatorSubsystemDiagnostics() {
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "Encoder", this.getEncoderPosition());
     	// PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitEncoderTop", TODO);
     	// PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitEncoderBottom", TODO);
@@ -95,6 +102,26 @@ public class ElevatorSubsystem extends Subsystem {
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchBottom", this.getBottomLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitFinalExtension", this.getIsAtExtensionLimit());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitFinalRetraction", this.getIsAtRetractionLimit());
+
+    	// Measure speed of elevator
+    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderRate", encoder.getRate());
+    	// Measure power sent to elevator
+    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderExpectedPower", _expectedPower);
+    }
+    
+    public void checkExpectedSpeedVersusPower() {
+    	// Check if elevator is being sent power and not moving at the right speed
+    	if (Math.abs(_expectedPower) > Calibrations.elevatorHoldPositionPowerMagnitude) {
+    		// The line below only returns as true if the elevator is pushing harder than it needs to not move it 
+    		if (Math.abs(encoder.getRate()) < Calibrations.elevatorConsideredMovingEncoderRate) { 
+    			burnoutProtection();
+    		}
+    	}
+    }
+    
+    public void burnoutProtection() {
+    	ElevatorStopCommand command = new ElevatorStopCommand();
+    	command.start();
     }
     
     public int getElevatorPosition() {
@@ -127,6 +154,8 @@ public class ElevatorSubsystem extends Subsystem {
     	if (getIsAtRetractionLimit() == true && Math.signum(magnitude) == -1) {
     		magnitude = 0;
     	}
+    	
+    	_expectedPower = magnitude;
     	
     	this.setMotors(magnitude);
     	// leftMotor.set(ControlMode.PercentOutput, -1 * magnitude);
