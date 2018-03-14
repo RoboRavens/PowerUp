@@ -11,6 +11,7 @@ package org.usfirst.frc.team1188.robot;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
+import org.usfirst.frc.team1188.robot.commands.LED.LEDBlinkFor2SecondsCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousCrossAutoLineCommand;
@@ -41,12 +42,12 @@ import org.usfirst.frc.team1188.robot.subsystems.LEDSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team1188.util.OverrideSystem;
-import org.usfirst.frc.team188.robot.commands.LED.LEDBlinkFor2SecondsCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -435,6 +436,8 @@ public class Robot extends TimedRobot {
 		
 		runOperatorControls();
 		
+		//RobotController.getBatteryVoltage();
+		
 		//System.out.println("teleop setting on");
 		//this.HAS_CUBE_LEDS.set(Value.kForward);
 		
@@ -444,7 +447,7 @@ public class Robot extends TimedRobot {
 		 
 		 diagnostics.outputTeleopDiagnostics();
 		 // System.out.println(PDP.getVoltage());
-		 
+
 		 if (getMatchIsAtTime(90)) {
 			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(4);
 			    command.start();

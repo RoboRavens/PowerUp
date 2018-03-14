@@ -1,4 +1,4 @@
-package org.usfirst.frc.team188.robot.commands.LED;
+package org.usfirst.frc.team1188.robot.commands.LED;
 
 import org.usfirst.frc.team1188.robot.Robot;
 

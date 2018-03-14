@@ -1,4 +1,4 @@
-package org.usfirst.frc.team188.robot.commands.LED;
+package org.usfirst.frc.team1188.robot.commands.LED;
 
 import org.usfirst.frc.team1188.robot.Robot;
 
@@ -20,6 +20,7 @@ public class LEDBlinkFor2SecondsCommand extends Command {
     protected void initialize() {
     	_timer.start();
     	Robot.LED_SUBSYSTEM.race(color, 2);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
