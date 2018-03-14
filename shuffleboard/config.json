@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.25,
+  "dividerPosition": 0.24266862170087977,
   "tabPane": [
     {
       "title": "Arm Diagnostics",
@@ -11,62 +11,10 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "0,0": {
-            "size": [
-              2,
-              3
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "Extension",
-              "_children": [
-                {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitFinalExtension",
-                  "_title": "/Diagnostics/Subsystem/Arm/LimitFinalExtension",
-                  "colorWhenTrue": "#7CFC00FF",
-                  "colorWhenFalse": "#8B0000FF"
-                },
-                {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitSwitchExtension",
-                  "_title": "/Diagnostics/Subsystem/Arm/LimitSwitchExtension",
-                  "colorWhenTrue": "#7CFC00FF",
-                  "colorWhenFalse": "#8B0000FF"
-                }
-              ]
-            }
-          },
-          "2,0": {
-            "size": [
-              2,
-              3
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "Retraction",
-              "_children": [
-                {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitFinalRetraction",
-                  "_title": "/Diagnostics/Subsystem/Arm/LimitFinalRetraction",
-                  "colorWhenTrue": "#7CFC00FF",
-                  "colorWhenFalse": "#8B0000FF"
-                },
-                {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitSwitchRetraction",
-                  "_title": "/Diagnostics/Subsystem/Arm/LimitSwitchRetraction",
-                  "colorWhenTrue": "#7CFC00FF",
-                  "colorWhenFalse": "#8B0000FF"
-                }
-              ]
-            }
-          },
-          "0,3": {
+          "0,1": {
             "size": [
               4,
-              3
+              2
             ],
             "content": {
               "_type": "Simple Dial",
@@ -77,18 +25,98 @@
               "valueVisible": true
             }
           },
-          "4,0": {
+          "0,0": {
             "size": [
               4,
-              3
+              1
             ],
             "content": {
-              "_type": "Simple Dial",
+              "_type": "Number Bar",
               "_source0": "network_table:///Diagnostics/Subsystem/Arm/Encoder",
               "_title": "Encoder",
-              "minValue": -2048.0,
-              "maxValue": 0.0,
-              "valueVisible": true
+              "min": -2348.0,
+              "max": 300.0,
+              "center": 0.0,
+              "numTickMarks": 0.0,
+              "showText": true
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitEncoderExtension",
+              "_title": "Encoder",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "4,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitFinalExtension",
+              "_title": "Limit Final Extension",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitSwitchExtension",
+              "_title": "Switch",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "4,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitFinalRetraction",
+              "_title": "Limit Final Retraction",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitEncoderRetraction",
+              "_title": "Encoder",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Arm/LimitSwitchRetraction",
+              "_title": "Switch",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
             }
           }
         }
@@ -103,7 +131,218 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "tiles": {}
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/Encoder",
+              "_title": "Diagnostics/Subsystem/Elevator/Encoder"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Drive Train Diagnostics",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///Diagnostics/Subsystem/DriveTrain/SlewRate",
+              "_title": "SlewRate",
+              "min": 0.0,
+              "max": 0.5,
+              "center": 0.0,
+              "numTickMarks": 2.0,
+              "showText": true
+            }
+          },
+          "2,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///Diagnostics/Subsystem/DriveTrain/PowerMax",
+              "_title": "PowerMax",
+              "min": 0.0,
+              "max": 1.0,
+              "center": 0.0,
+              "numTickMarks": 5.0,
+              "showText": true
+            }
+          },
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Diagnostics/Subsystem/DriveTrain/EncoderLeftInchesTraveled",
+              "_title": "Left Inches"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Diagnostics/Subsystem/DriveTrain/EncoderLeftInchesTraveled",
+              "_title": "Diagnostics/Subsystem/DriveTrain/EncoderLeftInchesTraveled"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Diagnostics/Subsystem/DriveTrain/EncoderRightInchesTraveled",
+              "_title": "Diagnostics/Subsystem/DriveTrain/EncoderRightInchesTraveled"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Elevator Diagnostics",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/Encoder",
+              "_title": "ElevatorEncoder",
+              "min": -5000.0,
+              "max": 35000.0,
+              "center": 0.0,
+              "numTickMarks": 5.0,
+              "showText": true
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/MotorOutputPercent",
+              "_title": "MotorOutputPercent",
+              "minValue": -1.0,
+              "maxValue": 1.0,
+              "valueVisible": true
+            }
+          },
+          "4,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitFinalExtension",
+              "_title": "Limit Final Extension",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitSwitchBottom",
+              "_title": "Switch",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitSwitchTop",
+              "_title": "Switch",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "4,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitFinalRetraction",
+              "_title": "Limit Final Retraction",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitEncoderTop",
+              "_title": "Encoder",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitEncoderBottom",
+              "_title": "Encoder",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          }
+        }
       }
     }
   ]

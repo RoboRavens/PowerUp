@@ -39,6 +39,10 @@ public class ElevatorRetractCommand extends Command {
     	if (Robot.ELEVATOR_SUBSYSTEM.getSafetyTimer() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
     		isFinished = true;
     	}
+    	
+    	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtRetractionLimit()) {
+    		isFinished = true;
+    	}
     	return isFinished;
     }
 
