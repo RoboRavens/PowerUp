@@ -4,7 +4,7 @@ import org.team401.LightLink;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team188.robot.commands.LED.LEDCommand;
+import org.usfirst.frc.team1188.robot.commands.LED.LEDCommand;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 

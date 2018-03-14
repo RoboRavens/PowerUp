@@ -1,25 +1,22 @@
-package org.usfirst.frc.team188.robot.commands.LED;
+package org.usfirst.frc.team1188.robot.commands.LED;
 
 import org.usfirst.frc.team1188.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LEDSetDisabledPatternCommand extends Command{
+public class LEDSetEnabledPatternCommand extends Command{
 	
-	public LEDSetDisabledPatternCommand() {
+	public LEDSetEnabledPatternCommand() {
 		requires(Robot.LED_SUBSYSTEM);
 	}
 	
 	// Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("Starting disabled pattern");
     }
     
  // Called repeatedly when this Command is scheduled to run
     protected void execute() {     
-
-    	System.out.println("Executing disabled pattern");
-        Robot.LED_SUBSYSTEM.setDisabledPattern();
+        Robot.LED_SUBSYSTEM.setEnabledPattern();
     }
 
 	@Override
