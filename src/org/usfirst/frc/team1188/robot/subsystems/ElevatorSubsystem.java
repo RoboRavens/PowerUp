@@ -89,8 +89,8 @@ public class ElevatorSubsystem extends Subsystem {
     
     public void periodic() {
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "Encoder", this.getEncoderPosition());
-    	// PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitEncoderTop", TODO);
-    	// PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitEncoderBottom", TODO);
+    	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitEncoderTop", this.isEncoderAtExtensionLimit());
+    	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitEncoderBottom", this.isEncoderAtRetractionLimit());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchTop", this.getTopLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchBottom", this.getBottomLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitFinalExtension", this.getIsAtExtensionLimit());
@@ -175,17 +175,21 @@ public class ElevatorSubsystem extends Subsystem {
     
     public boolean isEncoderAtExtensionLimit() {
     	boolean encoderLimit = false;
-    	if (this.getEncoderPosition() <= Calibrations.elevatorLiftEncoderMaximumValue + Calibrations.elevatorLiftUpwardSafetyMargin) {
+    	
+    	if (this.getEncoderPosition() >= Calibrations.elevatorLiftEncoderMaximumValue - Calibrations.elevatorLiftUpwardSafetyMargin) {
     		encoderLimit = true;
     	}
+    	
     	return encoderLimit;
     }
     
     public boolean isEncoderAtRetractionLimit() {
     	boolean encoderLimit = false;
-    	if (this.getEncoderPosition() <= Calibrations.elevatorLiftEncoderMinimumValue + Calibrations.elevatorLiftUpwardSafetyMargin) {
+    	
+    	if (this.getEncoderPosition() <= Calibrations.elevatorLiftEncoderMinimumValue + Calibrations.elevatorLiftDownwardSafetyMargin) {
     		encoderLimit = true;
     	}
+    	
     	return encoderLimit;
     }
     
