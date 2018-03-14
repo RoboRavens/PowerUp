@@ -2,6 +2,7 @@ package org.usfirst.frc.team1188.ravenhardware;
 
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.util.LoggerOverlordLogID;
+import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import edu.wpi.first.wpilibj.Talon;
 
@@ -9,6 +10,7 @@ public class RavenTalon {
 
 	public Talon talon;
 	protected double outputSpeed;
+	private String _name;
 	private double maxPower;
 	
 	// The default slew rate of 2 means no acceleration cutting will occur,
@@ -17,12 +19,9 @@ public class RavenTalon {
 	
 	protected double deadband = .05;
 	
-	public RavenTalon(int channel) {
+	public RavenTalon(int channel, String name, double slewRate) {
 		talon = new Talon(channel);
-	}
-	
-	public RavenTalon(int channel, double slewRate) {
-		talon = new Talon(channel);
+		_name = name;
 		setSlewRate(slewRate);
 	}
 	
@@ -79,6 +78,7 @@ public class RavenTalon {
 		
 		// System.out.println("Target: " + targetOutput + " Actual: " + outputSpeed + " Slew: " + maxSlewRate);
 		
+		PCDashboardDiagnostics.SubsystemNumber("DriveTrain", _name + "OutputPercent", outputSpeed);
 		talon.set(outputSpeed);
 	}
 }
