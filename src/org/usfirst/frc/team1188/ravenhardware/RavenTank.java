@@ -56,8 +56,8 @@ public class RavenTank {
 	
 	public boolean userControlOfCutPower = true;
 
-	RavenTalon driveLeft = new RavenTalon(RobotMap.leftDriveChannel, _slewRate);
-	RavenTalon driveRight = new RavenTalon(RobotMap.rightDriveChannel, _slewRate);
+	RavenTalon driveLeft = new RavenTalon(RobotMap.leftDriveChannel, "MotorLeft", _slewRate);
+	RavenTalon driveRight = new RavenTalon(RobotMap.rightDriveChannel, "MotorRight", _slewRate);
 	
 	protected Solenoid shiftToLowGearSolenoid;
 	protected Solenoid shiftToHighGearSolenoid;

@@ -31,8 +31,9 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void periodic() {
-    	PCDashboardDiagnostics.SubsystemNumber("Arm", "Encoder", this.armMotor.getSelectedSensorPosition(0));
-    	PCDashboardDiagnostics.SubsystemNumber("Arm", "EncoderAvg", this.getEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemNumber("Arm", "Encoder", this.getEncoderPosition());
+    	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitEncoderExtension", this.isEncoderAtExtensionLimit());
+    	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitEncoderRetraction", this.isEncoderAtRetractionLimit());
     	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchExtension", this.getExtensionLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitSwitchRetraction", this.getRetractionLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitFinalExtension", this.getIsAtExtensionLimit());
@@ -207,6 +208,7 @@ public class ArmSubsystem extends Subsystem {
     	magnitude = Math.max(magnitude, -1);
     	magnitude *= Calibrations.armMaximumSpeed;
     	
+    	PCDashboardDiagnostics.SubsystemNumber("Arm", "MotorOutputPercent", magnitude);
     	this.armMotor.set(ControlMode.PercentOutput, magnitude);
     	
     	//System.out.println("RMO: " + this.SSSMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());

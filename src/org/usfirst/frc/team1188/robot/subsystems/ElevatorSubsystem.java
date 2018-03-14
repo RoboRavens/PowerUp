@@ -89,7 +89,8 @@ public class ElevatorSubsystem extends Subsystem {
     
     public void periodic() {
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "Encoder", this.getEncoderPosition());
-    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderAvg", this.getElevatorPosition());
+    	// PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitEncoderTop", TODO);
+    	// PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitEncoderBottom", TODO);
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchTop", this.getTopLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchBottom", this.getBottomLimitSwitchValue());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitFinalExtension", this.getIsAtExtensionLimit());
@@ -132,6 +133,7 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     private void setMotors(double magnitude) {
+    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "MotorOutputPercent", magnitude);
     	elevatorMotor.set(ControlMode.PercentOutput, magnitude);
     }
     

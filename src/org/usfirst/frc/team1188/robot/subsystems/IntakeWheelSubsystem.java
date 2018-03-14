@@ -70,8 +70,14 @@ public class IntakeWheelSubsystem extends Subsystem {
     
     private void set(double magnitude) {
     	// System.out.println("Setting intake motors: " + magnitude);
-    	intakeMotorLeft.set(ControlMode.PercentOutput, -1 * magnitude);
-    	intakeMotorRight.set(ControlMode.PercentOutput, magnitude);
+    	double leftMotorMagnitude = -1 * magnitude;
+    	double rightMotorMagnitude = magnitude;
+    	
+    	PCDashboardDiagnostics.SubsystemNumber("IntakeWheel", "MotorLeftOutputPercent", leftMotorMagnitude);
+    	PCDashboardDiagnostics.SubsystemNumber("IntakeWheel", "MotorRightOutputPercent", rightMotorMagnitude);
+    	
+    	intakeMotorLeft.set(ControlMode.PercentOutput, leftMotorMagnitude);
+    	intakeMotorRight.set(ControlMode.PercentOutput, rightMotorMagnitude);
     }
     
     private boolean hasCube() {
