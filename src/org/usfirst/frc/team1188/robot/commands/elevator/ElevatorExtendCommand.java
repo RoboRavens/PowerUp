@@ -46,7 +46,6 @@ public class ElevatorExtendCommand extends Command {
     	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit()) {
     		isFinished = true;
     	}
-    	
     	return isFinished;
     }
     

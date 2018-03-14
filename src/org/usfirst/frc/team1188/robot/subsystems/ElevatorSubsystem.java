@@ -142,9 +142,7 @@ public class ElevatorSubsystem extends Subsystem {
     	boolean encoderLimit = false;
     	boolean switchLimit = false;
     	
-    	if (this.getEncoderPosition() - Calibrations.elevatorLiftDownwardSafetyMargin < Calibrations.elevatorLiftEncoderMinimumValue) {
-    		encoderLimit = true;
-    	}
+    	encoderLimit = this.isEncoderAtRetractionLimit();
     	
     	if (this.getBottomLimitSwitchValue() == true) {
     		switchLimit = true;
@@ -157,17 +155,48 @@ public class ElevatorSubsystem extends Subsystem {
     	return Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);
     }
     
+    public void expectElevatorToBeAtBottom() {
+    	boolean isAtLimitSwitch = this.getBottomLimitSwitchValue();
+    	boolean isEncoderWithinRange = isEncoderAtExtensionLimit();
+    	
+    	if (isEncoderWithinRange == false && isAtLimitSwitch == true) {
+    		this.resetEncodersToBottom();
+    	}
+    }
+    
+    public void expectElevatorToBeAtTop() {
+    	boolean isAtLimitSwitch = this.getTopLimitSwitchValue();
+    	boolean isEncoderWithinRange = isEncoderAtRetractionLimit();
+    	
+    	if (isEncoderWithinRange == false && isAtLimitSwitch == true) {
+    		this.resetEncodersToTop();
+    	}
+    }
+    
+    public boolean isEncoderAtExtensionLimit() {
+    	boolean encoderLimit = false;
+    	if (this.getEncoderPosition() <= Calibrations.elevatorLiftEncoderMaximumValue + Calibrations.elevatorLiftUpwardSafetyMargin) {
+    		encoderLimit = true;
+    	}
+    	return encoderLimit;
+    }
+    
+    public boolean isEncoderAtRetractionLimit() {
+    	boolean encoderLimit = false;
+    	if (this.getEncoderPosition() <= Calibrations.elevatorLiftEncoderMinimumValue + Calibrations.elevatorLiftUpwardSafetyMargin) {
+    		encoderLimit = true;
+    	}
+    	return encoderLimit;
+    }
+    
     // Right now this method just looks at the right limit switch; some combination of both should be used.
     public boolean getIsAtExtensionLimit() {
     	boolean isAtLimit = false;
     	boolean encoderLimit = false;
     	boolean switchLimit = false;
     	
-    	
-    	if (this.getEncoderPosition() + Calibrations.elevatorLiftUpwardSafetyMargin > Calibrations.elevatorLiftEncoderMaximumValue) {
-    		encoderLimit = true;
-    	}
-    	
+    	encoderLimit = this.isEncoderAtExtensionLimit();
+    
     	if (this.getTopLimitSwitchValue() == true) {
     		switchLimit = true;
     	}
