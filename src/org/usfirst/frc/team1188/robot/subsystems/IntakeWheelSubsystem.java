@@ -26,7 +26,6 @@ public class IntakeWheelSubsystem extends Subsystem {
 	public IntakeWheelSubsystem() {
 		this.intakeMotorLeft = new TalonSRX(RobotMap.intakeMotorLeft);
 		this.intakeMotorRight = new TalonSRX(RobotMap.intakeMotorRight);
-		this.intakeMotorLeft.setInverted(true);
 		this.intakeSensor = new BufferedDigitalInput(RobotMap.intakeSensor);
 		_hasCubeDurationTimer.start();
 	}
@@ -75,13 +74,15 @@ public class IntakeWheelSubsystem extends Subsystem {
     	
     	PCDashboardDiagnostics.SubsystemNumber("IntakeWheel", "MotorLeftOutputPercent", leftMotorMagnitude);
     	PCDashboardDiagnostics.SubsystemNumber("IntakeWheel", "MotorRightOutputPercent", rightMotorMagnitude);
-    	
     	intakeMotorLeft.set(ControlMode.PercentOutput, leftMotorMagnitude);
     	intakeMotorRight.set(ControlMode.PercentOutput, rightMotorMagnitude);
     }
     
     private boolean hasCube() {
-    	return intakeSensor.get() == false;
+    	boolean otherLimit = false;
+    	boolean hasCube = intakeSensor.get() == false;
+    	
+    	return Robot.OVERRIDE_SYSTEM_INTAKE.getIsAtLimit(hasCube, otherLimit);
     }
     
     public void periodic() {
