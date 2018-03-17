@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
+import org.usfirst.frc.team1188.ravenhardware.BufferedDigitalInput;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
@@ -10,7 +11,6 @@ import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ElevatorSubsystem extends Subsystem {
 	TalonSRX elevatorMotor;
-	DigitalInput topLimitSwitch;
-	DigitalInput bottomLimitSwitch;
+	BufferedDigitalInput topLimitSwitch;
+	BufferedDigitalInput bottomLimitSwitch;
 	Encoder encoder;
 	private Timer _safetyTimer = new Timer();
 	private int _targetEncoderPosition;
@@ -33,8 +33,8 @@ public class ElevatorSubsystem extends Subsystem {
 	public ElevatorSubsystem() {
 		this.elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
 		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
-		this.bottomLimitSwitch = new DigitalInput(RobotMap.bottomLimitSwitch);
-		this.topLimitSwitch = new DigitalInput(RobotMap.topLimitSwitch);
+		this.bottomLimitSwitch = new BufferedDigitalInput(RobotMap.bottomLimitSwitch);
+		this.topLimitSwitch = new BufferedDigitalInput(RobotMap.topLimitSwitch);
 		this._targetEncoderPosition = Calibrations.elevatorLiftEncoderMinimumValue;
 		
 	}
@@ -90,6 +90,9 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void periodic() {
+    	bottomLimitSwitch.maintainState();
+    	topLimitSwitch.maintainState();
+    	
     	elevatorSubsystemDiagnostics();
     	checkExpectedSpeedVersusPower();
     }

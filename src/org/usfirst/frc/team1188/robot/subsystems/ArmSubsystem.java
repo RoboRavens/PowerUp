@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
+import org.usfirst.frc.team1188.ravenhardware.BufferedDigitalInput;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
@@ -9,7 +10,6 @@ import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,13 +17,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ArmSubsystem extends Subsystem {
 	TalonSRX armMotor;
-	DigitalInput extensionLimitSwitch;
-	DigitalInput retractionLimitSwitch;
+	BufferedDigitalInput extensionLimitSwitch;
+	BufferedDigitalInput retractionLimitSwitch;
 	
 	public ArmSubsystem() {
 		this.armMotor = new TalonSRX(RobotMap.armMotor);
-		this.retractionLimitSwitch = new DigitalInput(RobotMap.armRetractionLimitSwitch);
-		this.extensionLimitSwitch = new DigitalInput(RobotMap.armExtensionLimitSwitch);
+		this.retractionLimitSwitch = new BufferedDigitalInput(RobotMap.armRetractionLimitSwitch);
+		this.extensionLimitSwitch = new BufferedDigitalInput(RobotMap.armExtensionLimitSwitch);
 	}
 
     public void initDefaultCommand() {
@@ -31,6 +31,9 @@ public class ArmSubsystem extends Subsystem {
     }
     
     public void periodic() {
+    	retractionLimitSwitch.maintainState();
+    	extensionLimitSwitch.maintainState();
+    	
     	PCDashboardDiagnostics.SubsystemNumber("Arm", "Encoder", this.getEncoderPosition());
     	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitEncoderExtension", this.isEncoderAtExtensionLimit());
     	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitEncoderRetraction", this.isEncoderAtRetractionLimit());
