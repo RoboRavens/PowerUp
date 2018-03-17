@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1188.ravenhardware;
 
 import java.util.LinkedList;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class BufferedDigitalInput {
