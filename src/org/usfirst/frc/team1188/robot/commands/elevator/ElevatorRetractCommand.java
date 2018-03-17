@@ -48,6 +48,7 @@ public class ElevatorRetractCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.ELEVATOR_SUBSYSTEM.expectElevatorToBeAtBottom();
     	Robot.ELEVATOR_SUBSYSTEM.stop();
     }
 

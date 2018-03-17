@@ -53,7 +53,7 @@ public class ElevatorMoveToHeightCommand extends Command {
     		isFinished = true;
     	}
     	
-    	System.out.println("GetPos Count: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderPosition() + " Encoder.get: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderValue() + " HLI: " + this.heightLimitInches);
+    	//System.out.println("GetPos Count: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderPosition() + " Encoder.get: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderPosition() + " HLI: " + this.heightLimitInches);
     	
     	if (Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition() >= this.heightLimitInches) {
     		Robot.ELEVATOR_SUBSYSTEM.stop();

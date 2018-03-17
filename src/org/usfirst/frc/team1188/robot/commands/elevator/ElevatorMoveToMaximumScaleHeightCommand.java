@@ -51,7 +51,7 @@ public class ElevatorMoveToMaximumScaleHeightCommand extends Command {
     		isFinished = true;
     	}
     	
-    	System.out.println("GetPos Count: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderPosition() + " Encoder.get: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderValue() + " HLI: " + this.heightLimitEncoderTicks);
+    	//System.out.println("GetPos Count: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderPosition() + " Encoder.get: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderPosition() + " HLI: " + this.heightLimitEncoderTicks);
     	
     	if (Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition() >= this.heightLimitEncoderTicks) {
     		Robot.ELEVATOR_SUBSYSTEM.stop();

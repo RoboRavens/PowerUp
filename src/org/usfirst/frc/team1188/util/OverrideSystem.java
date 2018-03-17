@@ -15,15 +15,12 @@ public class OverrideSystem {
 		_override2 = val;
 	}
 	
-	public boolean getIsAtLimit(boolean encoderLimit, boolean switchLimit, Gamepad controller) {
+	public boolean getIsAtLimit(boolean encoderLimit, boolean switchLimit) {
 		int limitCount = 0;
 		
 		// if limits are hit add to limit count
 		limitCount += this.boolToInt(encoderLimit);
 		limitCount += this.boolToInt(switchLimit);
-		
-		// Update overrides
-		this.setOverridesFromGamepad(controller);
 		
 		// if overrides are enabled subtract from limit count
 		limitCount -= this.boolToInt(_override1);
@@ -34,10 +31,5 @@ public class OverrideSystem {
 	
 	private int boolToInt(boolean val) {
 		return val ? 1 : 0;
-	}
-	
-	private void setOverridesFromGamepad(Gamepad controller) {
-		this.setOverride1(controller.getAxisIsPressed(AxisCode.LEFTTRIGGER));
-		this.setOverride2(controller.getAxisIsPressed(AxisCode.RIGHTTRIGGER));
 	}
 }
