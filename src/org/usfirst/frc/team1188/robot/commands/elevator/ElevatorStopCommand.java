@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1188.robot.commands.elevator;
 
+import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorStopCommand extends Command {
 	ElevatorSubsystem elevator;
 	
-    public ElevatorStopCommand(ElevatorSubsystem elevator) {
-    	requires(elevator);
+    public ElevatorStopCommand() {
+    	requires(Robot.ELEVATOR_SUBSYSTEM);
     	this.elevator = elevator;
     }
 

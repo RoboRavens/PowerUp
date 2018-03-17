@@ -41,6 +41,10 @@ public class LEDSubsystem extends Subsystem{
 		breathe(2, 0);
 	}
 	
+	public void setErrorPattern() {
+		blink(1, 2);
+	}
+	
 	public void breathe(int color, int speed) {
 		led.breathe(color, speed, 0);
 		led.breathe(color, speed, 1);
