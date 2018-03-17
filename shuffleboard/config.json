@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.24266862170087977,
+  "dividerPosition": 0.21513353115727002,
   "tabPane": [
     {
       "title": "Arm Diagnostics",
@@ -132,15 +132,30 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "0,0": {
+          "0,1": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/Encoder",
-              "_title": "/Diagnostics/Subsystem/Elevator/Encoder"
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitSwitchAndEncoderAgreeBottom",
+              "_title": "/Diagnostics/Subsystem/Elevator/LimitSwitchAndEncoderAgreeBottom",
+              "colorWhenTrue": "#336633FF",
+              "colorWhenFalse": "#990000FF"
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitSwitchAndEncoderAgreeTop",
+              "_title": "/Diagnostics/Subsystem/Elevator/LimitSwitchAndEncoderAgreeTop",
+              "colorWhenTrue": "#336633FF",
+              "colorWhenFalse": "#990000FF"
             }
           }
         }
@@ -158,7 +173,7 @@
         "tiles": {
           "0,2": {
             "size": [
-              2,
+              3,
               2
             ],
             "content": {
@@ -172,9 +187,9 @@
               "showText": true
             }
           },
-          "2,2": {
+          "3,2": {
             "size": [
-              2,
+              3,
               2
             ],
             "content": {
@@ -190,7 +205,7 @@
           },
           "0,0": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -199,9 +214,9 @@
               "_title": "Left Inches"
             }
           },
-          "1,0": {
+          "2,0": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -210,9 +225,9 @@
               "_title": "/Diagnostics/Subsystem/DriveTrain/EncoderLeftInchesTraveled"
             }
           },
-          "2,0": {
+          "4,0": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
