@@ -85,7 +85,7 @@ public class ArmSubsystem extends Subsystem {
     		this.resetEncodersToTop();
     	}
     	
-    	isAtLimit = Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);
+    	isAtLimit = Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.getIsAtLimit(encoderLimit, switchLimit);
     	
     	return isAtLimit;
     }
@@ -139,7 +139,7 @@ public class ArmSubsystem extends Subsystem {
     		this.resetEncodersToBottom();
     	}
     	
-    	isAtLimit = Robot.OVERRIDE_SYSTEM.getIsAtLimit(encoderLimit, switchLimit, Robot.OPERATION_CONTROLLER);
+    	isAtLimit = Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.getIsAtLimit(encoderLimit, switchLimit);
     	
     	return isAtLimit;
     }

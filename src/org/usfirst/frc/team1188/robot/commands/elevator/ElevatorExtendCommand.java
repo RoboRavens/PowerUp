@@ -51,6 +51,7 @@ public class ElevatorExtendCommand extends Command {
     
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.ELEVATOR_SUBSYSTEM.expectElevatorToBeAtTop();
     	Robot.ELEVATOR_SUBSYSTEM.stop();
     }
 
