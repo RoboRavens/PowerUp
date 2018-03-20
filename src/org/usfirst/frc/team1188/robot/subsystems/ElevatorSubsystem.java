@@ -32,6 +32,7 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public ElevatorSubsystem() {
 		this.elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
+		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 		this.bottomLimitSwitch = new BufferedDigitalInput(RobotMap.bottomLimitSwitch);
 		this.topLimitSwitch = new BufferedDigitalInput(RobotMap.topLimitSwitch);
 		this._targetEncoderPosition = Calibrations.elevatorLiftEncoderMinimumValue;

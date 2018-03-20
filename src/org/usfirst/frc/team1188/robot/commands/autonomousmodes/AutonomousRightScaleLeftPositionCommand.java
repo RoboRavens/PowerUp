@@ -6,8 +6,8 @@ import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -33,7 +33,7 @@ public class AutonomousRightScaleLeftPositionCommand extends CommandGroup {
     			Calibrations.drivingForward));
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
     	
-    	addSequential(new ElevatorExtendCommand());
+    	addSequential(new ElevatorExtendWhileHeldCommand());
     	addParallel(new ArmRetractFullyCommand());
     	
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
@@ -43,7 +43,7 @@ public class AutonomousRightScaleLeftPositionCommand extends CommandGroup {
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
     			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
     			Calibrations.drivingBackward));
-    	addSequential(new ElevatorRetractCommand());
+    	addSequential(new ElevatorRetractWhileHeldCommand());
     	
     
     }

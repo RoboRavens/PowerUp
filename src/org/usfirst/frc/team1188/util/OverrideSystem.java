@@ -1,8 +1,5 @@
 package org.usfirst.frc.team1188.util;
 
-import org.usfirst.frc.team1188.gamepad.AxisCode;
-import org.usfirst.frc.team1188.gamepad.Gamepad;
-
 public class OverrideSystem {
 	private boolean _override1;
 	private boolean _override2;
