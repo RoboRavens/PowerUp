@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1188.gamepad;
 
 import org.usfirst.frc.team1188.robot.Calibrations;
-import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -57,31 +56,13 @@ public class OperationPanel {
 	
 	public int getButtonNumber(ButtonCode button) {
 		int buttonNumber;
-		
+		// TODO:change button number values
 		switch (button) {
-		case RUNINTAKE:
-			buttonNumber = 1;
-			break;
-		case INTAKEOVERRIDE:
-			buttonNumber = 2;
-			break;
-		case INTAKESPIT:
-			buttonNumber = 3;
-			break;
-		case INTAKEDROP:
-			buttonNumber = 4;
-			break;
 		case ARMMANUALOVERRIDEUP:
 			buttonNumber = 5;
 			break;
 		case ARMMANUALOVERRIDEDOWN:
 			buttonNumber = 6;
-			break;
-		case ARMEXTEND:
-			buttonNumber = 7;
-			break;
-		case ARMRETRACT:
-			buttonNumber = 8;
 			break;
 		case ELEVATORMANUALOVERRIDEUP:
 			buttonNumber = 9;

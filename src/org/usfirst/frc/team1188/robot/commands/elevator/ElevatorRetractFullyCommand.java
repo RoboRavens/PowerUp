@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevatorRetractCommand extends Command {
+public class ElevatorRetractFullyCommand extends Command {
 
-    public ElevatorRetractCommand() {
+    public ElevatorRetractFullyCommand() {
     	requires(Robot.ELEVATOR_SUBSYSTEM);
     }
 

@@ -12,10 +12,13 @@ import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.gamepad.OperationPanel;
+import org.usfirst.frc.team1188.gamepad.OperationPanel2;
 import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
 import org.usfirst.frc.team1188.robot.commands.LED.LEDBlinkFor2SecondsCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendWhileHeldCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousCrossAutoLineCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousDoNothingCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousDriveStraightScoreInSwitchCommand;
@@ -28,11 +31,12 @@ import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSc
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSwitchMiddlePositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreRightSwitchLeftPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
-import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractFullyCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
@@ -46,7 +50,6 @@ import org.usfirst.frc.team1188.robot.subsystems.LEDSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team1188.util.OverrideSystem;
-import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -80,6 +83,7 @@ public class Robot extends TimedRobot {
 	public static final Gamepad DRIVE_CONTROLLER = new Gamepad(0);
 	public static final Gamepad OPERATION_CONTROLLER = new Gamepad(1);
 	public static final OperationPanel OPERATION_PANEL = new OperationPanel(2);	
+	public static final OperationPanel2 OPERATION_PANEL2 = new OperationPanel2(3);
 			
 	public static final DriveTrainSubsystem DRIVE_TRAIN_SUBSYSTEM = new DriveTrainSubsystem();
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
@@ -442,7 +446,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		runDriveController();
+		//runDriveController();
 		runOperationPanel();
 		
 		//RobotController.getBatteryVoltage();
@@ -488,11 +492,11 @@ public class Robot extends TimedRobot {
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendWhileHeldCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractWhileHeldCommand());
 		
-		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new ArmRetractCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new ArmExtendCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new ArmRetractWhileHeldCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new ArmExtendWhileHeldCommand());
 		
 		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride1(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.LEFTTRIGGER));
 		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride2(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER));
@@ -599,26 +603,32 @@ public class Robot extends TimedRobot {
 	  //DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new DriveTrainDriveInchesCommand(100, .5, Calibrations.drivingForward));
 	}
 		
-		public void runOperationPanel() {
+	public void runOperationPanel() {
 			
-		OPERATION_PANEL.getButton(ButtonCode.ARMEXTEND).whileHeld(new ArmExtendCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.ARMEXTEND).whenPressed(new ArmExtendFullyCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.ARMMIDRANGE).whenPressed(new ArmExtendFullyCommand()); //change to right command
+		OPERATION_PANEL.getButton(ButtonCode.ARMMANUALOVERRIDEDOWN).whileHeld(new ArmExtendWhileHeldCommand());
 		Robot.OVERRIDE_SYSTEM_ARM_EXTEND.setOverride1(OPERATION_PANEL.getButtonValue(ButtonCode.ARMMANUALOVERRIDEDOWN));
+		OPERATION_PANEL.getButton(ButtonCode.ARMMANUALOVERRIDEUP).whileHeld(new ArmRetractWhileHeldCommand());
 		Robot.OVERRIDE_SYSTEM_ARM_RETRACT.setOverride1(OPERATION_PANEL.getButtonValue(ButtonCode.ARMMANUALOVERRIDEUP));
-		OPERATION_PANEL.getButton(ButtonCode.ARMRETRACT).whileHeld(new ArmRetractCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.ARMRETRACT).whenPressed(new ArmRetractFullyCommand());
 		
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendFullyCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whileHeld(new ElevatorRetractWhileHeldCommand());
 		Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.setOverride1(OPERATION_PANEL.getButtonValue(ButtonCode.ELEVATORMANUALOVERRIDEDOWN));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whileHeld(new ElevatorExtendWhileHeldCommand());
 		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride1(OPERATION_PANEL.getButtonValue(ButtonCode.ELEVATORMANUALOVERRIDEUP));
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorRetractCommand());
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorRetractFullyCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
 		
-		OPERATION_PANEL.getButton(ButtonCode.INTAKEDROP).whenPressed(new IntakeWheelPushHardCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.INTAKEDROP).whileHeld(new IntakeWheelPushHardCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whileHeld(new IntakeWheelPullCommand());
 		Robot.OVERRIDE_SYSTEM_INTAKE.setOverride1(OPERATION_PANEL.getButtonValue(ButtonCode.INTAKEOVERRIDE));
-		OPERATION_PANEL.getButton(ButtonCode.INTAKESPIT).whenPressed(new IntakeWheelPushSoftCommand());
-		OPERATION_PANEL.getButton(ButtonCode.RUNINTAKE).whenPressed(new IntakeWheelPullCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.INTAKESPIT).whileHeld(new IntakeWheelPushSoftCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.RUNINTAKE).whileHeld(new IntakeWheelPullCommand());
 		
 		//PCDashboardDiagnostics.SubsystemBoolean("Elevator", "RUNINTAKE", OPERATION_PANEL.getButtonValue(ButtonCode.ELEVATORRETRACT));		
-		}
+	}
 
 	/**
 	 * This function is called periodically during test mode.
