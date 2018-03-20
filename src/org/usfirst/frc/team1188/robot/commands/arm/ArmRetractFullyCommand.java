@@ -35,7 +35,7 @@ public class ArmRetractFullyCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.ARM_SUBSYSTEM.expectArmToBeAtTop();
+    	Robot.ARM_SUBSYSTEM.expectArmToBeAtRetractionLimit();
     	Robot.ARM_SUBSYSTEM.stop();
     }
 
