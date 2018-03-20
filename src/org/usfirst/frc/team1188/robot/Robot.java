@@ -426,6 +426,8 @@ public class Robot extends TimedRobot {
 		ARM_HOLD_BACK.set(true); // retract support solenoid
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetGyroAdjustmentScaleFactor();
+		setupDriveController();
+		setupOperationPanel();
 		// DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		
 		// This makes sure that the autonomous stops running when
@@ -445,10 +447,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
-		//runDriveController();
-		runOperationPanel();
-		
 		//RobotController.getBatteryVoltage();
 		
 		//System.out.println("teleop setting on");
@@ -486,7 +484,7 @@ public class Robot extends TimedRobot {
 		return isFinished;
 	}
 	
-	public void runOperationController() {
+	public void setupOperationController() {
     	OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPullCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());		
 		
@@ -532,7 +530,7 @@ public class Robot extends TimedRobot {
 		
     }
 	
-	public void runDriveController() {
+	public void setupDriveController() {
 		
 		// Drive Train
 		 
@@ -603,7 +601,7 @@ public class Robot extends TimedRobot {
 	  //DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new DriveTrainDriveInchesCommand(100, .5, Calibrations.drivingForward));
 	}
 		
-	public void runOperationPanel() {
+	public void setupOperationPanel() {
 			
 		OPERATION_PANEL2.getButton(ButtonCode.ARMEXTEND).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL2.getButton(ButtonCode.ARMMIDRANGE).whenPressed(new ArmExtendFullyCommand()); //change to right command
