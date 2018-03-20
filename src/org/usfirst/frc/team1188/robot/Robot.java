@@ -37,6 +37,8 @@ import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedSc
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToBottom;
+import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToTop;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
@@ -492,6 +494,8 @@ public class Robot extends TimedRobot {
 		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendWhileHeldCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractWhileHeldCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTSTICK).whenPressed(new ResetEncodersToTop());
+		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTSTICK).whenPressed(new ResetEncodersToBottom());
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new ArmRetractWhileHeldCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new ArmExtendWhileHeldCommand());
@@ -519,15 +523,6 @@ public class Robot extends TimedRobot {
 			}
 		}
 		*/
-	    
-		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.LEFTSTICK)) {
-			Robot.ELEVATOR_SUBSYSTEM.resetEncodersToTop();
-		}
-		
-		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.RIGHTSTICK)) {
-			Robot.ELEVATOR_SUBSYSTEM.resetEncodersToBottom();
-		}
-		
     }
 	
 	public void setupDriveController() {
