@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1188.gamepad;
 
-import org.usfirst.frc.team1188.robot.Calibrations;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -21,28 +19,28 @@ public class OperationPanel2 {
 	}
 	public int getButtonNumber(ButtonCode button) {
 		int buttonNumber;
-		// TODO:change button number values
+		
 		switch (button) {
-		case RUNINTAKE:
+		case ARMEXTEND:
 			buttonNumber = 1;
 			break;
-		case INTAKEOVERRIDE:
+		case ARMMIDRANGE:
 			buttonNumber = 2;
 			break;
-		case INTAKESPIT:
+		case ARMRETRACT:
 			buttonNumber = 3;
 			break;
-		case INTAKEDROP:
+		case INTAKEOVERRIDE:
 			buttonNumber = 4;
 			break;
-		case ARMEXTEND:
-			buttonNumber = 7;
-			break;
-		case ARMMIDRANGE:
+		case INTAKESPIT:
 			buttonNumber = 5;
 			break;
-		case ARMRETRACT:
-			buttonNumber = 8;
+		case INTAKEDROP:
+			buttonNumber = 6;
+			break;
+		case RUNINTAKE:
+			buttonNumber = 7;
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid Button Code");
