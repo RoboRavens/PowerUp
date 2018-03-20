@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1188.robot.commands.elevator;
+package org.usfirst.frc.team1188.robot.commands.drivetrain;
 
 import org.usfirst.frc.team1188.robot.Robot;
 
@@ -7,9 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ResetEncodersToBottom extends Command {
+public class SetGyroTargetHeading extends Command {
 
-    public ResetEncodersToBottom() {
+	private int _heading;
+	
+    public SetGyroTargetHeading(int heading) {
+    	_heading = heading;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +23,7 @@ public class ResetEncodersToBottom extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ELEVATOR_SUBSYSTEM.resetEncodersToBottom();
+    	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(_heading);
     }
 
     // Make this return true when this Command no longer needs to run execute()

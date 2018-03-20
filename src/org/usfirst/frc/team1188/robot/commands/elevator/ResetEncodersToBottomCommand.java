@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ResetEncodersToTop extends Command {
+public class ResetEncodersToBottomCommand extends Command {
 
-    public ResetEncodersToTop() {
+    public ResetEncodersToBottomCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class ResetEncodersToTop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ELEVATOR_SUBSYSTEM.resetEncodersToTop();
+    	Robot.ELEVATOR_SUBSYSTEM.resetEncodersToBottom();
     }
 
     // Make this return true when this Command no longer needs to run execute()

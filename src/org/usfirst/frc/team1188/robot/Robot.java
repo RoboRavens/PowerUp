@@ -31,14 +31,15 @@ import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSc
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSwitchMiddlePositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreRightSwitchLeftPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToBottom;
-import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToTop;
+import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToBottomCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToTopCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
@@ -494,8 +495,8 @@ public class Robot extends TimedRobot {
 		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendWhileHeldCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractWhileHeldCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTSTICK).whenPressed(new ResetEncodersToTop());
-		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTSTICK).whenPressed(new ResetEncodersToBottom());
+		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTSTICK).whenPressed(new ResetEncodersToTopCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTSTICK).whenPressed(new ResetEncodersToBottomCommand());
 		
 		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new ArmRetractWhileHeldCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new ArmExtendWhileHeldCommand());
@@ -527,7 +528,10 @@ public class Robot extends TimedRobot {
 	
 	public void setupDriveController() {
 		
-		// Drive Train
+		DRIVE_CONTROLLER.getButton(ButtonCode.X).whenPressed(new SetGyroTargetHeading(270));
+		DRIVE_CONTROLLER.getButton(ButtonCode.B).whenPressed(new SetGyroTargetHeading(90));
+		DRIVE_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new SetGyroTargetHeading(0));
+		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new SetGyroTargetHeading(180));
 		 
 		/*
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
@@ -549,23 +553,6 @@ public class Robot extends TimedRobot {
 	    }
 	    */
 		
-	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.A)) {
-	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(180);
-	    }
-	    
-	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.B)) {
-	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(90);
-	    }
-	    
-	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.X)) {
-	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(270);
-	    }
-	    
-	    if (DRIVE_CONTROLLER.getButtonValue(ButtonCode.Y)) {
-	    	DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeading(0);
-	    }
-	   
-	    
 		//driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
 	    //OPERATION_CONTROLLER.getButton(ControlsMap.elevatorExtendButton).WhileHeld(new ElevatorExtendCommand());
 		//OPERATION_CONTROLLER.getButton(ControlsMap.elevatorRetractButton).whileHeld(new ElevatorRetractCommand());
