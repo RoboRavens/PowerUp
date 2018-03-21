@@ -622,7 +622,7 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenPressed(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenReleased(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorRetractFullyCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
 		
 		OPERATION_PANEL2.getButton(ButtonCode.INTAKEDROP).whileHeld(new IntakeWheelPushHardCommand());
