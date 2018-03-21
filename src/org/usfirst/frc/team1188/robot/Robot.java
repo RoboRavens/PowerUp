@@ -459,6 +459,8 @@ public class Robot extends TimedRobot {
 		 // this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 		//Robot.ARM_SUBSYSTEM.getPosition();
+		
+		runOperationController();
 		 
 		 diagnostics.outputTeleopDiagnostics();
 		 // System.out.println(PDP.getVoltage());
@@ -502,11 +504,6 @@ public class Robot extends TimedRobot {
 		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new ArmRetractWhileHeldCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new ArmExtendWhileHeldCommand());
 		
-		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride1(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.LEFTTRIGGER));
-		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride2(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER));
-		Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.setOverride1(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.LEFTTRIGGER));
-		Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.setOverride2(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER));
-		
 		/*
 		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.RIGHTBUMPER)) {
 			new IntakeWheelPullCommand().start();
@@ -526,6 +523,17 @@ public class Robot extends TimedRobot {
 		}
 		*/
     }
+	
+	/*
+	 * Joystick axis don't have a fancy class like JoystickButton which provides "whenPressed" or "whileHeld" methods, so we need to check
+	 * the values periodically here.
+	 */
+	public void runOperationController() {
+		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride1(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.LEFTTRIGGER));
+		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride2(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER));
+		Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.setOverride1(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.LEFTTRIGGER));
+		Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.setOverride2(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER));
+	}
 	
 	public void setupDriveController() {
 		
