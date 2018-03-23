@@ -45,11 +45,20 @@ public class LEDSubsystem extends Subsystem{
 		blink(1, 2);
 	}
 	
+	public void setLowBatteryInDisabledPattern() {
+		breatheHalf(6, 0);
+	}
+	
 	public void breathe(int color, int speed) {
 		led.breathe(color, speed, 0);
 		led.breathe(color, speed, 1);
 		led.breathe(color, speed, 2);
 		led.breathe(color, speed, 3);
+	}
+	
+	public void breatheHalf(int color, int speed) {
+		led.breathe(color, speed, 0);
+		led.breathe(color, speed, 2);
 	}
 	
 	public void race(int color, int speed) {

@@ -52,6 +52,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -157,6 +158,9 @@ public class Robot extends TimedRobot {
 		autoFromDashboard = SmartDashboard.getString("DB/String 0", "myDefaultData");
 		outputAutoModeToDashboardStringOne(autoFromDashboard);
 		
+		if (RobotController.getBatteryVoltage() < Calibrations.lowBatteryVoltageThreshold) {
+			LED_SUBSYSTEM.setLowBatteryInDisabledPattern();
+		}
 		
 		// autoFromDashboard = SmartDashboard.getString("DB/String 0", "myDefaultData");
 		positionFromDashboard = SmartDashboard.getString("DB/String 2", "myDefaultData");
@@ -444,9 +448,7 @@ public class Robot extends TimedRobot {
 		
 		runDriveController();
 		runOperationPanel();
-		
-		//RobotController.getBatteryVoltage();
-		
+				
 		//System.out.println("teleop setting on");
 		//this.HAS_CUBE_LEDS.set(Value.kForward);
 		

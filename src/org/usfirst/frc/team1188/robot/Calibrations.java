@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1188.robot;
 
 public final class Calibrations {
+	public static final double lowBatteryVoltageThreshold = 12.4;
 	// Drive calibration
 	// Slew rate of .2 seems to work well for when the lift is lowered, though more testing
 	// is necessary - might turn it up or down slightly for increased performance.
