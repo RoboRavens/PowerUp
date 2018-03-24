@@ -8,11 +8,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class LimelightSubsystem extends Subsystem {
-	static double Limit = 0.00;
-	static double A = 0;
-	static double B = 0;
-	static double C = 0;
-	static double D = 0;
 	edu.wpi.first.networktables.NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 	NetworkTableEntry tx = table.getEntry("tx");
 	NetworkTableEntry ty = table.getEntry("ty");
@@ -28,11 +23,7 @@ public class LimelightSubsystem extends Subsystem {
     }
     
     public void periodic() {
-    	//PCDashboardDiagnostics.SubsystemNumber("Limelight", "TargetArea", this.targetArea());
-    //	PCDashboardDiagnostics.SubsystemNumber("Limelight", "angleOffHorizontal", this.angleOffHorizontal());
-    //	PCDashboardDiagnostics.SubsystemNumber("Limelight", "angleOffVertical", this.angleOffVertical());
-    //	PCDashboardDiagnostics.SubsystemNumber("Limelight", "hasTarget", this.hasTarget());
-    	table.getEntry("ledMode").setNumber(1);
+    	table.getEntry("ledMode").setValue(0);
    	
     }
 	
@@ -43,8 +34,7 @@ public class LimelightSubsystem extends Subsystem {
 	public double hasTarget() {
 		return tv.getDouble(0);
 	}
-	public double angleOffHorizontal() {
-		
+	public double angleOffHorizontal() {	
 		return tx.getDouble(0);
 	}
 	public double angleOffVertical() {
@@ -55,12 +45,11 @@ public class LimelightSubsystem extends Subsystem {
 	public static void limeLightDiagnostics() {
 		
 	}
-	public static void limeLightDetect() {
-
-
-		//if( A*B^(targetArea+C) +D < Limit) {
-			
-	//}
+	public double limeLightDistance() {
+		return 24;//uses equation to relate targets area to how far away it is
+	
+		
 	}
+	
 }
 

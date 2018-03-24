@@ -14,6 +14,7 @@ import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.gamepad.OperationPanel;
 import org.usfirst.frc.team1188.gamepad.OperationPanel2;
 import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
+import org.usfirst.frc.team1188.robot.commands.LimeLightFaceCube;
 import org.usfirst.frc.team1188.robot.commands.LED.LEDBlinkFor2SecondsCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendWhileHeldCommand;
@@ -53,6 +54,7 @@ import org.usfirst.frc.team1188.robot.subsystems.IntakeClampSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LEDSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
+import org.usfirst.frc.team1188.robot.subsystems.LimelightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team1188.util.OverrideSystem;
 
@@ -97,6 +99,7 @@ public class Robot extends TimedRobot {
 	public static final IntakeWheelSubsystem INTAKE_WHEEL_SUBSYSTEM = new IntakeWheelSubsystem();
 	public static final LightSubsystem LIGHT_SUBSYSTEM = new LightSubsystem();
 	public static final LEDSubsystem LED_SUBSYSTEM = new LEDSubsystem();
+	public static final LimelightSubsystem LIMELIGHT_SUBSYSTEM = new LimelightSubsystem();
 	
 	public static final Relay HAS_CUBE_LEDS_RELAY = new Relay(RobotMap.hasCubeLEDLightRelay);
 	public static final Relay UNDERGLOW_RELAY = new Relay(RobotMap.underglowLightRelay);
@@ -542,6 +545,8 @@ public class Robot extends TimedRobot {
 		DRIVE_CONTROLLER.getButton(ButtonCode.B).whenPressed(new SetGyroTargetHeading(90));
 		DRIVE_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new SetGyroTargetHeading(0));
 		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new SetGyroTargetHeading(180));
+		DRIVE_CONTROLLER.getButton(ButtonCode.START).whileHeld(new LimeLightFaceCube());
+
 		 
 		/*
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
