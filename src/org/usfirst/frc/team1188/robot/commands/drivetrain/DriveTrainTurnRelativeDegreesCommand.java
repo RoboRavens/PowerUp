@@ -18,14 +18,20 @@ public class DriveTrainTurnRelativeDegreesCommand extends Command {
 	double driveTrainOriginalHeading;
 	double temporaryGyroScaleFactor;
 	double previousGyroScaleFactor;
+	private double _timeoutSeconds;
 	
-    public DriveTrainTurnRelativeDegreesCommand(DriveTrainSubsystem driveTrain, double degreesToTurn, double gyroScaleFactor) {
+    public DriveTrainTurnRelativeDegreesCommand(DriveTrainSubsystem driveTrain, double degreesToTurn, double gyroScaleFactor, double timeoutSeconds) {
         requires(driveTrain);
         this.ravenTank = driveTrain.ravenTank;
         this.degreesToTurn = degreesToTurn;
         this.safetyTimer = new Timer();
         this.previousGyroScaleFactor = Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroAdjustmentScaleFactor();
         this.temporaryGyroScaleFactor = gyroScaleFactor;
+        _timeoutSeconds = timeoutSeconds;
+    }
+    
+    public DriveTrainTurnRelativeDegreesCommand(DriveTrainSubsystem driveTrain, double degreesToTurn, double gyroScaleFactor) {
+        this(driveTrain, degreesToTurn, gyroScaleFactor, Calibrations.DriveTrainTurnRelativeDegreesSafetyTimerSeconds);
     }
 
     public DriveTrainTurnRelativeDegreesCommand(DriveTrainSubsystem driveTrain, double degreesToTurn) {
@@ -54,7 +60,7 @@ public class DriveTrainTurnRelativeDegreesCommand extends Command {
     	double degreesAwayFromTarget = Math.abs(degreesToTurn - degreesTurned);
     	boolean turnComplete = (degreesAwayFromTarget < Calibrations.gyroAutoTurnAcceptableErrorDegrees);
     	
-    	if (safetyTimer.get() > Calibrations.DriveTrainTurnRelativeDegreesSafetyTimerSeconds) {
+    	if (safetyTimer.get() > _timeoutSeconds) {
     		turnComplete = true;
     	}
     	

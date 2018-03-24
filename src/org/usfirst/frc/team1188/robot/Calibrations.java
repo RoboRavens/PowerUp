@@ -37,6 +37,7 @@ public final class Calibrations {
 	
 	// Any turn taking too long to complete (e.g. wheel scrub has halted the turn) will abandon after this number of seconds.
 	public static final double DriveTrainTurnRelativeDegreesSafetyTimerSeconds = 1;
+	public static final double DriveTrainDriveInchesSafetyTimerSeconds = 3;
 	
 	// Deadband
 	public static final double deadbandMagnitude = .1;

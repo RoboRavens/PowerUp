@@ -31,9 +31,14 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
 	 */
 	
     public AutonomousLeftScaleLeftPositionCommand() {
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleForwardElevatorDownSegmentInches,
+    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthBetweenDriverWallAndScale,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingForward));
+    			Calibrations.drivingForward,
+    			10));
+    	
+    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90, .012, 2));
+    	
+    	/*
     	addSequential(new ElevatorExtendWhileHeldCommand());
     	addParallel(new ArmRetractFullyCommand());
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleForwardElevatorLiftingSegmentInches,
@@ -48,5 +53,6 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
     			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
     			Calibrations.drivingBackward));
     	addSequential(new ElevatorRetractWhileHeldCommand());
+    	*/
     }
 }

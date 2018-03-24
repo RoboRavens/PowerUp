@@ -60,6 +60,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches = 110;
 	
 	public static final double LengthBetweenDriverWallAndSwitch = 140;
+	public static final double LengthBetweenDriverWallAndScale = 299.65;
 	public static final double LengthOfSwitch = 56;
 	public static final double LengthOfRobotBuffer = 40;
 	
