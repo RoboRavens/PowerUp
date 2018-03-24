@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.Timer;
 public class RavenTank {
 	Robot robot;
 
-    public RavenEncoder leftEncoder;
-    public RavenEncoder rightEncoder;
+    public RavenEncoder leftRavenEncoder;
+    public RavenEncoder rightRavenEncoder;
     
     // Gyro orientationGyro;
     Timer gyroCooldownTimer;
@@ -37,7 +37,6 @@ public class RavenTank {
 	
 	// Joystick calibrationStick = new Joystick(RobotMap.calibrationJoystick);
 	
-	protected double netInchesTraveled = 0;
 	protected double targetNetInchesTraveled = 0;
 	protected boolean automatedDrivingEnabled = false;
 	protected int automatedDrivingDirection = Calibrations.drivingForward;
@@ -88,8 +87,8 @@ public class RavenTank {
 		Encoder rightWpiEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
 		
     
-		leftEncoder = new RavenEncoder(leftWpiEncoder, Calibrations.leftEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches);
-		rightEncoder = new RavenEncoder(rightWpiEncoder, Calibrations.rightEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches);
+		leftRavenEncoder = new RavenEncoder(leftWpiEncoder, Calibrations.leftEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches);
+		rightRavenEncoder = new RavenEncoder(rightWpiEncoder, Calibrations.rightEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches);
 		
 		// rightEncoder.setInverted(true);
     
@@ -149,6 +148,11 @@ public class RavenTank {
 		driveLeft.setMaxPower(maxPower);
 	}
 	
+	public void resetDriveEncoders() {
+		this.leftRavenEncoder.resetEncoder();
+		this.rightRavenEncoder.resetEncoder();
+	}
+	
     public void drive(double left, double rightY, double rightX) {
     	left = deadband(left);
     	rightY = deadband(rightY);
@@ -183,10 +187,6 @@ public class RavenTank {
     }
     
     public void fpsTank(double translation, double turn) {
-    	// System.out.println("Gyro: " + orientationGyro.getAngle() + " Lencoder: " + this.leftEncoder.getNetInchesTraveled() + " Rencoder: " + this.rightEncoder.getNetInchesTraveled());
-		
-		// System.out.println("LINV: " + this.leftEncoder.getNetInchesTraveled() + " RINV: " + this.rightEncoder.getNetInchesTraveled());
-		
     	
     	if (cutPower){
     		translation *= Calibrations.cutPowerModeMovementRatio;
@@ -556,26 +556,11 @@ public class RavenTank {
     	return heading;
     }
     
-    /*
-    public double getGyroAngle() {    
-    	return orientationGyro.getAngle();    
-    }
-    */
-    
-    public void outputEncoderTravels() {
-    	double leftInches = this.leftEncoder.getNetInchesTraveled() * -1;
-    	double rightInches = this.rightEncoder.getNetInchesTraveled();
-    	
-    	System.out.println("LI: " + leftInches + " RI: " + rightInches);
-    }
-    
     public double getNetInchesTraveled() {
-    	double leftInches = this.leftEncoder.getNetInchesTraveled() * -1;
-    	double rightInches = this.rightEncoder.getNetInchesTraveled();
+    	double leftInches = this.leftRavenEncoder.getNetInchesTraveled() * -1;
+    	double rightInches = this.rightRavenEncoder.getNetInchesTraveled();
     	
     	double netInchesTraveled = (leftInches + rightInches) / 2;
-    	
-    	//double netInchesTraveled = leftInches;
     	
     	return netInchesTraveled;
     }
@@ -605,17 +590,6 @@ public class RavenTank {
     	this.fpsTank(power, 0);
     }
     */
-    
-    
-    public void maintainEncoders() {
-    	double leftInches = this.leftEncoder.getNetInchesTraveled() - this.leftEncoderReferencePoint;
-    	double rightInches = this.rightEncoder.getNetInchesTraveled() - this.rightEncoderReferencePoint;
-    	
-      // Take the mean of the left and rich inches. Turning "shouldn't" make a difference.
-    	this.netInchesTraveled = (leftInches + rightInches) / 2;
-		
-		System.out.println("ME NIT: " + this.netInchesTraveled);
-    }
 
 	public void resetOrientationGyro() {
 		orientationGyro.reset();

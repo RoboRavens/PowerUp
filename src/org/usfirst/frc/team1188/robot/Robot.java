@@ -287,6 +287,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
 		Robot.LED_SUBSYSTEM.setAutonomousPattern();
+		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetDriveEncoders();
 		
 		m_autonomousCommand = m_chooser.getSelected();
 		// Zero the gyro, grab the selected autonomous mode, and get to work.

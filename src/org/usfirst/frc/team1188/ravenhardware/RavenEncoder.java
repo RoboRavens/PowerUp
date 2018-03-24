@@ -51,4 +51,8 @@ public class RavenEncoder {
     public void setInverted(boolean inverted) {
     	this.inverted = inverted;
     }
+    
+    public void resetEncoder() {
+    	this.encoder.reset();
+    }
 }
