@@ -25,12 +25,13 @@ import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousDriveSt
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftScaleLeftPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftScaleRightPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftSwitchMiddlePositionCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftSwitchRightPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreLeftSwitchRightPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightScaleLeftPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightScaleRightPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSwitchMiddlePositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreRightSwitchLeftPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
@@ -287,15 +288,24 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
 		Robot.LED_SUBSYSTEM.setAutonomousPattern();
+		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetDriveEncoders();
 		
 		m_autonomousCommand = m_chooser.getSelected();
 		// Zero the gyro, grab the selected autonomous mode, and get to work.
 		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
 		autonomousCommand = getAutonomousCommand();
 		
+		String autoCommandName = autonomousCommand.getClass().getSimpleName();
+		SmartDashboard.putString("DB/String 5", autoCommandName);
+		
 		// DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetOrientationGyro();
 		DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
-		autonomousCommand = new DriveTrainDriveInchesCommand(120, .75, Calibrations.drivingForward);
+		// autonomousCommand = new DriveTrainDriveInchesCommand(120, .5, Calibrations.drivingForward);
+		// autonomousCommand = new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90);
+		/*autonomousCommand = new DriveTrainDriveInchesCommand(240,
+    			1,
+    			Calibrations.drivingForward,
+    			20);*/
 		
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
@@ -353,7 +363,7 @@ public class Robot extends TimedRobot {
 				}
 				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
 					// Left switch, right position. UGUUU
-					switchCommand = new AutonomousLeftSwitchRightPositionCommand();
+					switchCommand = new AutonomousScoreLeftSwitchRightPositionCommand();
 				}
 			}
 			else {

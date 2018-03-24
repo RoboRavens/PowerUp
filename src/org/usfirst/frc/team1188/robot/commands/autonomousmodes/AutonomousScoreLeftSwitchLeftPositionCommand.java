@@ -9,14 +9,14 @@ import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousScoreRightSwitchRightPositionCommand extends CommandGroup{
+public class AutonomousScoreLeftSwitchLeftPositionCommand extends CommandGroup{
 	
-	public AutonomousScoreRightSwitchRightPositionCommand() {
+	public AutonomousScoreLeftSwitchLeftPositionCommand() {
 		double driveForwardDistance = AutonomousCalibrations.LengthBetweenDriverWallAndSwitch + AutonomousCalibrations.LengthOfSwitch / 2;
 		addSequential(new DriveTrainDriveInchesCommand(driveForwardDistance,
 				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
-		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
 	}
 

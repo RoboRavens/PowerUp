@@ -50,9 +50,9 @@ public class DriveTrainSubsystem extends Subsystem {
     	this.ravenTank.setSlewRate(slewRate);
     	
     	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "PowerMax", maxPower);
-    	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderLeftInchesTraveled", this.ravenTank.leftEncoder.getNetInchesTraveled() * -1);
-    	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderRightInchesTraveled", this.ravenTank.rightEncoder.getNetInchesTraveled());
-    	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderAvgInchesTraveled", this.ravenTank.rightEncoder.getNetInchesTraveled());
+    	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderLeftInchesTraveled", this.ravenTank.leftRavenEncoder.getNetInchesTraveled());
+    	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderRightInchesTraveled", this.ravenTank.rightRavenEncoder.getNetInchesTraveled());
+    	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderAvgInchesTraveled", Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled());
     	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "SlewRate", slewRate);
     }
 }

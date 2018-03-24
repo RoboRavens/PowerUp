@@ -8,13 +8,13 @@ public class AutonomousCalibrations {
 	
 	
 	public static final double AutonomousCrossAutoLineDriveForwardInches = 190;
-	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .5;
+	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .3;
 	
 	public static final double AutonomousScoreLeftSwitchPosition1DriveForwardInches = 140;
 	public static final double AutonomousOppositeSideSwitchFirstForwardSegmentInches = 72;
 	public static final double AutonomousOppositeSideSwitchLateralMovementInches = 102;
 	public static final double AutonomousOppositeSideSwitchSecondForwardSegmentInches = 72;
-	public static final double AutonomousScoreSwitchDriveForwardPowerMagnitude = .6;
+	public static final double AutonomousScoreSwitchDriveForwardPowerMagnitude = .5;
 	
 	public static final double AutonomousScoreLeftSwitchGrabCubePosition1FirstDriveForwardInches = 118;
 	public static final double AutonomousScoreLeftSwitchGrabCubePosition1SecondDriveForwardInches = 132;
@@ -57,7 +57,15 @@ public class AutonomousCalibrations {
 	public static final double AutonomousArmExtensionEncoderDistance = 2048;
 	public static final double AutonomousScoreSwitchMiddlePositionLateralDriveForwardInches = 60;
 	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardFirstSegmentInches = 22;
-	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches = 122;
+	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches = 110;
+	
+	public static final double LengthBetweenDriverWallAndSwitch = 140;
+	public static final double LengthOfSwitch = 56;
+	public static final double LengthOfRobotBuffer = 40;
+	
+	public static final double WidthOfSwitch = 189.5;
+	
+	public static final double ExchangeZoneBuffer = 6;
 	
 	
 }
