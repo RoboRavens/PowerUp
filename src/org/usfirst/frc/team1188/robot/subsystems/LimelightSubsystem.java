@@ -24,7 +24,6 @@ public class LimelightSubsystem extends Subsystem {
     
     public void periodic() {
     	table.getEntry("ledMode").setValue(0);
-   	
     }
 	
     	
@@ -40,13 +39,9 @@ public class LimelightSubsystem extends Subsystem {
 	public double angleOffVertical() {
 		return ty.getDouble(0);
 	}
-
-	
-	public static void limeLightDiagnostics() {
-		
-	}
 	public double limeLightDistance() {
-		return 24;//uses equation to relate targets area to how far away it is
+		double targetDistance = Math.pow((0d * targetArea()), 0d) + 24;
+		return targetDistance;//uses equation to relate targets area to how far away it is
 	
 		
 	}
