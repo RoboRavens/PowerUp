@@ -2,6 +2,7 @@ package org.usfirst.frc.team1188.robot.commands.drivetrain;
 
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -43,18 +44,19 @@ public class DriveTrainDriveInchesCommand extends Command {
     protected void execute() {
     	Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.fpsTank(powerMagnitude, 0);
     	
-    	double driveTrainTotalInchesTraveled = Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled();
-    	netInchesTraveledSoFar = driveTrainTotalInchesTraveled - driveTrainNetInchesTraveledAtStart;
-    	System.out.println(" driving inches: " + driveTrainTotalInchesTraveled);
-    	
     	if (direction == Calibrations.drivingBackward) {
-    		netInchesTraveledSoFar = driveTrainNetInchesTraveledAtStart - driveTrainTotalInchesTraveled;
+    		netInchesTraveledSoFar = driveTrainNetInchesTraveledAtStart - Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled();
+    	} else {
+    		netInchesTraveledSoFar = Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled() - driveTrainNetInchesTraveledAtStart;
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	
         boolean hasTraveledTargetDistance = (netInchesTraveledSoFar >= totalInchesToTravel); 
+        PCDashboardDiagnostics.AdHocNumber("netInchesTraveledSoFar", netInchesTraveledSoFar);
+        PCDashboardDiagnostics.AdHocNumber("totalInchesToTravel", totalInchesToTravel);
         
         if (timeoutTimer.get() > timeoutSeconds) {
         	hasTraveledTargetDistance = true;

@@ -9,18 +9,19 @@ import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousLeftSwitchRightPositionCommand extends CommandGroup{
+public class AutonomousScoreLeftSwitchRightPositionCommand extends CommandGroup{
 	
-	public AutonomousLeftSwitchRightPositionCommand() {
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideSwitchFirstForwardSegmentInches,
-				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
-    			Calibrations.drivingForward));
-		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideSwitchLateralMovementInches,
+	public AutonomousScoreLeftSwitchRightPositionCommand() {
+		double driveForwardDistance = AutonomousCalibrations.LengthBetweenDriverWallAndSwitch + AutonomousCalibrations.LengthOfSwitch + AutonomousCalibrations.LengthOfRobotBuffer;
+		addSequential(new DriveTrainDriveInchesCommand(driveForwardDistance,
 				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
-		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideSwitchSecondForwardSegmentInches,
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.WidthOfSwitch,
+				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
+    			Calibrations.drivingForward));
+		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthOfRobotBuffer,
 				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));
 		// addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));

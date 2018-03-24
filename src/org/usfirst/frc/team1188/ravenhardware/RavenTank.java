@@ -87,10 +87,8 @@ public class RavenTank {
 		Encoder rightWpiEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
 		
     
-		leftRavenEncoder = new RavenEncoder(leftWpiEncoder, Calibrations.leftEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches);
-		rightRavenEncoder = new RavenEncoder(rightWpiEncoder, Calibrations.rightEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches);
-		
-		// rightEncoder.setInverted(true);
+		leftRavenEncoder = new RavenEncoder(leftWpiEncoder, Calibrations.leftEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches, false);
+		rightRavenEncoder = new RavenEncoder(rightWpiEncoder, Calibrations.rightEncoderCyclesPerRevolution, Calibrations.driveWheelDiameterInches, true);
     
 		// orientationGyro = new AnalogGyro(1);
 		
@@ -557,10 +555,9 @@ public class RavenTank {
     }
     
     public double getNetInchesTraveled() {
-    	double leftInches = this.leftRavenEncoder.getNetInchesTraveled() * -1;
-    	double rightInches = this.rightRavenEncoder.getNetInchesTraveled();
+    	double leftInches = this.leftRavenEncoder.getNetInchesTraveled();
     	
-    	double netInchesTraveled = (leftInches + rightInches) / 2;
+    	double netInchesTraveled = leftInches;
     	
     	return netInchesTraveled;
     }

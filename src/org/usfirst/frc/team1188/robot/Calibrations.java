@@ -19,7 +19,7 @@ public final class Calibrations {
 	public static final double cutPowerModeTurnRatio = .5;
 	//public static final double gyroAdjustmentScaleFactor = .011; // Could possibly cause gyro issues
 	public static final double gyroAdjustmentDefaultScaleFactor = .03;
-	public static final double driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor = .011;
+	public static final double driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor = .009;
 	public static final double gyroCooldownTimerTime = .5;
 	public static final double translationMaxTurnScaling = .5;
 	public static final double gyroAutoTurnAcceptableErrorDegrees = 1;
@@ -36,7 +36,7 @@ public final class Calibrations {
 	public static final int gyroEnabled = 1;
 	
 	// Any turn taking too long to complete (e.g. wheel scrub has halted the turn) will abandon after this number of seconds.
-	public static final double DriveTrainTurnRelativeDegreesSafetyTimerSeconds = 3;
+	public static final double DriveTrainTurnRelativeDegreesSafetyTimerSeconds = 1;
 	
 	// Deadband
 	public static final double deadbandMagnitude = .1;
