@@ -82,10 +82,7 @@ public final class Calibrations {
 	
 	public static final double elevatorConsideredMovingEncoderRate = 0;
 	
-	
-	public static final double elevatorMinimumScaleHeightInches = 51;
-	public static final double elevatorBalancedScaleHeightInches = 67;
-	public static final double elevatorMaximumScaleHeightInches = 77;
+	public static final double elevatorMidwayInches = 50;
 	
 	// 
 	public static final double elevatorCubePickupMaximumHeight = 15;
