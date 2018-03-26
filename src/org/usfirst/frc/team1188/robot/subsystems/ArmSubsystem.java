@@ -235,4 +235,27 @@ public class ArmSubsystem extends Subsystem {
     	
     	//System.out.println("RMO: " + this.SSSMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());
     }
+
+	public boolean getIsExtendedPastMidway() {
+    	boolean isPastMidway = true;
+    	
+		if (this.getEncoderPosition() < Calibrations.armEncoderValueMidway) {
+			isPastMidway = true;
+		}
+		
+    	return isPastMidway;
+	}
+
+	public boolean getIsAtMidway() {
+		boolean isAtMidway = false;
+		
+		boolean notOverExtended = (this.getEncoderPosition() < Calibrations.armEncoderValueMidway + Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER);
+		boolean notOverRetracted = (this.getEncoderPosition() > Calibrations.armEncoderValueMidway - Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER);
+		
+		if (notOverExtended && notOverRetracted) {
+			isAtMidway = true;
+		}
+			
+		return isAtMidway;
+	}
 }
