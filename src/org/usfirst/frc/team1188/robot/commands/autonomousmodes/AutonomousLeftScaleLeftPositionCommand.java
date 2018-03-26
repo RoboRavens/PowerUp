@@ -3,10 +3,14 @@ package org.usfirst.frc.team1188.robot.commands.autonomousmodes;
 import org.usfirst.frc.team1188.robot.AutonomousCalibrations;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
@@ -37,6 +41,30 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
     			10));
     	
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90, .012, 2));
+    	
+    	addSequential(new ElevatorExtendFullyCommand());
+    	
+    	addSequential(new ArmMoveToMidwayCommand());
+    	addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
+    	
+    	
+    	addSequential(new ArmRetractFullyCommand());
+    	addSequential(new ElevatorRetractFullyCommand());
+    	
+    	
+    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90, .012, 2));
+    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeStraightInches,
+    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
+    			Calibrations.drivingForward,
+    			10));
+    	
+    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -45, .012, 2));
+    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeAngledInches,
+    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
+    			Calibrations.drivingForward,
+    			10));
+    	
+    	
     	
     	/*
     	addSequential(new ElevatorExtendWhileHeldCommand());

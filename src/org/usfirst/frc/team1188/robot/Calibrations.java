@@ -131,6 +131,11 @@ public final class Calibrations {
 	public static double armRetractionPowerMagnitude = 1;
 	public static double armMaximumSpeed = 1;
 	public static int armEncoderValueExtended = -2048;
+	public static int armEncoderValueMidway = -1024;
 	public static int armEncoderValueRetracted = 0;
 	public static int ARM_ENCODER_BUFFER = 300;
+	
+	// This value represents the buffer that the arm can be *on either side* of midway,
+	// so the true buffer range is this value times two.
+	public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 150;
 }
