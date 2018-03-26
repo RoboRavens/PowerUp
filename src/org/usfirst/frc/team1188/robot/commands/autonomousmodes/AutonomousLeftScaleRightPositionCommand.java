@@ -27,7 +27,6 @@ public class AutonomousLeftScaleRightPositionCommand extends CommandGroup {
     			Calibrations.drivingForward));
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
     	
-    	
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveOppositeSideScaleElevatorUpSegmentInches,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward));
