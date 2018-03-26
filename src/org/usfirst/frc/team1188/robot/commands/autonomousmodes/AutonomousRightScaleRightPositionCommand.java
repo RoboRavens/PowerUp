@@ -26,24 +26,47 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 
 public class AutonomousRightScaleRightPositionCommand extends CommandGroup {
+	public AutonomousRightScaleRightPositionCommand() {
+        addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthBetweenDriverWallAndScale,
+        		AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
+        		Calibrations.drivingForward,
+        		10));
+        	
+        addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90, .012, 2));
 
-    public AutonomousRightScaleRightPositionCommand() {
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleForwardElevatorDownSegmentInches,
-    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingForward));
-    	addSequential(new ElevatorExtendWhileHeldCommand());
-    	addParallel(new ArmRetractFullyCommand());
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleForwardElevatorLiftingSegmentInches,
-    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
-    			Calibrations.drivingForward));
-    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90));
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
-    			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
-    			Calibrations.drivingForward));
-    	addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
-    	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
-    			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
-    			Calibrations.drivingBackward));
-    	addSequential(new ElevatorRetractWhileHeldCommand());
+        addSequential(new AutonomousScoreOnScaleCommand());
+        	
+        addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90, .012, 2));
+        addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeStraightInches,
+        		AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
+        		Calibrations.drivingForward,
+        		10));
+        	
+        	
+        	
+        addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 45, .012, 2));
+        addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeAngledInches,
+        		AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
+        		Calibrations.drivingForward,
+        		10));
+        	
+        	
+        	
+        	/*
+        	addSequential(new ElevatorExtendWhileHeldCommand());
+        	addParallel(new ArmRetractFullyCommand());
+        	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleForwardElevatorLiftingSegmentInches,
+        			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
+        			Calibrations.drivingForward));
+        	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
+        	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
+        			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
+        			Calibrations.drivingForward));
+        	addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
+        	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveStraightToScaleApproachScaleInches,
+        			AutonomousCalibrations.AutonomousCrossAutoLineDriveForwardPowerMagnitude,
+        			Calibrations.drivingBackward));
+        	addSequential(new ElevatorRetractWhileHeldCommand());
+        	*/
     }
 }
