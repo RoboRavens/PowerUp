@@ -138,4 +138,5 @@ public final class Calibrations {
 	// This value represents the buffer that the arm can be *on either side* of midway,
 	// so the true buffer range is this value times two.
 	public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 150;
+	public static final double ARM_SAFETY_TIMER_TIMEOUT = 2;
 }

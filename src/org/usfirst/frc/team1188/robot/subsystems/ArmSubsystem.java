@@ -10,6 +10,7 @@ import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -19,6 +20,7 @@ public class ArmSubsystem extends Subsystem {
 	TalonSRX armMotor;
 	BufferedDigitalInput extensionLimitSwitch;
 	BufferedDigitalInput retractionLimitSwitch;
+	private Timer _safetyTimer = new Timer();
 	
 	public ArmSubsystem() {
 		this.armMotor = new TalonSRX(RobotMap.armMotor);
@@ -257,5 +259,17 @@ public class ArmSubsystem extends Subsystem {
 		}
 			
 		return isAtMidway;
+	}
+	
+	public void resetSafetyTimer() {
+		_safetyTimer.reset();
+	}
+	
+	public void startSafetyTimer() {
+		_safetyTimer.start();
+	}
+	
+	public double getSafetyTimer() {
+		return _safetyTimer.get();
 	}
 }
