@@ -30,13 +30,10 @@ import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSc
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightScaleRightPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSwitchMiddlePositionCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreRightSwitchLeftPositionCommand;
-import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
-import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToBalancedScaleHeightCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToMinimumScaleHeightCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToBottomCommand;
@@ -505,8 +502,8 @@ public class Robot extends TimedRobot {
     	OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPullCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());		
 		
-		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToBalancedScaleHeightCommand());
+		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayInches));//update these commands, had to put in command to fix error
+		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayInches));//update these commands, had to put in command to fix error
 		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendWhileHeldCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractWhileHeldCommand());
 		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTSTICK).whenPressed(new ResetEncodersToTopCommand());
@@ -633,7 +630,7 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenReleased(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ArmRetractFullyCommand());
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayInches));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmRetractFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ArmRetractFullyCommand());
