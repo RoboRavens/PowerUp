@@ -620,7 +620,6 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ARMDOUBLEOVERRIDEUP).whenReleased(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ARM_RETRACT, false));
 		OPERATION_PANEL2.getButton(ButtonCode.ARMRETRACT).whenPressed(new ArmRetractFullyCommand());
 		
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whileHeld(new ElevatorRetractWhileHeldCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, false));
@@ -632,8 +631,12 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenPressed(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenReleased(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendFullyCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ArmRetractFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToMinimumScaleHeightCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmRetractFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ArmRetractFullyCommand());
 		
 		OPERATION_PANEL2.getButton(ButtonCode.INTAKEDROP).whileHeld(new IntakeWheelPushHardCommand());
 		OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whileHeld(new IntakeWheelPullCommand());
