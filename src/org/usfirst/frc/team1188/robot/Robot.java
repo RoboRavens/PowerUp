@@ -17,6 +17,7 @@ import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
 import org.usfirst.frc.team1188.robot.commands.LED.LEDBlinkFor2SecondsCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendWhileHeldCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousCrossAutoLineCommand;
@@ -704,6 +705,8 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ArmRetractFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayInches));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmRetractFullyCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchHeightInches));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ArmRetractFullyCommand());
 		
