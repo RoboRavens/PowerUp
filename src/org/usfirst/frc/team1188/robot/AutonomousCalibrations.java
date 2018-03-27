@@ -71,8 +71,9 @@ public class AutonomousCalibrations {
 	public static final double ExchangeZoneBuffer = 6;
 	public static final double AutonomousDriveFromScaleToSwitchCubeStraightInches = 74;
 	public static final double AutonomousDriveFromScaleToSwitchCubeAngledInches = 50;
-	public static final double StraightSwitchDriveForwardFromWallInches = 148;
+	public static final double StraightSwitchDriveForwardFromWallInches = 140;
 	public static final double StraightSwitchDriveForwardToSwitchInches = 40;
+	public static final double SideSwitchDriveForwardFromWallTimeoutSeconds = 5;
 	
 	
 }

@@ -10,9 +10,9 @@ import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousScoreLeftSwitchLeftPositionCommand extends CommandGroup{
+public class AutonomousLeftSwitchLeftPositionCommand extends CommandGroup{
 	
-	public AutonomousScoreLeftSwitchLeftPositionCommand() {
+	public AutonomousLeftSwitchLeftPositionCommand() {
 		
 		
 		// 148 inches forward; turn right, drive 40 inches, spit cube.
@@ -21,7 +21,8 @@ public class AutonomousScoreLeftSwitchLeftPositionCommand extends CommandGroup{
 				
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.StraightSwitchDriveForwardFromWallInches,
 				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
-    			Calibrations.drivingForward));
+    			Calibrations.drivingForward,
+				AutonomousCalibrations.SideSwitchDriveForwardFromWallTimeoutSeconds));
 		addParallel(new ArmMoveToMidwayCommand());
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.StraightSwitchDriveForwardToSwitchInches,
