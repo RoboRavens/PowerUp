@@ -76,7 +76,10 @@ public final class Calibrations {
 	// public static final double elevatorRetractionPowerMagnitude = .1;
 	public static final double elevatorMaximumSpeed = 1.0;
 	//public static final double elevatorHoldPositionPowerMagnitude = .15;
-	public static final double elevatorHoldPositionPowerMagnitude = .1;
+	
+	// Was .1 with motor before constant force springs were added. Setting to 0. (CZB 3/27)
+	public static final double elevatorHoldPositionPowerMagnitude = .0;
+	
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	public static final int elevatorLiftEncoderMaximumValue = 30000;
 	

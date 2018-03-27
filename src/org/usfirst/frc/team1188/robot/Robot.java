@@ -20,17 +20,7 @@ import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractWhileHeldCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousCrossAutoLineCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousDoNothingCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousDriveStraightScoreInSwitchCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftScaleLeftPositionCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftScaleRightPositionCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousLeftSwitchMiddlePositionCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreLeftSwitchRightPositionCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightScaleLeftPositionCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightScaleRightPositionCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousRightSwitchMiddlePositionCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.AutonomousScoreRightSwitchLeftPositionCommand;
+import org.usfirst.frc.team1188.robot.commands.autonomousmodes.*;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
@@ -198,8 +188,11 @@ public class Robot extends TimedRobot {
 
 		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
 		
+		
 		diagnostics.outputDisabledDiagnostics();
-
+		
+		SmartDashboard.putString("DB/String 5", "TBD - Awaiting plates");
+		
 		// this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
 		//this.arm.getPosition();
@@ -225,6 +218,12 @@ public class Robot extends TimedRobot {
 				break;
 			case AutonomousCalibrations.Scale:
 				autonomousModeName += "Score on scale.";
+				break;
+			case AutonomousCalibrations.FlexSwitch:
+				autonomousModeName += "Flex - switch priority.";
+				break;
+			case AutonomousCalibrations.FlexScale:
+				autonomousModeName += "Flex - scale priority.";
 				break;
 				
 			default:
@@ -359,7 +358,7 @@ public class Robot extends TimedRobot {
 			if (gameData.charAt(0) == 'L') {
 				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
 					// Left switch, left position. Drive forward and then score on the switch.
-					switchCommand = new AutonomousDriveStraightScoreInSwitchCommand();
+					switchCommand = new AutonomousLeftSwitchLeftPositionCommand();
 				}
 				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
 					// Left switch, middle position. Drive diagonally and then score on the switch.
