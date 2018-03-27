@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1188.robot.commands.intake;
 
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.commands.commandgroups.LowerElevatorThenExtendArmCommandGroup;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,6 +16,9 @@ public class IntakeWheelPullCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(Robot.INTAKE_WHEEL_SUBSYSTEM.hasCube() == false) {
+    		new LowerElevatorThenExtendArmCommandGroup().start();
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

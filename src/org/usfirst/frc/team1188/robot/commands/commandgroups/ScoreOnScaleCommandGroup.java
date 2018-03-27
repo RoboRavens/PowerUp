@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1188.robot.commands.autonomousmodes;
+package org.usfirst.frc.team1188.robot.commands.commandgroups;
 
 import org.usfirst.frc.team1188.robot.AutonomousCalibrations;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutonomousScoreOnScaleCommand extends CommandGroup {
+public class ScoreOnScaleCommandGroup extends CommandGroup {
 
-    public AutonomousScoreOnScaleCommand() {
+    public ScoreOnScaleCommandGroup() {
     	addSequential(new ElevatorExtendFullyCommand());
     	
     	addSequential(new ArmMoveToMidwayCommand());
