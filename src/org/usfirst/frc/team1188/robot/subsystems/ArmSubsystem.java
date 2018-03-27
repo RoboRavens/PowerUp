@@ -4,7 +4,7 @@ import org.usfirst.frc.team1188.ravenhardware.BufferedDigitalInput;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.RobotMap;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmStopCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmHoldPositionCommand;
 import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -29,7 +29,7 @@ public class ArmSubsystem extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new ArmStopCommand(this));
+    	setDefaultCommand(new ArmHoldPositionCommand());
     }
     
     public void periodic() {
@@ -272,4 +272,10 @@ public class ArmSubsystem extends Subsystem {
 	public double getSafetyTimer() {
 		return _safetyTimer.get();
 	}
+
+	public void holdPosition() {
+		this.retract(Calibrations.armHoldPositionPowerMagnitude);
+			
+	}
+		
 }

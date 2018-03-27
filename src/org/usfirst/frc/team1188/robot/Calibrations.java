@@ -128,6 +128,7 @@ public final class Calibrations {
 	public static double armExtensionPowerMagnitude = 1;
 	public static double armRetractionPowerMagnitude = 1;
 	public static double armMaximumSpeed = 1;
+	public static double armHoldPositionPowerMagnitude = 0.05;
 	public static int armEncoderValueExtended = -2048;
 	public static int armEncoderValueMidway = -1024;
 	public static int armEncoderValueRetracted = 0;
