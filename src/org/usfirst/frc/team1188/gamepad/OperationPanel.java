@@ -55,6 +55,9 @@ public class OperationPanel {
 		case ELEVATORRETRACT:
 			buttonNumber = 11;
 			break;
+		case ELEVATORSWITCHHEIGHT:
+			buttonNumber = 12;
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid Button Code");
 		}
