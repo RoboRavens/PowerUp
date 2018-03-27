@@ -78,7 +78,7 @@ public class IntakeWheelSubsystem extends Subsystem {
     	intakeMotorRight.set(ControlMode.PercentOutput, rightMotorMagnitude);
     }
     
-    private boolean hasCube() {
+    public boolean hasCube() {
     	boolean otherLimit = false;
     	boolean hasCube = intakeSensor.get() == false;
     	

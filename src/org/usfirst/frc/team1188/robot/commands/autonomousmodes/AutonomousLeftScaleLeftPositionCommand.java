@@ -6,6 +6,7 @@ import org.usfirst.frc.team1188.robot.Robot;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
+import org.usfirst.frc.team1188.robot.commands.commandgroups.ScoreOnScaleCommandGroup;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
@@ -42,7 +43,7 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
     	
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90, .012, 2));
 
-    	addSequential(new AutonomousScoreOnScaleCommand());
+    	addSequential(new ScoreOnScaleCommandGroup());
     	
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90, .012, 2));
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeStraightInches,
