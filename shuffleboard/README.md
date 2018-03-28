@@ -3,7 +3,7 @@ In the shuffleboard folder of this repository there are two files:
 
 #### shuffleboard.jar
 Double click this to launch the dashboard.  
-Current Version: 1.2.2  
+Current Version: 1.3.1  
 Built from source using instructions at: https://github.com/wpilibsuite/shuffleboard
 
 #### config.json
