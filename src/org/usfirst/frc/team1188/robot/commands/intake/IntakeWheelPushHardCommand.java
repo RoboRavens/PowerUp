@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1188.robot.commands.intake;
 
+import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,7 +21,7 @@ public class IntakeWheelPushHardCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.push();
+    	Robot.INTAKE_WHEEL_SUBSYSTEM.push(Calibrations.IntakeSpitPowerMagnitude);
     }
 
     // Make this return true when this Command no longer needs to run execute()

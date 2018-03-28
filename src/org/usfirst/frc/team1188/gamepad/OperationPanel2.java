@@ -33,10 +33,10 @@ public class OperationPanel2 {
 		case INTAKEOVERRIDE:
 			buttonNumber = 4;
 			break;
-		case INTAKEDROP:
+		case INTAKESPIT:
 			buttonNumber = 5;
 			break;
-		case INTAKESPIT:
+		case INTAKEDROP:
 			buttonNumber = 6;
 			break;
 		case RUNINTAKE:

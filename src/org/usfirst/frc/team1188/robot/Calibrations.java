@@ -86,7 +86,7 @@ public final class Calibrations {
 	public static final double elevatorConsideredMovingEncoderRate = 0;
 	
 	public static final int elevatorMidwayEncoderValue = 21000;
-	public static final int elevatorSwitchEncoderValue = 6000;
+	public static final int elevatorSwitchEncoderValue = 10000;
 	public static final int ELEVATOR_AT_POSITION_BUFFER = 500;
 	public static final double ELEVATOR_MOVE_TO_POSITION_TIMEOUT = 2;
 	
@@ -104,7 +104,7 @@ public final class Calibrations {
 	public static final int elevatorLiftUpwardSafetyMargin = 1000;
 	
 	//public static final int elevatorLiftDownwardSafetyMargin = 1500;
-	public static final int elevatorLiftDownwardSafetyMargin = 1000;
+	public static final int elevatorLiftDownwardSafetyMargin = 500;
 	
 	public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 3.5;
 	
@@ -114,11 +114,11 @@ public final class Calibrations {
 	
 	//Intake Wheel
 	public static final double intakeWheelSuckPowerMagnitude = 1;
-	public static final double intakeWheelDropPowerMagnitude = .3;
+	public static final double IntakeDropPowerMagnitude = .3;
 	
 	public static final double AXIS_IS_PRESSED_VALUE = .25;
 
-	public static final double IntakeSpitTimer = 1;
+	public static final double IntakeSpitTimer = .6;
 	public static final double IntakeSpitPowerMagnitude = 1;
 
 	

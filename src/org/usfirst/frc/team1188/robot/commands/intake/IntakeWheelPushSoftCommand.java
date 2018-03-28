@@ -21,7 +21,7 @@ public class IntakeWheelPushSoftCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.push(Calibrations.IntakeSpitPowerMagnitude);
+    	Robot.INTAKE_WHEEL_SUBSYSTEM.push(Calibrations.IntakeDropPowerMagnitude);
     	//System.out.println("IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();IntakeWheelSubsystem.push();");
     }
 

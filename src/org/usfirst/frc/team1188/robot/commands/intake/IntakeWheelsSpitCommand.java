@@ -25,8 +25,7 @@ public class IntakeWheelsSpitCommand extends Command{
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// Robot.INTAKE_WHEEL_SUBSYSTEM.push(magnitude);
-    	System.out.println("IntakeWheelsSpitCommand execute@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.push();
+    	Robot.INTAKE_WHEEL_SUBSYSTEM.push(this.magnitude);
     }
 
     // Make this return true when this Command no longer needs to run execute()

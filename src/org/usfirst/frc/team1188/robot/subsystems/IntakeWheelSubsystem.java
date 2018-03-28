@@ -52,7 +52,7 @@ public class IntakeWheelSubsystem extends Subsystem {
 	}
     
     public void push() {
-		this.push(Calibrations.intakeWheelDropPowerMagnitude); 
+		this.push(Calibrations.IntakeDropPowerMagnitude); 
 	}
     
     public void push(double magnitude) {

@@ -55,6 +55,9 @@ public class AutonomousCalibrations {
 	public static final double AutonomousScoreSwitchIntakePushPowerMagnitude = .1;
 	public static final double AutonomousGrabCubeIntakePullPowerMagnitude = 1;
 	
+	public static final double AutonomousScaleIntakeSpitPowerMagnitude = 1;
+
+	
 	public static final double AutonomousArmExtensionPowerMagnitude = .3;
 	public static final double AutonomousArmExtensionEncoderDistance = 2048;
 	public static final double AutonomousScoreSwitchMiddlePositionLateralDriveForwardInches = 60;
@@ -69,8 +72,8 @@ public class AutonomousCalibrations {
 	public static final double WidthOfSwitch = 189.5;
 	
 	public static final double ExchangeZoneBuffer = 6;
-	public static final double AutonomousDriveFromScaleToSwitchCubeStraightInches = 74;
-	public static final double AutonomousDriveFromScaleToSwitchCubeAngledInches = 50;
+	public static final double AutonomousDriveFromScaleToSwitchCubeStraightInches = 34;
+	public static final double AutonomousDriveFromScaleToSwitchCubeAngledInches = 94;
 	public static final double StraightSwitchDriveForwardFromWallInches = 140;
 	public static final double StraightSwitchDriveForwardToSwitchInches = 40;
 	public static final double SideSwitchDriveForwardFromWallTimeoutSeconds = 5;
