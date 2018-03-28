@@ -50,11 +50,11 @@ public class ArmSubsystem extends Subsystem {
     public boolean encoderAndLimitsMatchExtended() {
     	boolean match = true;
     	
-		if(this.getEncoderPosition() < Calibrations.armEncoderValueExtended  && this.getExtensionLimitSwitchValue() == false) {
+		if(this.getEncoderPosition() > Calibrations.armEncoderValueExtended  && this.getExtensionLimitSwitchValue() == false) {
 			match = false;
 		}
 		 
-		if(this.getExtensionLimitSwitchValue() == true && this.getEncoderPosition() > Calibrations.armEncoderValueExtended + Calibrations.ARM_ENCODER_BUFFER) {
+		if(this.getExtensionLimitSwitchValue() == true && this.getEncoderPosition() < Calibrations.armEncoderValueExtended + Calibrations.ARM_ENCODER_BUFFER) {
 			match = false;
 		}
 		
@@ -64,11 +64,11 @@ public class ArmSubsystem extends Subsystem {
     public boolean encoderAndLimitsMatchRetracted() {
     	boolean match = true;
     	
-		if(this.getEncoderPosition() > Calibrations.armEncoderValueRetracted  && this.getRetractionLimitSwitchValue() == false) {
+		if(this.getEncoderPosition() < Calibrations.armEncoderValueRetracted  && this.getRetractionLimitSwitchValue() == false) {
 			match = false;
 		}
 		 
-		if(this.getRetractionLimitSwitchValue() == true && this.getEncoderPosition() < Calibrations.armEncoderValueRetracted - Calibrations.ARM_ENCODER_BUFFER) {
+		if(this.getRetractionLimitSwitchValue() == true && this.getEncoderPosition() > Calibrations.armEncoderValueRetracted - Calibrations.ARM_ENCODER_BUFFER) {
 			match = false;
 		}
 		
@@ -136,7 +136,7 @@ public class ArmSubsystem extends Subsystem {
     
     public boolean isEncoderAtExtensionLimit() {
     	boolean encoderLimit = false;
-    	if (this.getEncoderPosition() <= Calibrations.armEncoderValueExtended + Calibrations.ARM_ENCODER_BUFFER) {
+    	if (this.getEncoderPosition() >= Calibrations.armEncoderValueExtended - Calibrations.ARM_ENCODER_BUFFER) {
     		encoderLimit = true;
     	}
     	return encoderLimit;
@@ -204,7 +204,7 @@ public class ArmSubsystem extends Subsystem {
     		this.stop();
     	}
     	else {
-        	this.set(-1 * magnitude);	
+        	this.set(magnitude);
     	}
     }
     
@@ -217,7 +217,7 @@ public class ArmSubsystem extends Subsystem {
     		this.stop();
     	}
     	else {
-    		this.set(magnitude);
+    		this.set(-1 * magnitude);
     	}
     }
     
@@ -239,9 +239,19 @@ public class ArmSubsystem extends Subsystem {
     }
 
 	public boolean getIsExtendedPastMidway() {
-    	boolean isPastMidway = true;
+    	boolean isPastMidway = false;
     	
-		if (this.getEncoderPosition() < Calibrations.armEncoderValueMidway) {
+		if (this.getEncoderPosition() > Calibrations.armEncoderValueMidway + Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER) {
+			isPastMidway = true;
+		}
+		
+    	return isPastMidway;
+	}
+	
+	public boolean getIsRetractedBeforeMidway() {
+    	boolean isPastMidway = false;
+    	
+		if (this.getEncoderPosition() < Calibrations.armEncoderValueMidway - Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER) {
 			isPastMidway = true;
 		}
 		
@@ -251,10 +261,10 @@ public class ArmSubsystem extends Subsystem {
 	public boolean getIsAtMidway() {
 		boolean isAtMidway = false;
 		
-		boolean notOverExtended = (this.getEncoderPosition() < Calibrations.armEncoderValueMidway + Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER);
-		boolean notOverRetracted = (this.getEncoderPosition() > Calibrations.armEncoderValueMidway - Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER);
+		boolean notOverExtended = this.getIsExtendedPastMidway();
+		boolean notOverRetracted = this.getIsRetractedBeforeMidway();
 		
-		if (notOverExtended && notOverRetracted) {
+		if (notOverExtended == false && notOverRetracted == false) {
 			isAtMidway = true;
 		}
 			

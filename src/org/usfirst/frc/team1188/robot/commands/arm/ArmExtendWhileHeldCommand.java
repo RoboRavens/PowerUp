@@ -13,7 +13,7 @@ public class ArmExtendWhileHeldCommand extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.ARM_SUBSYSTEM);
-    	System.out.println("ArmExtendWhileHeldCommand CONSTRUCTOR");
+    	//System.out.println("ArmExtendWhileHeldCommand CONSTRUCTOR");
     }
 
     // Called just before this Command runs the first time
@@ -43,6 +43,7 @@ public class ArmExtendWhileHeldCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.ARM_SUBSYSTEM.stop();
     	//System.out.println("ArmExtendWhileHeldCommand INTURRUPTED");
     }
 }
