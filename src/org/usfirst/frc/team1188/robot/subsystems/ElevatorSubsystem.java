@@ -317,6 +317,39 @@ public class ElevatorSubsystem extends Subsystem {
 		return bottomLimitSwitchValue;
 	}
 	
+	public boolean getIsExtendedPastEncoderPosition(int encoderPosition) {
+    	boolean isPastMidway = false;
+    	
+		if (this.getEncoderPosition() > encoderPosition + Calibrations.ELEVATOR_AT_POSITION_BUFFER) {
+			isPastMidway = true;
+		}
+		
+    	return isPastMidway;
+	}
+	
+	public boolean getIsRetractedBeforeEncoderPosition(int encoderPosition) {
+    	boolean isPastMidway = false;
+    	
+		if (this.getEncoderPosition() < encoderPosition - Calibrations.ELEVATOR_AT_POSITION_BUFFER) {
+			isPastMidway = true;
+		}
+		
+    	return isPastMidway;
+	}
+
+	public boolean getIsAtPosition(int encoderPosition) {
+		boolean isAtMidway = false;
+		
+		boolean notOverExtended = this.getIsExtendedPastEncoderPosition(encoderPosition);
+		boolean notOverRetracted = this.getIsRetractedBeforeEncoderPosition(encoderPosition);
+		
+		if (notOverExtended == false && notOverRetracted == false) {
+			isAtMidway = true;
+		}
+			
+		return isAtMidway;
+	}
+	
 	public void resetSafetyTimer() {
 		_safetyTimer.reset();
 	}

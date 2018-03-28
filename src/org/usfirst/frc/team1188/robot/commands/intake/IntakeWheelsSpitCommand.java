@@ -26,7 +26,7 @@ public class IntakeWheelsSpitCommand extends Command{
     protected void execute() {
     	// Robot.INTAKE_WHEEL_SUBSYSTEM.push(magnitude);
     	System.out.println("IntakeWheelsSpitCommand execute@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    	Robot.INTAKE_WHEEL_SUBSYSTEM.pull();
+    	Robot.INTAKE_WHEEL_SUBSYSTEM.push();
     }
 
     // Make this return true when this Command no longer needs to run execute()

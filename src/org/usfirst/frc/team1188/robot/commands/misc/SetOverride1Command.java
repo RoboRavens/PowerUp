@@ -22,6 +22,7 @@ public class SetOverride1Command extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println("OVERIDDING OVERIDDING OVERIDDING");
     	_overrideSystem.setOverride1(_value);
     }
 

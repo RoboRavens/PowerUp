@@ -81,12 +81,14 @@ public final class Calibrations {
 	public static final double elevatorHoldPositionPowerMagnitude = .0;
 	
 	public static final int elevatorLiftEncoderMinimumValue = 0;
-	public static final int elevatorLiftEncoderMaximumValue = 30000;
+	public static final int elevatorLiftEncoderMaximumValue = 28000;
 	
 	public static final double elevatorConsideredMovingEncoderRate = 0;
 	
-	public static final double elevatorMidwayInches = 50;
-	public static final double elevatorSwitchHeightInches = 30;
+	public static final int elevatorMidwayEncoderValue = 21000;
+	public static final int elevatorSwitchEncoderValue = 6000;
+	public static final int ELEVATOR_AT_POSITION_BUFFER = 500;
+	public static final double ELEVATOR_MOVE_TO_POSITION_TIMEOUT = 2;
 	
 	// 
 	public static final double elevatorCubePickupMaximumHeight = 15;
@@ -108,12 +110,11 @@ public final class Calibrations {
 	
 	
 	
-	//Intake Wheel
-	public static final double intakeWheelPullPowerMagnitude = 1;
-	public static final double intakeWheelPushSoftPowerMagnitude = 1;
-	public static final double intakeWheelPushHardPowerMagnitude = 1;
-
 	
+	
+	//Intake Wheel
+	public static final double intakeWheelSuckPowerMagnitude = 1;
+	public static final double intakeWheelDropPowerMagnitude = .3;
 	
 	public static final double AXIS_IS_PRESSED_VALUE = .25;
 
@@ -132,13 +133,13 @@ public final class Calibrations {
 	public static double armRetractionPowerMagnitude = 1;
 	public static double armMaximumSpeed = 1;
 	public static double armHoldPositionPowerMagnitude = 0.05;
-	public static int armEncoderValueExtended = -2048;
-	public static int armEncoderValueMidway = -1024;
+	public static int armEncoderValueExtended = 14300;
+	public static int armEncoderValueMidway = 7300;
 	public static int armEncoderValueRetracted = 0;
 	public static int ARM_ENCODER_BUFFER = 300;
 	
 	// This value represents the buffer that the arm can be *on either side* of midway,
 	// so the true buffer range is this value times two.
-	public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 150;
+	public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 300;
 	public static final double ARM_SAFETY_TIMER_TIMEOUT = 2;
 }

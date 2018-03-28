@@ -9,16 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ElevatorMoveToHeightCommand extends Command {
-    double heightLimitInches;
-    double speed;
-    int tolerance = 5;
-    int deceleration = 1500;
+    int _targetEncoderPosition;
     
-    public ElevatorMoveToHeightCommand(double heightLimitInches) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public ElevatorMoveToHeightCommand(int encoderPosition) {
     	requires(Robot.ELEVATOR_SUBSYSTEM);
-    	this.heightLimitInches = heightLimitInches;
+    	this._targetEncoderPosition = encoderPosition;
     }
 
     // Called just before this Command runs the first time
@@ -29,19 +24,11 @@ public class ElevatorMoveToHeightCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double distToTarget = heightLimitInches - Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition();
-    	int direction = (int) Math.signum(distToTarget);
-    	//speed = distToTarget / deceleration;
-    	// Turn speed into portions of Calibrations.elevatorMaximumSpeed
-    	// speed = distToTarget / 8192;
-    	
-    	speed = .5;
-    	
-    	if (direction > 0) {
-    		Robot.ELEVATOR_SUBSYSTEM.extend(speed);
-    	} 
-    	if (direction < 0) {
-    		Robot.ELEVATOR_SUBSYSTEM.retract(speed);
+    	if (Robot.ELEVATOR_SUBSYSTEM.getIsExtendedPastEncoderPosition(_targetEncoderPosition)) {
+    		Robot.ELEVATOR_SUBSYSTEM.retract();
+    	}
+    	else {
+    		Robot.ELEVATOR_SUBSYSTEM.extend();
     	}
     }
 
@@ -49,20 +36,16 @@ public class ElevatorMoveToHeightCommand extends Command {
     protected boolean isFinished() {
     	boolean isFinished = false;
     	
-    	if (Robot.ELEVATOR_SUBSYSTEM.getSafetyTimer() > Calibrations.ELEVATOR_SAFETY_TIMER_TIMEOUT) {
+    	if (Robot.ELEVATOR_SUBSYSTEM.getSafetyTimer() > Calibrations.ELEVATOR_MOVE_TO_POSITION_TIMEOUT) {
     		isFinished = true;
     	}
     	
-    	//System.out.println("GetPos Count: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderPosition() + " Encoder.get: " + Robot.ELEVATOR_SUBSYSTEM.getEncoderPosition() + " HLI: " + this.heightLimitInches);
-    	
-    	if (Robot.ELEVATOR_SUBSYSTEM.getElevatorPosition() >= this.heightLimitInches) {
+    	if (Robot.ELEVATOR_SUBSYSTEM.getIsAtPosition(_targetEncoderPosition)) {
     		Robot.ELEVATOR_SUBSYSTEM.stop();
-    		isFinished = true;		
-    	} else {
-    		isFinished = false;
+    		isFinished = true;
     	}
-    
-    	return isFinished;
+    	
+        return isFinished;
     }
 
     // Called once after isFinished returns true

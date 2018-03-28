@@ -28,10 +28,10 @@ public class OperationPanel {
 		case ELEVATORDOUBLEOVERRIDEUP:
 			buttonNumber = 2;
 			break;
-		case ARMDOUBLEOVERRIDEDOWN:
+		case ARMDOUBLEOVERRIDERETRACT:
 			buttonNumber = 3;
 			break;
-		case ARMDOUBLEOVERRIDEUP:
+		case ARMDOUBLEOVERRIDEEXTEND:
 			buttonNumber = 4;
 			break;
 		case ELEVATORMANUALOVERRIDEDOWN:
@@ -40,10 +40,10 @@ public class OperationPanel {
 		case ELEVATORMANUALOVERRIDEUP:
 			buttonNumber = 6;
 			break;
-		case ARMMANUALOVERRIDEDOWN:
+		case ARMMANUALOVERRIDERETRACT:
 			buttonNumber = 7;
 			break;
-		case ARMMANUALOVERRIDEUP:
+		case ARMMANUALOVERRIDEEXTEND:
 			buttonNumber = 8;
 			break;
 		case ELEVATOREXTEND:

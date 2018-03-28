@@ -36,27 +36,27 @@ public class IntakeWheelSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-       setDefaultCommand(new IntakeWheelStopCommand(this));
+       setDefaultCommand(new IntakeWheelStopCommand());
     }
     
     public void pull() {
-		this.pull(Calibrations.intakeWheelPullPowerMagnitude); 
+		this.pull(Calibrations.intakeWheelSuckPowerMagnitude); 
 	}
     
     public void pull(double magnitude) { 
 		//if(this.hasCubePullTimeout() == true) {
 		//	this.stop();
 		//} else {
-			this.set(magnitude);
+			this.set(-1 * magnitude);
 		//}
 	}
     
     public void push() {
-		this.push(Calibrations.intakeWheelPushSoftPowerMagnitude); 
+		this.push(Calibrations.intakeWheelDropPowerMagnitude); 
 	}
     
     public void push(double magnitude) {
-		this.set(-1 * magnitude); 
+		this.set(magnitude); 
 	}
     
     public void idle() {
@@ -89,6 +89,7 @@ public class IntakeWheelSubsystem extends Subsystem {
     	intakeSensor.maintainState();
     	
     	PCDashboardDiagnostics.SubsystemBoolean("IntakeWheel", "HasCube", this.hasCube());
+    	PCDashboardDiagnostics.SubsystemBoolean("IntakeWheel", "HasCubeSensorRaw", intakeSensor.get());
     	
     	if (this.hasCube() == false) {
     		_hasCubeDurationTimer.reset();
