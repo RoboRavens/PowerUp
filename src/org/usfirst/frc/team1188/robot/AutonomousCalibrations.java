@@ -32,8 +32,9 @@ public class AutonomousCalibrations {
 	public static final double AutonomousDriveOppositeSideScaleElevatorUpSegmentInches = 83;
 	public static final double AutonomousDriveScaleDriveForwardPowerMagniude = .5;
 	
-	public static final double AutonomousOppositeSideScaleElevatorDownSegmentInches = 205;
-	public static final double AutonomousOppositeSideScaleLateralMovementInches = 234;
+	public static final double AutonomousOppositeSideScaleForwardMovementtInches = 205;
+	public static final double AutonomousOppositeSideScaleLateralMovementInches = 230;
+	public static final double AutonomousOppositeSideScaleMoveIntoNullZoneInches = 50;
 	
 	public static final double AutonomousScoreRightSwitchPosition1DriveForwardInches = 140;
 	public static final double AutonomousScoreRightSwitchPosition3FirstDriveForwardInches = 50;
