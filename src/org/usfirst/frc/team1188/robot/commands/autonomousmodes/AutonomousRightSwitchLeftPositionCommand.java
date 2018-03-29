@@ -9,9 +9,9 @@ import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousScoreRightSwitchLeftPositionCommand extends CommandGroup{
+public class AutonomousRightSwitchLeftPositionCommand extends CommandGroup{
 	
-	public AutonomousScoreRightSwitchLeftPositionCommand() {
+	public AutonomousRightSwitchLeftPositionCommand() {
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousOppositeSideSwitchFirstForwardSegmentInches,
 				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
     			Calibrations.drivingForward));

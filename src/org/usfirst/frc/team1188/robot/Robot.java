@@ -365,13 +365,13 @@ public class Robot extends TimedRobot {
 				}
 				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
 					// Left switch, right position. UGUUU
-					switchCommand = new AutonomousScoreLeftSwitchRightPositionCommand();
+					switchCommand = new AutonomousCrossAutoLineCommand();
 				}
 			}
 			else {
 				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
 					// Right switch, left position. Ugh.
-					switchCommand = new AutonomousScoreRightSwitchLeftPositionCommand();
+					switchCommand = new AutonomousCrossAutoLineCommand();
 				}
 				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
 					// Right switch, middle position. Drive diagonally and then score on the switch.
@@ -379,7 +379,7 @@ public class Robot extends TimedRobot {
 				}
 				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
 					// Right switch, right position. Easy.
-					switchCommand = new AutonomousDriveStraightScoreInSwitchCommand();
+					switchCommand = new AutonomousRightSwitchRightPositionCommand();
 				}
 			}
 		}
