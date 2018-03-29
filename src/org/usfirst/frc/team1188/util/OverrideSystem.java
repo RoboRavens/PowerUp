@@ -8,6 +8,14 @@ public class OverrideSystem {
 		_override1 = val;
 	}
 	
+	public boolean getOverride1() {
+		return _override1;
+	}
+	
+	public boolean getOverride2() {
+		return _override2;
+	}
+	
 	public void setOverride2(boolean val) {
 		_override2 = val;
 	}

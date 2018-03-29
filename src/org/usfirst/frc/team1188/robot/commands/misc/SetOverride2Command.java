@@ -22,7 +22,7 @@ public class SetOverride2Command extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	_overrideSystem.setOverride1(_value);
+    	_overrideSystem.setOverride2(_value);
     }
 
     // Make this return true when this Command no longer needs to run execute()

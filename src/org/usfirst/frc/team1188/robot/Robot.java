@@ -8,7 +8,6 @@
 package org.usfirst.frc.team1188.robot;
 
 
-import org.usfirst.frc.team1188.gamepad.AxisCode;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.gamepad.OperationPanel;
@@ -27,10 +26,7 @@ import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldC
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToBottomCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ResetEncodersToTopCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushHardCommand;
 import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPushSoftCommand;
 import org.usfirst.frc.team1188.robot.commands.misc.SetOverride1Command;
@@ -534,17 +530,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//RobotController.getBatteryVoltage();
-		
-		//System.out.println("teleop setting on");
-		//this.HAS_CUBE_LEDS.set(Value.kForward);
-		
-		 // this.elevator.getPosition();
-		// this.elevator.getIsAtLimits();
-		//Robot.ARM_SUBSYSTEM.getPosition();
-		
-		runOperationController();
-		
 		
 	    if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) {
 	      if (DRIVE_CONTROLLER.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
@@ -557,7 +542,6 @@ public class Robot extends TimedRobot {
 	    }
 		 
 		 diagnostics.outputTeleopDiagnostics();
-		 // System.out.println(PDP.getVoltage());
 
 		 if (getMatchIsAtTime(90)) {
 			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(4);
@@ -584,108 +568,12 @@ public class Robot extends TimedRobot {
 		return isFinished;
 	}
 	
-	public void setupOperationController() {
-    	OPERATION_CONTROLLER.getButton(ButtonCode.LEFTBUMPER).whileHeld(new IntakeWheelPullCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTBUMPER).whileHeld(new IntakeWheelPushCommand());		
-		
-		OPERATION_CONTROLLER.getButton(ButtonCode.X).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayEncoderValue));//update these commands, had to put in command to fix error
-		OPERATION_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayEncoderValue));//update these commands, had to put in command to fix error
-		OPERATION_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendWhileHeldCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new ElevatorRetractWhileHeldCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.LEFTSTICK).whenPressed(new ResetEncodersToTopCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.RIGHTSTICK).whenPressed(new ResetEncodersToBottomCommand());
-		
-		OPERATION_CONTROLLER.getButton(ButtonCode.BACK).whileHeld(new ArmRetractWhileHeldCommand());
-		OPERATION_CONTROLLER.getButton(ButtonCode.START).whileHeld(new ArmExtendWhileHeldCommand());
-		
-		/*
-		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.RIGHTBUMPER)) {
-			new IntakeWheelPullCommand().start();
-			if(ELEVATOR_SUBSYSTEM.getEncoderValue() < ElevatorSubsystem.inchesToTicks(Calibrations.elevatorCubePickupMaximumHeight)) {
-				new ArmExtendCommand().start();
-				new ElevatorRetractCommand().start();
-			}
-		}
-			//.whileHeld(new IntakeWheelPullCommand());
-		
-		
-		if(OPERATION_CONTROLLER.getButtonValue(ButtonCode.LEFTBUMPER)) {
-			new IntakeWheelPushHardCommand().start();
-			if(ELEVATOR_SUBSYSTEM.getEncoderValue() > ElevatorSubsystem.inchesToTicks(Calibrations.elevatorMinimumScaleHeightInches)) {
-				new ArmRetractCommand().start();
-			}
-		}
-		*/
-    }
-	
-	/*
-	 * Joystick axis don't have a fancy class like JoystickButton which provides "whenPressed" or "whileHeld" methods, so we need to check
-	 * the values periodically here.
-	 */
-	public void runOperationController() {
-		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride1(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.LEFTTRIGGER));
-		Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.setOverride2(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER));
-		Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.setOverride1(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.LEFTTRIGGER));
-		Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.setOverride2(Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER));
-	}
-	
 	public void setupDriveController() {
 		
 		DRIVE_CONTROLLER.getButton(ButtonCode.X).whenPressed(new SetGyroTargetHeading(270));
 		DRIVE_CONTROLLER.getButton(ButtonCode.B).whenPressed(new SetGyroTargetHeading(90));
 		DRIVE_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new SetGyroTargetHeading(0));
 		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new SetGyroTargetHeading(180));
-		 
-		/*
-		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
-			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToLowGear();
-		}
-		
-		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToLowGearButton)) {
-			DRIVE_TRAIN_SUBSYSTEM.ravenTank.shiftToHighGear();
-		}
-		
-	
-		
-	    if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) {
-	      if (DRIVE_CONTROLLER.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
-	    	  System.out.println("CUT POWER TRUE");
-	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(true);
-	      }
-	      else {
-	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false);
-	      }		
-	    }
-	    */
-		
-		//driveController.getButton(ButtonCode.A).whenPressed(new ElevatorMoveToHeightCommand(elevator, operationController, elevatorEncoder, 22194));
-	    //OPERATION_CONTROLLER.getButton(ControlsMap.elevatorExtendButton).WhileHeld(new ElevatorExtendCommand());
-		//OPERATION_CONTROLLER.getButton(ControlsMap.elevatorRetractButton).whileHeld(new ElevatorRetractCommand());
-		
-		/*if (OPERATION_CONTROLLER.getAxis(ControlsMap.elevatorExtendButton) > .25) {
-			ELEVATOR_SUBSYSTEM.elevatorExtendCommand();
-		}*/
-
-		//DRIVE_CONTROLLER.getButton(ButtonCode.B).whenPressed(new ElevatorHoldPositionCommand());
-		
-		//LIGHTLINK LED
-		//OPERATION_CONTROLLER.getButton(ButtonCode.A).whenPressed(new LEDRainbowCommand());
-	    
-		// driveController.getButton(ButtonCode.Y).whenPressed(new ElevatorExtendAndHoldCommand(elevator, operationController, elevatorEncoder));
-	    
-	    /*
-	    double armPowerValue = Robot.DRIVE_CONTROLLER.getAxis(AxisCode.RIGHTSTICKY);
-	    Robot.ARM_JOYSTICK_CONTROL_COMMAND.setPowerValue(armPowerValue);
-	    if (Robot.OPERATION_CONTROLLER.getAxisIsPressed(AxisCode.RIGHTTRIGGER)) {
-	    	if (Math.abs(armPowerValue) > .1 && Robot.ARM_JOYSTICK_CONTROL_COMMAND.isRunning() == false) {
-	    		Robot.ARM_JOYSTICK_CONTROL_COMMAND.start();
-	    	}
-	    } else {
-	    	Robot.ARM_JOYSTICK_CONTROL_COMMAND.cancel();
-	    }
-	    */
-	    
-	  //DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new DriveTrainDriveInchesCommand(100, .5, Calibrations.drivingForward));
 	}
 		
 	public void setupOperationPanel() {
@@ -707,25 +595,23 @@ public class Robot extends TimedRobot {
 		
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whileHeld(new ElevatorRetractWhileHeldCommand());
 		
-		/*
+		
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEDOWN).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, false));
-		*/OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEDOWN).whenPressed(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, true));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEDOWN).whenPressed(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEDOWN).whenReleased(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT, false));
 		
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whileHeld(new ElevatorExtendWhileHeldCommand());
-		//OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
-		//OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenPressed(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenReleased(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendFullyCommand());
-		// OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ArmRetractFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToMidwayCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
-		// OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ArmRetractFullyCommand());
 		
 		OPERATION_PANEL2.getButton(ButtonCode.INTAKEDROP).whileHeld(new IntakeWheelPushSoftCommand());
 		OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whileHeld(new IntakeWheelPullCommand());
