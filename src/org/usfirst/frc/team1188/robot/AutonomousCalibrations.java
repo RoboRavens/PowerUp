@@ -10,7 +10,7 @@ public class AutonomousCalibrations {
 	
 	
 	public static final double AutonomousCrossAutoLineDriveForwardInches = 190;
-	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .3;
+	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .5;
 	
 	public static final double AutonomousScoreLeftSwitchPosition1DriveForwardInches = 140;
 	public static final double AutonomousOppositeSideSwitchFirstForwardSegmentInches = 72;
@@ -32,8 +32,9 @@ public class AutonomousCalibrations {
 	public static final double AutonomousDriveOppositeSideScaleElevatorUpSegmentInches = 83;
 	public static final double AutonomousDriveScaleDriveForwardPowerMagniude = .5;
 	
-	public static final double AutonomousOppositeSideScaleElevatorDownSegmentInches = 205;
-	public static final double AutonomousOppositeSideScaleLateralMovementInches = 234;
+	public static final double AutonomousOppositeSideScaleForwardMovementtInches = 205;
+	public static final double AutonomousOppositeSideScaleLateralMovementInches = 230;
+	public static final double AutonomousOppositeSideScaleMoveIntoNullZoneInches = 50;
 	
 	public static final double AutonomousScoreRightSwitchPosition1DriveForwardInches = 140;
 	public static final double AutonomousScoreRightSwitchPosition3FirstDriveForwardInches = 50;
@@ -62,7 +63,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousArmExtensionEncoderDistance = 2048;
 	public static final double AutonomousScoreSwitchMiddlePositionLateralDriveForwardInches = 60;
 	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardFirstSegmentInches = 22;
-	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches = 110;
+	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches = 80;
 	
 	public static final double LengthBetweenDriverWallAndSwitch = 140;
 	public static final double LengthBetweenDriverWallAndScale = 299.65;
@@ -71,7 +72,8 @@ public class AutonomousCalibrations {
 	
 	public static final double WidthOfSwitch = 189.5;
 	
-	public static final double ExchangeZoneBuffer = 6;
+	public static final double ExchangeZoneBufferMiddlePositionLeftSwitch = 6;
+	public static final double ExchangeZoneBufferMiddlePositionRightSwitch = -18;
 	public static final double AutonomousDriveFromScaleToSwitchCubeStraightInches = 34;
 	public static final double AutonomousDriveFromScaleToSwitchCubeAngledInches = 94;
 	public static final double StraightSwitchDriveForwardFromWallInches = 140;

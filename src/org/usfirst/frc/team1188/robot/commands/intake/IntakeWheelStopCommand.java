@@ -16,14 +16,11 @@ public class IntakeWheelStopCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("IntakeWheelStopCommandIntakeWheelStopCommandIntakeWheelStopCommandIntakeWheelStopCommand");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.INTAKE_WHEEL_SUBSYSTEM.stop();
-    	// System.out.println("Has cube: " + this.hasCube());
-    	//System.out.println("IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();IntakeWheelSubsystem.pull();");
     }
 
     // Make this return true when this Command no longer needs to run execute()

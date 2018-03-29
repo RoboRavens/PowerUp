@@ -22,7 +22,8 @@ public class AutonomousLeftSwitchMiddlePositionCommand extends CommandGroup{
 		addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches,
 				AutonomousCalibrations.AutonomousScoreSwitchDriveForwardPowerMagnitude,
-    			Calibrations.drivingForward));
+    			Calibrations.drivingForward,
+    			2.5));
 		// addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 90));
 		addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScoreSwitchIntakePushPowerMagnitude));
 	}

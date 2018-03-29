@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.21513353115727002,
+  "dividerPosition": 0.20674486803519063,
   "tabPane": [
     {
       "title": "Arm Diagnostics",
@@ -355,6 +355,58 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///Diagnostics/Subsystem/Elevator/LimitEncoderBottom",
               "_title": "/Diagnostics/Subsystem/Elevator/LimitEncoderBottom",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/OverrideExtend1",
+              "_title": "/Diagnostics/Subsystem/Elevator/OverrideExtend1",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/OverrideExtend2",
+              "_title": "/Diagnostics/Subsystem/Elevator/OverrideExtend2",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/OverrideRetract1",
+              "_title": "/Diagnostics/Subsystem/Elevator/OverrideRetract1",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Diagnostics/Subsystem/Elevator/OverrideRetract2",
+              "_title": "/Diagnostics/Subsystem/Elevator/OverrideRetract2",
               "colorWhenTrue": "#7CFC00FF",
               "colorWhenFalse": "#8B0000FF"
             }
