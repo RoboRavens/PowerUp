@@ -555,10 +555,10 @@ public class RavenTank {
     }
     
     public double getNetInchesTraveled() {
-    	double leftInches = this.leftRavenEncoder.getNetInchesTraveled();
-    	
-    	double netInchesTraveled = leftInches;
-    	
+    	// double leftInches = this.leftRavenEncoder.getNetInchesTraveled();
+    	double rightInches = this.rightRavenEncoder.getNetInchesTraveled();
+    	//double netInchesTraveled = leftInches;
+    	double netInchesTraveled = rightInches;
     	return netInchesTraveled;
     }
     

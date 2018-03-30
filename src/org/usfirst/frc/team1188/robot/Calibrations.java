@@ -71,8 +71,8 @@ public final class Calibrations {
 	public static final double DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT = .4;
 	
 	// Elevator Lift
-	public static final double elevatorExtensionPowerMagnitude = 1;
-	public static final double elevatorRetractionPowerMagnitude = 1; // when no 3rd stage
+	public static final double elevatorExtensionPowerMagnitude = .66;
+	public static final double elevatorRetractionPowerMagnitude = .66; // when no 3rd stage
 	// public static final double elevatorRetractionPowerMagnitude = .1;
 	public static final double elevatorMaximumSpeed = 1.0;
 	//public static final double elevatorHoldPositionPowerMagnitude = .15;
@@ -81,7 +81,11 @@ public final class Calibrations {
 	public static final double elevatorHoldPositionPowerMagnitude = .0;
 	
 	public static final int elevatorLiftEncoderMinimumValue = 0;
-	public static final int elevatorLiftEncoderMaximumValue = 28000;
+	// 28k on practice robot - 26900 on comp
+	// static final int elevatorLiftEncoderMaximumValue = 28000;
+	
+	public static final int elevatorLiftEncoderMaximumValue = 26900;
+	
 	
 	public static final double elevatorConsideredMovingEncoderRate = 0;
 	
@@ -101,10 +105,10 @@ public final class Calibrations {
 	// At low speeds (max of .3), and a lift max value of 30k, 1500 maxes out the elevator.
 	// At higher speeds, a higher value is needed because the elevator will overshoot the target until we have PID.
 	//public static final int elevatorLiftUpwardSafetyMargin = 2500;
-	public static final int elevatorLiftUpwardSafetyMargin = 1000;
+	public static final int elevatorLiftUpwardSafetyMargin = 1300;
 	
 	//public static final int elevatorLiftDownwardSafetyMargin = 1500;
-	public static final int elevatorLiftDownwardSafetyMargin = 500;
+	public static final int elevatorLiftDownwardSafetyMargin = 1000;
 	
 	public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 3.5;
 	
@@ -133,7 +137,13 @@ public final class Calibrations {
 	public static double armRetractionPowerMagnitude = 1;
 	public static double armMaximumSpeed = 1;
 	public static double armHoldPositionPowerMagnitude = 0.05;
-	public static int armEncoderValueExtended = 14300;
+
+	// practice robot: 14.3k
+	// public static int armEncoderValueExtended = 14300;
+	
+	// comp robot: 14.2k
+	public static int armEncoderValueExtended = 13200;
+	
 	public static int armEncoderValueMidway = 7300;
 	public static int armEncoderValueRetracted = 0;
 	public static int ARM_ENCODER_BUFFER = 300;

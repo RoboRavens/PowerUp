@@ -51,7 +51,7 @@ public class AutonomousRightScaleRightPositionCommand extends CommandGroup {
     	
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 45, .012, .75));
     	
-    	// addSequential(new ArmExtendFullyCommand());
+    	addSequential(new ArmExtendFullyCommand());
     	addParallel(new IntakeWheelPullCommand());
     	
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeAngledInches,

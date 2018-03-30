@@ -30,7 +30,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousDriveLeftScalePosition3FirstDriveForwardInches = 95;
 	public static final double AutonomousDriveLeftScalePosition3SecondDriveForwardInches = 260;
 	public static final double AutonomousDriveOppositeSideScaleElevatorUpSegmentInches = 83;
-	public static final double AutonomousDriveScaleDriveForwardPowerMagniude = .5;
+	public static final double AutonomousDriveScaleDriveForwardPowerMagniude = .66;
 	
 	public static final double AutonomousOppositeSideScaleForwardMovementtInches = 205;
 	public static final double AutonomousOppositeSideScaleLateralMovementInches = 230;
@@ -53,7 +53,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousDriveRightScalePosition1ThirdDriveForwardInches = 193;
 	
 
-	public static final double AutonomousScoreSwitchIntakePushPowerMagnitude = .1;
+	public static final double AutonomousScoreSwitchIntakePushPowerMagnitude = .5;
 	public static final double AutonomousGrabCubeIntakePullPowerMagnitude = 1;
 	
 	public static final double AutonomousScaleIntakeSpitPowerMagnitude = 1;
