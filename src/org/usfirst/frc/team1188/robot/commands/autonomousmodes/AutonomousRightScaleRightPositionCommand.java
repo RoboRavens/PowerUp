@@ -31,6 +31,23 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutonomousRightScaleRightPositionCommand extends CommandGroup {
 	public AutonomousRightScaleRightPositionCommand() {
+		
+		addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthBetweenDriverWallAndScale,
+    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
+    			Calibrations.drivingForward,
+    			10));
+    	
+    	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, -90, .012, 1.5));
+
+    	addSequential(new DriveTrainDriveInchesCommand(10,
+    			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
+    			Calibrations.drivingBackward,
+    			1));
+    	
+    	addSequential(new ScoreOnScaleCommandGroup());
+		
+		
+		/*
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthBetweenDriverWallAndScale,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward,
@@ -51,7 +68,7 @@ public class AutonomousRightScaleRightPositionCommand extends CommandGroup {
     	
     	addSequential(new DriveTrainTurnRelativeDegreesCommand(Robot.DRIVE_TRAIN_SUBSYSTEM, 45, .012, .75));
     	
-    	// addSequential(new ArmExtendFullyCommand());
+    	addSequential(new ArmExtendFullyCommand());
     	addParallel(new IntakeWheelPullCommand());
     	
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.AutonomousDriveFromScaleToSwitchCubeAngledInches,
@@ -61,5 +78,7 @@ public class AutonomousRightScaleRightPositionCommand extends CommandGroup {
     	
     	addSequential(new IntakeWheelStopCommand());
     	addSequential(new ArmRetractFullyCommand());
+    	
+    	*/
     }
 }

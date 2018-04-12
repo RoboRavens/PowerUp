@@ -35,7 +35,7 @@ public class RavenEncoder {
         double netInchesTraveled = netRevolutions * driveWheelCircumferenceInches;
        
         // I added the *2 here 
-        return netInchesTraveled;
+        return netInchesTraveled * 2;
     }
     
     public int getCycles() {
