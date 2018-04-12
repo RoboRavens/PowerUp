@@ -16,7 +16,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousOppositeSideSwitchFirstForwardSegmentInches = 72;
 	public static final double AutonomousOppositeSideSwitchLateralMovementInches = 102;
 	public static final double AutonomousOppositeSideSwitchSecondForwardSegmentInches = 72;
-	public static final double AutonomousScoreSwitchDriveForwardPowerMagnitude = .5;
+	public static final double AutonomousScoreSwitchDriveForwardPowerMagnitude = .3;
 	
 	public static final double AutonomousScoreLeftSwitchGrabCubePosition1FirstDriveForwardInches = 118;
 	public static final double AutonomousScoreLeftSwitchGrabCubePosition1SecondDriveForwardInches = 132;
@@ -30,7 +30,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousDriveLeftScalePosition3FirstDriveForwardInches = 95;
 	public static final double AutonomousDriveLeftScalePosition3SecondDriveForwardInches = 260;
 	public static final double AutonomousDriveOppositeSideScaleElevatorUpSegmentInches = 83;
-	public static final double AutonomousDriveScaleDriveForwardPowerMagniude = .66;
+	public static final double AutonomousDriveScaleDriveForwardPowerMagniude = .5;
 	
 	public static final double AutonomousOppositeSideScaleForwardMovementtInches = 205;
 	public static final double AutonomousOppositeSideScaleLateralMovementInches = 230;
@@ -66,19 +66,22 @@ public class AutonomousCalibrations {
 	public static final double AutonomousScoreSwitchMiddlePositionDriveForwardSecondSegmentInches = 80;
 	
 	public static final double LengthBetweenDriverWallAndSwitch = 140;
-	public static final double LengthBetweenDriverWallAndScale = 299.65;
+	public static final double LengthBetweenDriverWallAndScale = 270.65;
 	public static final double LengthOfSwitch = 56;
 	public static final double LengthOfRobotBuffer = 40;
 	
 	public static final double WidthOfSwitch = 189.5;
 	
 	public static final double ExchangeZoneBufferMiddlePositionLeftSwitch = 6;
-	public static final double ExchangeZoneBufferMiddlePositionRightSwitch = -18;
+	public static final double ExchangeZoneBufferMiddlePositionRightSwitch = -30;
 	public static final double AutonomousDriveFromScaleToSwitchCubeStraightInches = 34;
 	public static final double AutonomousDriveFromScaleToSwitchCubeAngledInches = 94;
 	public static final double StraightSwitchDriveForwardFromWallInches = 140;
 	public static final double StraightSwitchDriveForwardToSwitchInches = 40;
 	public static final double SideSwitchDriveForwardFromWallTimeoutSeconds = 5;
+	
+	// was .012
+	public static final double SwitchGyroScaleFactor = .008;
 	
 	
 }

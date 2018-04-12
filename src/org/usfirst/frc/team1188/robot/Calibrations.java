@@ -71,7 +71,7 @@ public final class Calibrations {
 	public static final double DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT = .4;
 	
 	// Elevator Lift
-	public static final double elevatorExtensionPowerMagnitude = .66;
+	public static final double elevatorExtensionPowerMagnitude = .82;
 	public static final double elevatorRetractionPowerMagnitude = .66; // when no 3rd stage
 	// public static final double elevatorRetractionPowerMagnitude = .1;
 	public static final double elevatorMaximumSpeed = 1.0;
@@ -90,7 +90,7 @@ public final class Calibrations {
 	public static final double elevatorConsideredMovingEncoderRate = 0;
 	
 	public static final int elevatorMidwayEncoderValue = 21000;
-	public static final int elevatorSwitchEncoderValue = 10000;
+	public static final int elevatorSwitchEncoderValue = 13000;
 	public static final int ELEVATOR_AT_POSITION_BUFFER = 500;
 	public static final double ELEVATOR_MOVE_TO_POSITION_TIMEOUT = 2;
 	
@@ -108,7 +108,7 @@ public final class Calibrations {
 	public static final int elevatorLiftUpwardSafetyMargin = 1300;
 	
 	//public static final int elevatorLiftDownwardSafetyMargin = 1500;
-	public static final int elevatorLiftDownwardSafetyMargin = 1000;
+	public static final int elevatorLiftDownwardSafetyMargin = 700;
 	
 	public static final double ELEVATOR_SAFETY_TIMER_TIMEOUT = 3.5;
 	
@@ -151,5 +151,6 @@ public final class Calibrations {
 	// This value represents the buffer that the arm can be *on either side* of midway,
 	// so the true buffer range is this value times two.
 	public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 300;
+	public static int armEncoderValueHighScale = 3600;
 	public static final double ARM_SAFETY_TIMER_TIMEOUT = 2;
 }

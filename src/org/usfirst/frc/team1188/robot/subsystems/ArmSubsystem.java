@@ -257,7 +257,7 @@ public class ArmSubsystem extends Subsystem {
 		
     	return isPastMidway;
 	}
-
+	
 	public boolean getIsAtMidway() {
 		boolean isAtMidway = false;
 		
@@ -270,6 +270,40 @@ public class ArmSubsystem extends Subsystem {
 			
 		return isAtMidway;
 	}
+	
+	public boolean getIsExtendedPastHighScale() {
+    	boolean isPastHighScale = false;
+    	
+		if (this.getEncoderPosition() > Calibrations.armEncoderValueHighScale + Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER) {
+			isPastHighScale = true;
+		}
+		
+    	return isPastHighScale;
+	}
+	
+	public boolean getIsRetractedBeforeHighScale() {
+    	boolean isPastHighScale = false;
+    	
+		if (this.getEncoderPosition() < Calibrations.armEncoderValueHighScale - Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER) {
+			isPastHighScale = true;
+		}
+		
+    	return isPastHighScale;
+	}
+
+	public boolean getIsAtHighScale() {
+		boolean isAtHighScale = false;
+		
+		boolean notOverExtended = this.getIsExtendedPastHighScale();
+		boolean notOverRetracted = this.getIsRetractedBeforeHighScale();
+		
+		if (notOverExtended == false && notOverRetracted == false) {
+			isAtHighScale = true;
+		}
+			
+		return isAtHighScale;
+	}
+	
 	
 	public void resetSafetyTimer() {
 		_safetyTimer.reset();

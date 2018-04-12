@@ -15,6 +15,7 @@ import org.usfirst.frc.team1188.gamepad.OperationPanel2;
 import org.usfirst.frc.team1188.ravenhardware.RavenLighting;
 import org.usfirst.frc.team1188.robot.commands.LED.LEDBlinkFor2SecondsCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendToHighScaleCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
@@ -613,8 +614,14 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());
 		
+		
+		// CZB Shepherd Friday: stealing this button to make a one-press, elevator to high scale button.
+		OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whenPressed(new ArmExtendToHighScaleCommand());
+		OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whenPressed(new ElevatorExtendFullyCommand());		
+		
+		
 		OPERATION_PANEL2.getButton(ButtonCode.INTAKEDROP).whileHeld(new IntakeWheelPushSoftCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whileHeld(new IntakeWheelPullCommand());
+		//OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whileHeld(new IntakeWheelPullCommand());
 		//OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_INTAKE, true));
 		//OPERATION_PANEL2.getButton(ButtonCode.INTAKEOVERRIDE).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_INTAKE, false));
 		OPERATION_PANEL2.getButton(ButtonCode.INTAKESPIT).whileHeld(new IntakeWheelPushHardCommand());
