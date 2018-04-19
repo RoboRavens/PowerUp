@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1188.robot;
 
 
+import org.usfirst.frc.team1188.autonomous.AutonomousCommandProvider;
 import org.usfirst.frc.team1188.gamepad.ButtonCode;
 import org.usfirst.frc.team1188.gamepad.Gamepad;
 import org.usfirst.frc.team1188.gamepad.OperationPanel;
@@ -20,7 +21,6 @@ import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractWhileHeldCommand;
-import org.usfirst.frc.team1188.robot.commands.autonomousmodes.*;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
@@ -98,6 +98,8 @@ public class Robot extends TimedRobot {
 	public static final OverrideSystem OVERRIDE_SYSTEM_INTAKE = new OverrideSystem();
 	
 	public static final Solenoid ARM_HOLD_BACK = new Solenoid(RobotMap.armHoldBackSolenoid);
+	
+	public static final AutonomousCommandProvider AUTONOMOUS_COMMAND_PROVIDER = new AutonomousCommandProvider();
 
 
 	Command autonomousCommand;
@@ -290,7 +292,13 @@ public class Robot extends TimedRobot {
 		m_autonomousCommand = m_chooser.getSelected();
 		// Zero the gyro, grab the selected autonomous mode, and get to work.
 		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.setGyroTargetHeadingToCurrentHeading();
-		autonomousCommand = getAutonomousCommand();
+		Class<? extends Command> autonomousCommandClass = AUTONOMOUS_COMMAND_PROVIDER.getAutonomousCommand(autoFromDashboard, positionFromDashboard, DriverStation.getInstance().getGameSpecificMessage());
+		try {
+			autonomousCommand = autonomousCommandClass.newInstance();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		String autoCommandName = autonomousCommand.getClass().getSimpleName();
 		SmartDashboard.putString("DB/String 5", autoCommandName);
@@ -308,193 +316,6 @@ public class Robot extends TimedRobot {
 			autonomousCommand.start();
 		}
 	}
-
-	
-	public Command getAutonomousCommand() {
-		// Three possibilities:
-		// Drive forward and score in switch,
-		// move left to score in switch,
-		// and move right to score in switch.
-		
-		
-		autonomousCommand = new AutonomousCrossAutoLineCommand();
-		
-
-		switch (autoFromDashboard.toUpperCase()) {
-			case AutonomousCalibrations.DoNothing:
-				autonomousCommand = new AutonomousDoNothingCommand();
-				break;
-			case AutonomousCalibrations.CrossLine:
-				autonomousCommand = new AutonomousCrossAutoLineCommand();
-				break;
-			case AutonomousCalibrations.Switch:
-				autonomousCommand = this.getAutonomousSwitchCommand();
-				break;
-			case AutonomousCalibrations.Scale:
-				autonomousCommand = this.getAutonomousScaleCommand();
-				break;
-			case AutonomousCalibrations.FlexScale:
-				autonomousCommand = this.getAutonomousFlexScaleCommand();
-				break;
-			case AutonomousCalibrations.FlexSwitch:
-				autonomousCommand = this.getAutonomousFlexSwitchCommand();
-				break;
-					
-		}
-		
-		
-		
-	
-		return autonomousCommand;
-	}
-	
-	private Command getAutonomousSwitchCommand() {
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		
-		Command switchCommand = new AutonomousCrossAutoLineCommand();
-		
-		if (gameData.length() > 0) {
-			if (gameData.charAt(0) == 'L') {
-				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
-					// Left switch, left position. Drive forward and then score on the switch.
-					switchCommand = new AutonomousLeftSwitchLeftPositionCommand();
-				}
-				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
-					// Left switch, middle position. Drive diagonally and then score on the switch.
-					switchCommand = new AutonomousLeftSwitchMiddlePositionCommand();
-				}
-				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
-					// Left switch, right position. UGUUU
-					switchCommand = new AutonomousCrossAutoLineCommand();
-				}
-			}
-			else {
-				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
-					// Right switch, left position. Ugh.
-					switchCommand = new AutonomousCrossAutoLineCommand();
-				}
-				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
-					// Right switch, middle position. Drive diagonally and then score on the switch.
-					switchCommand = new AutonomousRightSwitchMiddlePositionCommand();
-				}
-				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
-					// Right switch, right position. Easy.
-					switchCommand = new AutonomousRightSwitchRightPositionCommand();
-				}
-			}
-		}
-		
-		return switchCommand;
-	}
-	
-	private Command getAutonomousScaleCommand() {
-
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		
-		Command scaleCommand = new AutonomousCrossAutoLineCommand();
-		
-		if (gameData.length() > 0) {
-			if (gameData.charAt(1) == 'L') {
-				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
-					// Left switch, left position. Drive forward and then score on the switch.
-					scaleCommand = new AutonomousLeftScaleLeftPositionCommand();
-				}
-				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
-					// Left switch, middle position. Drive diagonally and then score on the switch.
-					// scaleCommand = new AutonomousScoreLeftSwitchMiddlePositionCommand();
-				}
-				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
-					// Left switch, right position. UGUUU
-					scaleCommand = new AutonomousLeftScaleRightPositionCommand();
-				}
-			}
-			else {
-				if (positionFromDashboard.toUpperCase().equals("LEFT")) {
-					// Right switch, left position. Ugh.
-					scaleCommand = new AutonomousRightScaleLeftPositionCommand();
-				}
-				else if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
-					// Right switch, middle position. Drive diagonally and then score on the switch.
-					// scaleCommand = new AutonomousScoreRightSwitchMiddlePositionCommand();
-				}
-				else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
-					// Right switch, right position. Easy.
-					scaleCommand = new AutonomousRightScaleRightPositionCommand();
-				}
-			}
-		}
-		
-		return scaleCommand;
-	}
-	
-	private Command getAutonomousFlexScaleCommand() {
-		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		Command flexCommand = new AutonomousCrossAutoLineCommand();
-		
-		if (gameData.length() <= 1) {
-			return flexCommand;
-		}
-		
-		if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
-			return getAutonomousScaleCommand();
-		}
-		
-		if (positionFromDashboard.toUpperCase().equals("LEFT")) {
-			if (gameData.charAt(1) == 'L') {
-				// robot left position, scale left position
-				flexCommand = getAutonomousScaleCommand();
-			} else if (gameData.charAt(0) == 'L') {
-				// robot left position, switch left position
-				flexCommand = getAutonomousSwitchCommand();
-			}
-		} else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
-			if (gameData.charAt(1) == 'R') {
-				// robot right position, scale right position
-				flexCommand = getAutonomousScaleCommand();
-			} else if (gameData.charAt(0) == 'R') {
-				// robot right position, switch right position
-				flexCommand = getAutonomousSwitchCommand();
-			}
-		}
-		
-		return flexCommand;
-	}
-	
-	private Command getAutonomousFlexSwitchCommand() {
-		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		Command flexCommand = new AutonomousCrossAutoLineCommand();
-		
-		if (gameData.length() <= 1) {
-			return flexCommand;
-		}
-		
-		if (positionFromDashboard.toUpperCase().equals("MIDDLE")) {
-			return getAutonomousSwitchCommand();
-		}
-		
-		if (positionFromDashboard.toUpperCase().equals("LEFT")) {
-			if (gameData.charAt(0) == 'L') {
-				// robot left position, switch left position
-				flexCommand = getAutonomousSwitchCommand();
-			} else if (gameData.charAt(1) == 'L') {
-				// robot left position, scale left position
-				flexCommand = getAutonomousScaleCommand();
-			}
-		} else if (positionFromDashboard.toUpperCase().equals("RIGHT")) {
-			if (gameData.charAt(0) == 'R') {
-				flexCommand = getAutonomousSwitchCommand();
-				// TODO
-			} else if (gameData.charAt(1) == 'R') {
-				// robot right position, scale right position
-				flexCommand = getAutonomousScaleCommand();
-			}
-		}
-		
-		return flexCommand;
-	}
-	
 	
 	/**
 	 * This function is called periodically during autonomous.
