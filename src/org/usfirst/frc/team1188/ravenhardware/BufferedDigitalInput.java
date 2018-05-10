@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
-public class BufferedDigitalInput {
+public class BufferedDigitalInput implements IBufferedDigitalInput {
 	public DigitalInput digitalInput;
 	protected int listSize = 9;
 	

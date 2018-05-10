@@ -1,56 +1,48 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.usfirst.frc.team1188.ravenhardware.BufferedDigitalInput;
+import org.usfirst.frc.team1188.ravenhardware.IBufferedDigitalInput;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStopCommand;
 import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
+import org.usfirst.frc.team1188.wpiwrappers.IEncoder;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorSubsystem extends Subsystem {
-	TalonSRX elevatorMotor;
-	BufferedDigitalInput topLimitSwitch;
-	BufferedDigitalInput bottomLimitSwitch;
-	Encoder encoder;
+public class ElevatorSubsystem2 {
+	IMotorController elevatorMotor;
+	IBufferedDigitalInput topLimitSwitch;
+	IBufferedDigitalInput bottomLimitSwitch;
+	IEncoder encoder;
 	private Timer _safetyTimer = new Timer();
-	private int _targetEncoderPosition;
 	private double _expectedPower;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public ElevatorSubsystem() {
-		this.elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
-		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
-		this.bottomLimitSwitch = new BufferedDigitalInput(RobotMap.bottomLimitSwitch);
-		this.topLimitSwitch = new BufferedDigitalInput(RobotMap.topLimitSwitch);
-		this._targetEncoderPosition = Calibrations.elevatorLiftEncoderMinimumValue;
-		
+	public ElevatorSubsystem2(IMotorController elevatorMotor, IEncoder encoder, IBufferedDigitalInput bottomLimitSwitch, IBufferedDigitalInput topLimitSwitch) {
+		this.elevatorMotor = elevatorMotor;
+		this.encoder = encoder;
+		this.bottomLimitSwitch = bottomLimitSwitch;
+		this.topLimitSwitch = topLimitSwitch;
 	}
 	
-	public ElevatorSubsystem(TalonSRX elevatorMotor, Encoder encoder, BufferedDigitalInput bottomLimitSwitch, BufferedDigitalInput topLimitSwitch) {
-		
-	}
-	
-	public void setTargetEncoderPosition(int position) {
-		this._targetEncoderPosition = position;
-	}
-	
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new ElevatorHoldPositionCommand());
+    public Command getDefaultCommand() {
+    	return new ElevatorHoldPositionCommand();
     } 
     
     public void extend() {
