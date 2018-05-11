@@ -5,3 +5,7 @@
 sysProps.xml
 build/
 dist/
+
+# GradleRio
+.gradle/
+.settings/

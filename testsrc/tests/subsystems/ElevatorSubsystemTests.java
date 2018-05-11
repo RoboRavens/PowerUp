@@ -1,12 +1,16 @@
 package tests.subsystems;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.usfirst.frc.team1188.ravenhardware.IBufferedDigitalInput;
+import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem2;
+import org.usfirst.frc.team1188.wpiwrappers.IEncoder;
+
+import com.ctre.phoenix.motorcontrol.IMotorController;
 
 // http://www.baeldung.com/mockito-junit-5-extension
 
@@ -15,8 +19,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class ElevatorSubsystemTests {
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void test(@Mock IMotorController elevatorMotor, @Mock IEncoder encoder, @Mock IBufferedDigitalInput bottomLimitSwitch, @Mock IBufferedDigitalInput topLimitSwitch) {
+		//TODO create wrapper for wpi Timer
+		ElevatorSubsystem2 sub = new ElevatorSubsystem2(elevatorMotor, encoder, bottomLimitSwitch, topLimitSwitch);
 	}
 
 }
