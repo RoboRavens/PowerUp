@@ -1,9 +1,5 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.usfirst.frc.team1188.ravenhardware.BufferedDigitalInput;
 import org.usfirst.frc.team1188.ravenhardware.IBufferedDigitalInput;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
@@ -11,34 +7,31 @@ import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionComm
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStopCommand;
 import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 import org.usfirst.frc.team1188.wpiwrappers.IEncoder;
-
+import org.usfirst.frc.team1188.wpiwrappers.ITimer;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorController;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class ElevatorSubsystem2 {
-	IMotorController elevatorMotor;
-	IBufferedDigitalInput topLimitSwitch;
-	IBufferedDigitalInput bottomLimitSwitch;
-	IEncoder encoder;
-	private Timer _safetyTimer = new Timer();
+	private IMotorController _elevatorMotor;
+	private IBufferedDigitalInput _topLimitSwitch;
+	private IBufferedDigitalInput _bottomLimitSwitch;
+	private IEncoder _encoder;
+	private ITimer _safetyTimer;
 	private double _expectedPower;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public ElevatorSubsystem2(IMotorController elevatorMotor, IEncoder encoder, IBufferedDigitalInput bottomLimitSwitch, IBufferedDigitalInput topLimitSwitch) {
-		this.elevatorMotor = elevatorMotor;
-		this.encoder = encoder;
-		this.bottomLimitSwitch = bottomLimitSwitch;
-		this.topLimitSwitch = topLimitSwitch;
+	public ElevatorSubsystem2(IMotorController elevatorMotor, IEncoder encoder, IBufferedDigitalInput bottomLimitSwitch, IBufferedDigitalInput topLimitSwitch, ITimer safetyTimer) {
+		_elevatorMotor = elevatorMotor;
+		_encoder = encoder;
+		_bottomLimitSwitch = bottomLimitSwitch;
+		_topLimitSwitch = topLimitSwitch;
+		_safetyTimer = safetyTimer;
 	}
 	
     public Command getDefaultCommand() {
@@ -80,14 +73,14 @@ public class ElevatorSubsystem2 {
     }
     
     public int getEncoderPosition() {
-    	int EncoderPosition = this.elevatorMotor.getSelectedSensorPosition(0);
+    	int EncoderPosition = _elevatorMotor.getSelectedSensorPosition(0);
     	
     	return EncoderPosition;
     }
     
     public void periodic() {
-    	bottomLimitSwitch.maintainState();
-    	topLimitSwitch.maintainState();
+    	_bottomLimitSwitch.maintainState();
+    	_topLimitSwitch.maintainState();
     	
     	elevatorSubsystemDiagnostics();
     	checkExpectedSpeedVersusPower();
@@ -108,7 +101,7 @@ public class ElevatorSubsystem2 {
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "OverrideRetract2", Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.getOverride2());
 
     	// Measure speed of elevator
-    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderRate", encoder.getRate());
+    	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderRate", _encoder.getRate());
     	// Measure power sent to elevator
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderExpectedPower", _expectedPower);
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitSwitchAndEncoderAgreeBottom", this.encoderAndLimitsMatchBottom());
@@ -147,7 +140,7 @@ public class ElevatorSubsystem2 {
     	// Check if elevator is being sent power and not moving at the right speed
     	if (Math.abs(_expectedPower) > Calibrations.elevatorHoldPositionPowerMagnitude) {
     		// The line below only returns as true if the elevator is pushing harder than it needs to not move it 
-    		if (Math.abs(encoder.getRate()) < Calibrations.elevatorConsideredMovingEncoderRate) { 
+    		if (Math.abs(_encoder.getRate()) < Calibrations.elevatorConsideredMovingEncoderRate) { 
     			burnoutProtection();
     		}
     	}
@@ -169,11 +162,11 @@ public class ElevatorSubsystem2 {
     }
     
     public void resetEncodersToBottom() {
-    	this.elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
+    	_elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMinimumValue, 0, 0);
     }
     
     public void resetEncodersToTop() {
-    	this.elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMaximumValue, 0, 0);
+    	_elevatorMotor.setSelectedSensorPosition(Calibrations.elevatorLiftEncoderMaximumValue, 0, 0);
     }
     
     private void set(double magnitude) {
@@ -197,7 +190,7 @@ public class ElevatorSubsystem2 {
     
     private void setMotors(double magnitude) {
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "MotorOutputPercent", magnitude);
-    	elevatorMotor.set(ControlMode.PercentOutput, magnitude);
+    	_elevatorMotor.set(ControlMode.PercentOutput, magnitude);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
@@ -305,7 +298,7 @@ public class ElevatorSubsystem2 {
 	public boolean getTopLimitSwitchValue() {
 		boolean topLimitSwitchValue = false;
 		
-		topLimitSwitchValue = !topLimitSwitch.get();
+		topLimitSwitchValue = !_topLimitSwitch.get();
 		
 		return topLimitSwitchValue;
 	}
@@ -313,7 +306,7 @@ public class ElevatorSubsystem2 {
 	public boolean getBottomLimitSwitchValue() {
 		boolean bottomLimitSwitchValue = false;
 		
-		bottomLimitSwitchValue = !bottomLimitSwitch.get();
+		bottomLimitSwitchValue = !_bottomLimitSwitch.get();
 		
 		return bottomLimitSwitchValue;
 	}

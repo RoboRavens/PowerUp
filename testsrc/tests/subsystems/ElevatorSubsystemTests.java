@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.usfirst.frc.team1188.ravenhardware.IBufferedDigitalInput;
 import org.usfirst.frc.team1188.robot.subsystems.ElevatorSubsystem2;
 import org.usfirst.frc.team1188.wpiwrappers.IEncoder;
+import org.usfirst.frc.team1188.wpiwrappers.ITimer;
 
 import com.ctre.phoenix.motorcontrol.IMotorController;
 
@@ -19,9 +20,13 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 class ElevatorSubsystemTests {
 
 	@Test
-	void test(@Mock IMotorController elevatorMotor, @Mock IEncoder encoder, @Mock IBufferedDigitalInput bottomLimitSwitch, @Mock IBufferedDigitalInput topLimitSwitch) {
-		//TODO create wrapper for wpi Timer
-		ElevatorSubsystem2 sub = new ElevatorSubsystem2(elevatorMotor, encoder, bottomLimitSwitch, topLimitSwitch);
+	void test(@Mock IMotorController elevatorMotor,
+			@Mock IEncoder encoder,
+			@Mock IBufferedDigitalInput bottomLimitSwitch,
+			@Mock IBufferedDigitalInput topLimitSwitch,
+			@Mock ITimer safetyTimer) {
+		
+		ElevatorSubsystem2 sub = new ElevatorSubsystem2(elevatorMotor, encoder, bottomLimitSwitch, topLimitSwitch, safetyTimer);
 	}
 
 }
