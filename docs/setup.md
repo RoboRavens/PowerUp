@@ -4,7 +4,10 @@
   - [Update or Install FRC Software Suite](#update-or-install-FRC-software-suite)
   - [Install Phoenix Framework](#install-phoenix-framework)
 
-## PC Setup
+## Note
+The new GradleRIO tooling eliminates a lot of these setup procedures, so follow those steps first. This documentation remains here temporarily for Robot Setup and adding software features that weren't provided by GradleRIO.
+
+## Legacy PC Setup
 ### Update Eclipse wpilib Plugins
 If Eclipse and the "WPILib Robot Development" software are already installed then you can update the software using the following steps:
 1. Open Eclipse
