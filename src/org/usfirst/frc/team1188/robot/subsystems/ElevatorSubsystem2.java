@@ -22,11 +22,13 @@ public class ElevatorSubsystem2 {
 	private IEncoder _encoder;
 	private ITimer _safetyTimer;
 	private double _expectedPower;
-
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 	
-	public ElevatorSubsystem2(IMotorController elevatorMotor, IEncoder encoder, IBufferedDigitalInput bottomLimitSwitch, IBufferedDigitalInput topLimitSwitch, ITimer safetyTimer) {
+	public ElevatorSubsystem2(
+			IMotorController elevatorMotor,
+			IEncoder encoder,
+			IBufferedDigitalInput bottomLimitSwitch,
+			IBufferedDigitalInput topLimitSwitch,
+			ITimer safetyTimer) {
 		_elevatorMotor = elevatorMotor;
 		_encoder = encoder;
 		_bottomLimitSwitch = bottomLimitSwitch;
@@ -199,10 +201,7 @@ public class ElevatorSubsystem2 {
     	boolean switchLimit = false;
     	
     	encoderLimit = this.isEncoderAtRetractionLimit();
-    	
-    	if (this.getBottomLimitSwitchValue() == true) {
-    		switchLimit = true;
-    	}
+    	switchLimit = this.getBottomLimitSwitchValue();
     	
     	return Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.getIsAtLimit(encoderLimit, switchLimit);
     }
