@@ -1,21 +1,26 @@
 package org.usfirst.frc.team1188.robot.subsystems;
 
+import org.usfirst.frc.team1188.ravenhardware.BufferedDigitalInput;
 import org.usfirst.frc.team1188.ravenhardware.IBufferedDigitalInput;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
+import org.usfirst.frc.team1188.robot.RobotMap;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorHoldPositionCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorStopCommand;
 import org.usfirst.frc.team1188.util.PCDashboardDiagnostics;
 import org.usfirst.frc.team1188.wpiwrappers.IEncoder;
 import org.usfirst.frc.team1188.wpiwrappers.ITimer;
+import org.usfirst.frc.team1188.wpiwrappers.REncoder;
+import org.usfirst.frc.team1188.wpiwrappers.RTimer;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorController;
-import edu.wpi.first.wpilibj.command.Command;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  *
  */
-public class ElevatorSubsystem2 {
+public class ElevatorSubsystem2 extends RavenSubsystem {
 	private IMotorController _elevatorMotor;
 	private IBufferedDigitalInput _topLimitSwitch;
 	private IBufferedDigitalInput _bottomLimitSwitch;
@@ -36,9 +41,17 @@ public class ElevatorSubsystem2 {
 		_safetyTimer = safetyTimer;
 	}
 	
-    public Command getDefaultCommand() {
-    	return new ElevatorHoldPositionCommand();
-    } 
+	public ElevatorSubsystem2() {
+		this(
+			new TalonSRX(RobotMap.elevatorMotor),
+			new REncoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2),
+			new BufferedDigitalInput(RobotMap.bottomLimitSwitch),
+			new BufferedDigitalInput(RobotMap.topLimitSwitch),
+			new RTimer()
+		);
+		
+		setDefaultCommand(new ElevatorHoldPositionCommand());
+	}
     
     public void extend() {
 		this.extend(Calibrations.elevatorExtensionPowerMagnitude); 
