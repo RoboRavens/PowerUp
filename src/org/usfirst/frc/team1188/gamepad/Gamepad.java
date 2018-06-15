@@ -48,7 +48,7 @@ public class Gamepad {
 				axisValue = joystick.getRawAxis(3);
 				break;
 			case RIGHTSTICKX:
-				axisValue = joystick.getRawAxis(4);
+				axisValue = joystick.getRawAxis(2); // do it 4
 				break;
 			case RIGHTSTICKY:
 				axisValue = joystick.getRawAxis(5);

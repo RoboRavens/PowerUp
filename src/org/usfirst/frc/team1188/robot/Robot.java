@@ -23,6 +23,7 @@ import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
+import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendQuarterWithPIDCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractFullyCommand;
@@ -41,6 +42,8 @@ import org.usfirst.frc.team1188.robot.subsystems.LEDSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team1188.util.OverrideSystem;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -137,6 +140,21 @@ public class Robot extends TimedRobot {
 
 		// this.elevator.getPosition();
 		// this.elevator.getIsAtLimits();
+		
+		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kF(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
+		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, 8.4, TalonSRXConstants.kTimeoutMs);
+		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
+		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, 1.25, TalonSRXConstants.kTimeoutMs);
+		
+		int absolutePosition = ELEVATOR_SUBSYSTEM.elevatorMotor.getSensorCollection().getPulseWidthPosition();
+		/* mask out overflows, keep bottom 12 bits */
+		absolutePosition &= 0xFFF;
+		if (TalonSRXConstants.kSensorPhase)
+			absolutePosition *= -1;
+		if (TalonSRXConstants.kMotorInvert)
+			absolutePosition *= -1;
+		/* set the quadrature (relative) sensor to match absolute */
+		ELEVATOR_SUBSYSTEM.elevatorMotor.setSelectedSensorPosition(absolutePosition, TalonSRXConstants.kPIDLoopIdx, TalonSRXConstants.kTimeoutMs);
 	}
 
 	/**
@@ -152,6 +170,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		Robot.LED_SUBSYSTEM.setDisabledPattern();
+		
 		Scheduler.getInstance().run();
 		
 		autoFromDashboard = SmartDashboard.getString("DB/String 0", "myDefaultData");
