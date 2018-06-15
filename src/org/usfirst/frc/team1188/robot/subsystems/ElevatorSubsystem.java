@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class ElevatorSubsystem extends Subsystem {
-	TalonSRX elevatorMotor;
+	public TalonSRX elevatorMotor;
 	BufferedDigitalInput topLimitSwitch;
 	BufferedDigitalInput bottomLimitSwitch;
 	Encoder encoder;
@@ -32,10 +32,12 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public ElevatorSubsystem() {
 		this.elevatorMotor = new TalonSRX(RobotMap.elevatorMotor);
+		this.elevatorMotor.config_kP(2, 9, 9);
 		this.encoder = new Encoder(RobotMap.elevatorEncoder1, RobotMap.elevatorEncoder2);
 		this.bottomLimitSwitch = new BufferedDigitalInput(RobotMap.bottomLimitSwitch);
 		this.topLimitSwitch = new BufferedDigitalInput(RobotMap.topLimitSwitch);
 		this._targetEncoderPosition = Calibrations.elevatorLiftEncoderMinimumValue;
+		
 		
 	}
 	
@@ -201,11 +203,16 @@ public class ElevatorSubsystem extends Subsystem {
     	
     	this.setMotors(magnitude);
     	// leftMotor.set(ControlMode.PercentOutput, -1 * magnitude);
+    	
     }
     
     private void setMotors(double magnitude) {
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "MotorOutputPercent", magnitude);
     	elevatorMotor.set(ControlMode.PercentOutput, magnitude);
+    }
+    
+    public void setMotorsPID(int position) {
+    	elevatorMotor.set(ControlMode.Position, position);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
@@ -370,5 +377,6 @@ public class ElevatorSubsystem extends Subsystem {
 	public double getSafetyTimer() {
 		return _safetyTimer.get();
 	}
+
 }
 

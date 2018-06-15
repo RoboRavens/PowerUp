@@ -78,7 +78,7 @@ public final class Calibrations {
 	//public static final double elevatorHoldPositionPowerMagnitude = .15;
 	
 	// Was .1 with motor before constant force springs were added. Setting to 0. (CZB 3/27)
-	public static final double elevatorHoldPositionPowerMagnitude = .0;
+	public static final double elevatorHoldPositionPowerMagnitude = -.075;
 	
 	public static final int elevatorLiftEncoderMinimumValue = 0;
 	// 28k on practice robot - 26900 on comp
@@ -136,7 +136,7 @@ public final class Calibrations {
 	public static double armExtensionPowerMagnitude = 1;
 	public static double armRetractionPowerMagnitude = 1;
 	public static double armMaximumSpeed = 1;
-	public static double armHoldPositionPowerMagnitude = 0.05;
+	public static double armHoldPositionPowerMagnitude = 0.04;
 
 	// practice robot: 14.3k
 	// public static int armEncoderValueExtended = 14300;
