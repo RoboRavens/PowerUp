@@ -39,6 +39,8 @@ public class ElevatorSubsystem2 extends RavenSubsystem {
 		_bottomLimitSwitch = bottomLimitSwitch;
 		_topLimitSwitch = topLimitSwitch;
 		_safetyTimer = safetyTimer;
+		
+		_elevatorMotor.config_kP(2, 9, 9);
 	}
 	
 	public ElevatorSubsystem2() {
@@ -206,6 +208,10 @@ public class ElevatorSubsystem2 extends RavenSubsystem {
     private void setMotors(double magnitude) {
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "MotorOutputPercent", magnitude);
     	_elevatorMotor.set(ControlMode.PercentOutput, magnitude);
+    }
+    
+    public void setMotorsPID(int position) {
+    	_elevatorMotor.set(ControlMode.Position, position);
     }
     
     // Right now this method just looks at the right limit switch; some combination of both should be used.
