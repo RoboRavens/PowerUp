@@ -31,7 +31,7 @@ public class RavenTank {
     
     protected int driveMode;
 	protected int gyroMode;
-	protected boolean cutPower;
+	private boolean _cutPower;
 	protected double gyroTargetHeading;
 	// protected double orientation = 0;
 	
@@ -106,11 +106,11 @@ public class RavenTank {
     }
 	
 	public void setCutPower(boolean cutPower) {
-    	this.cutPower = cutPower;
+    	_cutPower = cutPower;
     }
 	
 	public boolean getCutPower() {
-    	return cutPower;
+    	return _cutPower;
     }
 	
 	public void setGyroMode(int gyroMode) {
@@ -178,7 +178,7 @@ public class RavenTank {
 	public void bulldozerTank(double left, double right) {
 		// Invert the left side.
     	right *= -1;
-    	if (cutPower){
+    	if (_cutPower){
     		left *= Calibrations.cutPowerModeMovementRatio;
     		right *= Calibrations.cutPowerModeTurnRatio;
     	}
@@ -190,7 +190,7 @@ public class RavenTank {
     
     public void fpsTank(double translation, double turn) {
     	
-    	if (cutPower){
+    	if (_cutPower){
     		translation *= Calibrations.cutPowerModeMovementRatio;
     		turn *= Calibrations.cutPowerModeTurnRatio;
     	}
