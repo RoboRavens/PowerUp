@@ -54,6 +54,7 @@ public class DriveTrainSubsystem extends Subsystem {
     	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderRightInchesTraveled", this.ravenTank.rightRavenEncoder.getNetInchesTraveled());
     	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "EncoderAvgInchesTraveled", Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled());
     	PCDashboardDiagnostics.SubsystemNumber("DriveTrain", "SlewRate", slewRate);
+    	PCDashboardDiagnostics.SubsystemBoolean("DriveTrain", "CutPower", this.ravenTank.getCutPower());
     }
 }
 

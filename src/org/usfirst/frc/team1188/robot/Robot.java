@@ -22,6 +22,8 @@ import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.SetCutPowerFalse;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.SetCutPowerTrue;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendQuarterWithPIDCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
@@ -75,9 +77,9 @@ public class Robot extends TimedRobot {
 	public static final LoggerOverlord LOGGER_OVERLORD = new LoggerOverlord(1f);
 	
 	public static final Gamepad DRIVE_CONTROLLER = new Gamepad(0);
-	public static final Gamepad OPERATION_CONTROLLER = new Gamepad(1);
-	public static final OperationPanel OPERATION_PANEL = new OperationPanel(2);	
-	public static final OperationPanel2 OPERATION_PANEL2 = new OperationPanel2(3);
+	public static final Gamepad OPERATION_CONTROLLER = new Gamepad(3);
+	public static final OperationPanel OPERATION_PANEL = new OperationPanel(1);	
+	public static final OperationPanel2 OPERATION_PANEL2 = new OperationPanel2(2);
 			
 	public static final DriveTrainSubsystem DRIVE_TRAIN_SUBSYSTEM = new DriveTrainSubsystem();
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
@@ -373,7 +375,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-	    if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) {
+	   /* if (DRIVE_TRAIN_SUBSYSTEM.ravenTank.userControlOfCutPower) {
 	      if (DRIVE_CONTROLLER.getAxis(ControlsMap.driveCutPowerAxis) > .25) {
 	    	  System.out.println("CUT POWER TRUE");
 	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(true);
@@ -381,7 +383,7 @@ public class Robot extends TimedRobot {
 	      else {
 	        DRIVE_TRAIN_SUBSYSTEM.ravenTank.setCutPower(false);
 	      }		
-	    }
+	    }*/
 		 
 		 diagnostics.outputTeleopDiagnostics();
 
@@ -415,7 +417,8 @@ public class Robot extends TimedRobot {
 		DRIVE_CONTROLLER.getButton(ButtonCode.X).whenPressed(new SetGyroTargetHeading(270));
 		DRIVE_CONTROLLER.getButton(ButtonCode.B).whenPressed(new SetGyroTargetHeading(90));
 		DRIVE_CONTROLLER.getButton(ButtonCode.Y).whenPressed(new SetGyroTargetHeading(0));
-		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new SetGyroTargetHeading(180));
+		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenPressed(new SetCutPowerTrue());//was new SetGyroTargetHeading(180)
+		DRIVE_CONTROLLER.getButton(ButtonCode.A).whenReleased(new SetCutPowerFalse());
 	}
 		
 	public void setupOperationPanel() {

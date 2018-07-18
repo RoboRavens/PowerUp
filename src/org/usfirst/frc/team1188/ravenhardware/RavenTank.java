@@ -109,6 +109,10 @@ public class RavenTank {
     	this.cutPower = cutPower;
     }
 	
+	public boolean getCutPower() {
+    	return cutPower;
+    }
+	
 	public void setGyroMode(int gyroMode) {
     	this.gyroMode = gyroMode;
     }
