@@ -147,16 +147,6 @@ public class Robot extends TimedRobot {
 		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, 8.4, TalonSRXConstants.kTimeoutMs);
 		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
 		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, 1.25, TalonSRXConstants.kTimeoutMs);
-		
-		int absolutePosition = ELEVATOR_SUBSYSTEM.elevatorMotor.getSensorCollection().getPulseWidthPosition();
-		/* mask out overflows, keep bottom 12 bits */
-		absolutePosition &= 0xFFF;
-		if (TalonSRXConstants.kSensorPhase)
-			absolutePosition *= -1;
-		if (TalonSRXConstants.kMotorInvert)
-			absolutePosition *= -1;
-		/* set the quadrature (relative) sensor to match absolute */
-		ELEVATOR_SUBSYSTEM.elevatorMotor.setSelectedSensorPosition(absolutePosition, TalonSRXConstants.kPIDLoopIdx, TalonSRXConstants.kTimeoutMs);
 	}
 
 	/**
