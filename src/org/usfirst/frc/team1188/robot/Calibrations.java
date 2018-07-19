@@ -105,7 +105,7 @@ public final class Calibrations {
 	// At low speeds (max of .3), and a lift max value of 30k, 1500 maxes out the elevator.
 	// At higher speeds, a higher value is needed because the elevator will overshoot the target until we have PID.
 	//public static final int elevatorLiftUpwardSafetyMargin = 2500;
-	public static final int elevatorLiftUpwardSafetyMargin = 2500;
+	public static final int elevatorLiftUpwardSafetyMargin = 1300;
 	
 	//public static final int elevatorLiftDownwardSafetyMargin = 1500;
 	public static final int elevatorLiftDownwardSafetyMargin = 700;
