@@ -18,6 +18,7 @@ import org.usfirst.frc.team1188.robot.commands.LED.LEDBlinkFor2SecondsCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendToHighScaleCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendWhileHeldCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractWhileHeldCommand;
@@ -442,6 +443,7 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenPressed(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORDOUBLEOVERRIDEUP).whenReleased(new SetOverride2Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendFullyCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ArmMoveToHeightCommand(700));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToMidwayCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchEncoderValue));

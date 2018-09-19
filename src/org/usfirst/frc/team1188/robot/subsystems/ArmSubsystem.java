@@ -92,6 +92,38 @@ public class ArmSubsystem extends Subsystem {
 		return retractionLimitSwitchValue;
 	}
 	
+	public boolean getIsExtendedPastEncoderPosition(int encoderPosition) {
+    	boolean isPastPosition = false;
+    	
+		if (this.getEncoderPosition() > encoderPosition + Calibrations.ARM_ENCODER_BUFFER) {
+			isPastPosition = true;
+		}
+		
+    	return isPastPosition;
+	}
+	
+	public boolean getIsRetractedBeforeEncoderPosition(int encoderPosition) {
+    	boolean isPastPosition = false;
+    	
+		if (this.getEncoderPosition() < encoderPosition - Calibrations.ARM_ENCODER_BUFFER) {
+			isPastPosition = true;
+		}
+		
+    	return isPastPosition;
+	}
+
+	public boolean getIsAtPosition(int encoderPosition) {
+		boolean isAtPosition = false;
+		
+		boolean notOverExtended = this.getIsExtendedPastEncoderPosition(encoderPosition);
+		boolean notOverRetracted = this.getIsRetractedBeforeEncoderPosition(encoderPosition);
+		
+		if (notOverExtended == false && notOverRetracted == false) {
+			isAtPosition = true;
+		}
+		return isAtPosition;
+	}
+	
     /*
     public boolean isAtBottomLimit() {
     	return this.getEncoderPosition() <= Calibrations.armEncoderValueAtBottom + Calibrations.ARM_ENCODER_BUFFER;
