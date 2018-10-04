@@ -109,9 +109,7 @@ public class ElevatorSubsystem extends Subsystem {
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "LimitFinalRetraction", this.getIsAtRetractionLimit());
     	
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "OverrideExtend1", Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.getOverride1());
-    	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "OverrideExtend2", Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.getOverride2());
     	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "OverrideRetract1", Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.getOverride1());
-    	PCDashboardDiagnostics.SubsystemBoolean("Elevator", "OverrideRetract2", Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.getOverride2());
 
     	// Measure speed of elevator
     	PCDashboardDiagnostics.SubsystemNumber("Elevator", "EncoderRate", encoder.getRate());
@@ -220,6 +218,7 @@ public class ElevatorSubsystem extends Subsystem {
     	
     	if (this.getBottomLimitSwitchValue() == true) {
     		switchLimit = true;
+    		this.resetEncodersToBottom();
     	}
     	
     	return Robot.OVERRIDE_SYSTEM_ELEVATOR_RETRACT.getIsAtLimit(encoderLimit, switchLimit);
@@ -273,6 +272,7 @@ public class ElevatorSubsystem extends Subsystem {
     
     	if (this.getTopLimitSwitchValue() == true) {
     		switchLimit = true;
+    		this.resetEncodersToTop();
     	}
     	
     	isAtLimit = Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND.getIsAtLimit(encoderLimit, switchLimit);

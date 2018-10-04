@@ -2,7 +2,6 @@ package org.usfirst.frc.team1188.util;
 
 public class OverrideSystem {
 	private boolean _override1;
-	private boolean _override2;
 	
 	public void setOverride1(boolean val) {
 		_override1 = val;
@@ -12,29 +11,15 @@ public class OverrideSystem {
 		return _override1;
 	}
 	
-	public boolean getOverride2() {
-		return _override2;
-	}
-	
-	public void setOverride2(boolean val) {
-		_override2 = val;
-	}
-	
 	public boolean getIsAtLimit(boolean encoderLimit, boolean switchLimit) {
-		int limitCount = 0;
+		if (switchLimit == true) {
+			return true;
+		}
 		
-		// if limits are hit add to limit count
-		limitCount += this.boolToInt(encoderLimit);
-		limitCount += this.boolToInt(switchLimit);
+		if (_override1 == true) {
+			return false;
+		}
 		
-		// if overrides are enabled subtract from limit count
-		limitCount -= this.boolToInt(_override1);
-		limitCount -= this.boolToInt(_override2);
-		
-		return limitCount >= 1;
-	}
-	
-	private int boolToInt(boolean val) {
-		return val ? 1 : 0;
+		return encoderLimit;
 	}
 }

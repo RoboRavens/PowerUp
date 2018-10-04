@@ -84,7 +84,7 @@ public final class Calibrations {
 	// 28k on practice robot - 26900 on comp
 	// static final int elevatorLiftEncoderMaximumValue = 28000;
 	
-	public static final int elevatorLiftEncoderMaximumValue = 26900;
+	public static final int elevatorLiftEncoderMaximumValue = 28000;
 	
 	
 	public static final double elevatorConsideredMovingEncoderRate = 0;
