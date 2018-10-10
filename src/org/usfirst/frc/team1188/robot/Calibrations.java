@@ -142,7 +142,7 @@ public final class Calibrations {
 	// public static int armEncoderValueExtended = 14300;
 	
 	// comp robot: 14.2k
-	public static int armEncoderValueExtended = 13200;
+	public static int armEncoderValueExtended = 12200;
 	
 	public static int armEncoderValueMidway = 7300;
 	public static int armEncoderValueRetracted = 0;

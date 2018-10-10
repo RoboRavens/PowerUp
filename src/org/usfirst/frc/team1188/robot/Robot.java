@@ -133,8 +133,8 @@ public class Robot extends TimedRobot {
 		driverStation.getMatchTime();
 		// Zero the elevator encoders; the robot should always start with the elevator down.
 		// Note that this may not be true in practice, so we should later integrate the reset with limit switch code.
-		Robot.ELEVATOR_SUBSYSTEM.resetEncodersToBottom();
-		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
+		Robot.ELEVATOR_SUBSYSTEM.resetEncodersToRetractedLimit();
+		Robot.ARM_SUBSYSTEM.resetEncodersToRetractionLimit();
 		
 		setupDriveController();
 		setupOperationPanel();
@@ -212,7 +212,7 @@ public class Robot extends TimedRobot {
 		//this.arm.getPosition();
 		
 		if (DRIVE_CONTROLLER.getButtonValue(ControlsMap.driveShiftToHighGearButton)) {
-			Robot.ELEVATOR_SUBSYSTEM.resetEncodersToBottom();
+			Robot.ELEVATOR_SUBSYSTEM.resetEncodersToRetractedLimit();
 		}
 	}
 
@@ -297,7 +297,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		Robot.ARM_SUBSYSTEM.resetEncodersToTop();
+		Robot.ARM_SUBSYSTEM.resetEncodersToRetractionLimit();
 		Robot.LED_SUBSYSTEM.setAutonomousPattern();
 		Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.resetDriveEncoders();
 		
