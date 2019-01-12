@@ -19,12 +19,11 @@ import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendToHighScaleCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendWhileHeldCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToHeightCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractWhileHeldCommand;
-import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.SetCutPowerFalse;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.SetCutPowerTrue;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.SetGyroTargetHeading;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendQuarterWithPIDCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
@@ -44,8 +43,6 @@ import org.usfirst.frc.team1188.robot.subsystems.LEDSubsystem;
 import org.usfirst.frc.team1188.robot.subsystems.LightSubsystem;
 import org.usfirst.frc.team1188.util.LoggerOverlord;
 import org.usfirst.frc.team1188.util.OverrideSystem;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -144,9 +141,9 @@ public class Robot extends TimedRobot {
 		// this.elevator.getIsAtLimits();
 		
 		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kF(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
-		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, 8.4, TalonSRXConstants.kTimeoutMs);
+		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kP(TalonSRXConstants.kPIDLoopIdx, 10.3, TalonSRXConstants.kTimeoutMs);
 		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kI(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
-		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, 1.25, TalonSRXConstants.kTimeoutMs);
+		ELEVATOR_SUBSYSTEM.elevatorMotor.config_kD(TalonSRXConstants.kPIDLoopIdx, 0.0, TalonSRXConstants.kTimeoutMs);
 	}
 
 	/**
@@ -378,18 +375,18 @@ public class Robot extends TimedRobot {
 		 diagnostics.outputTeleopDiagnostics();
 
 		 if (getMatchIsAtTime(90)) {
-			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(4);
+			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(4, false);
 			    command.start();
 		 } else if (getMatchIsAtTime(60)) {
-			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(3);
+			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(3, false);
 				command.start();
 		 } else if (getMatchIsAtTime(30)) {
-			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(2);
-				command.start();
+			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(2, true);
+				command.start();			
 		 } else if (getMatchIsAtTime(10)) {
-			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(1);
-				command.start();
-		 }
+			 LEDBlinkFor2SecondsCommand command = new LEDBlinkFor2SecondsCommand(1, true);
+				command.start();		
+		 }		 
 	}
 	
 	public boolean getMatchIsAtTime(int matchSecond) {
@@ -414,7 +411,7 @@ public class Robot extends TimedRobot {
 	public void setupOperationPanel() {
 		System.out.println("Operation PANEL CONFIGURED!!! Operation PANEL CONFIGURED!!!Operation PANEL CONFIGURED!!!Operation PANEL CONFIGURED!!!Operation PANEL CONFIGURED!!!Operation PANEL CONFIGURED!!!");
 		OPERATION_PANEL2.getButton(ButtonCode.ARMEXTEND).whenPressed(new ArmExtendFullyCommand());
-		OPERATION_PANEL2.getButton(ButtonCode.ARMMIDRANGE).whenPressed(new ArmMoveToMidwayCommand()); 
+		OPERATION_PANEL2.getButton(ButtonCode.ARMMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway)); 
 		OPERATION_PANEL.getButton(ButtonCode.ARMMANUALOVERRIDEEXTEND).whileHeld(new ArmExtendWhileHeldCommand());
 		//OPERATION_PANEL.getButton(ButtonCode.ARMMANUALOVERRIDEEXTEND).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ARM_EXTEND, true));
 		//OPERATION_PANEL.getButton(ButtonCode.ARMMANUALOVERRIDEEXTEND).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ARM_EXTEND, false));
@@ -433,10 +430,10 @@ public class Robot extends TimedRobot {
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whileHeld(new ElevatorExtendWhileHeldCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenPressed(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, true));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMANUALOVERRIDEUP).whenReleased(new SetOverride1Command(Robot.OVERRIDE_SYSTEM_ELEVATOR_EXTEND, false));
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendFullyCommand());
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ArmMoveToHeightCommand(700));
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ElevatorExtendQuarterWithPIDCommand(this.ELEVATOR_SUBSYSTEM));
+		//OPERATION_PANEL.getButton(ButtonCode.ELEVATOREXTEND).whenPressed(new ArmMoveToHeightCommand(6000));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayEncoderValue));
-		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToMidwayCommand());
+		OPERATION_PANEL.getButton(ButtonCode.ELEVATORMIDRANGE).whenPressed(new ArmMoveToHeightCommand(Calibrations.armEncoderValueMidway));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ElevatorMoveToHeightCommand(Calibrations.elevatorSwitchEncoderValue));
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORSWITCHHEIGHT).whenPressed(new ArmExtendFullyCommand());
 		OPERATION_PANEL.getButton(ButtonCode.ELEVATORRETRACT).whenPressed(new ElevatorRetractFullyCommand());

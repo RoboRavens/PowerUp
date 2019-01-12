@@ -9,7 +9,7 @@ public class AutonomousCalibrations {
 	public static final String FlexSwitch = "FLEXSWITCH";
 	
 	
-	public static final double AutonomousCrossAutoLineDriveForwardInches = 190;
+	public static final double AutonomousCrossAutoLineDriveForwardInches = 160;
 	public static final double AutonomousCrossAutoLineDriveForwardPowerMagnitude = .5;
 	
 	public static final double AutonomousScoreLeftSwitchPosition1DriveForwardInches = 140;
@@ -30,7 +30,7 @@ public class AutonomousCalibrations {
 	public static final double AutonomousDriveLeftScalePosition3FirstDriveForwardInches = 95;
 	public static final double AutonomousDriveLeftScalePosition3SecondDriveForwardInches = 260;
 	public static final double AutonomousDriveOppositeSideScaleElevatorUpSegmentInches = 83;
-	public static final double AutonomousDriveScaleDriveForwardPowerMagniude = .5;
+	public static final double AutonomousDriveScaleDriveForwardPowerMagniude = .4;
 	
 	public static final double AutonomousOppositeSideScaleForwardMovementtInches = 205;
 	public static final double AutonomousOppositeSideScaleLateralMovementInches = 230;

@@ -24,7 +24,7 @@ public class ArmMoveToHeightCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.ARM_SUBSYSTEM.getIsExtendedPastEncoderPosition(_targetEncoderPosition)) {
+    	if (Robot.ARM_SUBSYSTEM.getIsExtendedPastTarget(_targetEncoderPosition)) {
     		Robot.ARM_SUBSYSTEM.retract();
     	}
     	else {
@@ -40,7 +40,7 @@ public class ArmMoveToHeightCommand extends Command {
     		isFinished = true;
     	}
     	
-    	if (Robot.ARM_SUBSYSTEM.getIsAtPosition(_targetEncoderPosition)) {
+    	if (Robot.ARM_SUBSYSTEM.getIsAtTarget(_targetEncoderPosition)) {
     		Robot.ARM_SUBSYSTEM.stop();
     		isFinished = true;
     	}

@@ -8,12 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LEDBlinkFor2SecondsCommand extends Command {
 	Timer _timer = new Timer();
 	int color;
+	boolean staysOn;
 
-    public LEDBlinkFor2SecondsCommand(int color) {
+    public LEDBlinkFor2SecondsCommand(int color, boolean staysOn) {
         // Use requires() here to de clare subsystem dependencies
         // eg. requires(chassis); 
     	requires(Robot.LED_SUBSYSTEM);
     	this.color = color;
+    	this.staysOn = staysOn;
     }
 
     // Called just before this Command runs the first time
@@ -41,7 +43,11 @@ public class LEDBlinkFor2SecondsCommand extends Command {
     protected void end() {
     	_timer.stop();
     	_timer.reset();
-    	Robot.LED_SUBSYSTEM.setEnabledPattern();
+    	if (staysOn == true) {
+    		Robot.LED_SUBSYSTEM.solid(color);
+    	} else {
+    		Robot.LED_SUBSYSTEM.setEnabledPattern();
+    	}
     }
 
     // Called when another command which requires one or more of the same

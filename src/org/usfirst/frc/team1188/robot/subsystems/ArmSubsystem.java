@@ -35,6 +35,8 @@ public class ArmSubsystem extends Subsystem {
     public void periodic() {
     	retractionLimitSwitch.maintainState();
     	extensionLimitSwitch.maintainState();
+    	this.getIsAtExtensionLimit();
+    	this.getIsAtRetractionLimit();
     	
     	PCDashboardDiagnostics.SubsystemNumber("Arm", "Encoder", this.getEncoderPosition());
     	PCDashboardDiagnostics.SubsystemBoolean("Arm", "LimitEncoderExtension", this.isEncoderAtExtensionLimit());
@@ -92,38 +94,6 @@ public class ArmSubsystem extends Subsystem {
 		retractionLimitSwitchValue = !retractionLimitSwitch.get();
 		
 		return retractionLimitSwitchValue;
-	}
-	
-	public boolean getIsExtendedPastEncoderPosition(int encoderPosition) {
-    	boolean isPastPosition = false;
-    	
-		if (this.getEncoderPosition() > encoderPosition - Calibrations.ARM_ENCODER_BUFFER) {
-			isPastPosition = true;
-		}
-		
-    	return isPastPosition;
-	}
-	
-	public boolean getIsRetractedBeforeEncoderPosition(int encoderPosition) {
-    	boolean isPastPosition = false;
-    	
-		if (this.getEncoderPosition() < encoderPosition + Calibrations.ARM_ENCODER_BUFFER) {
-			isPastPosition = true;
-		}
-		
-    	return isPastPosition;
-	}
-
-	public boolean getIsAtPosition(int encoderPosition) {
-		boolean isAtPosition = false;
-		
-		boolean notOverExtended = this.getIsExtendedPastEncoderPosition(encoderPosition);
-		boolean notOverRetracted = this.getIsRetractedBeforeEncoderPosition(encoderPosition);
-		
-		if (notOverExtended == false && notOverRetracted == false) {
-			isAtPosition = true;
-		}
-		return isAtPosition;
 	}
 	
     /*
@@ -274,43 +244,43 @@ public class ArmSubsystem extends Subsystem {
     	//System.out.println("RMO: " + this.SSSMotor.getMotorOutputPercent() + " LMO: " + this.leftMotor.getMotorOutputPercent());
     }
 
-	public boolean getIsExtendedPastMidway() {
-    	boolean isPastMidway = false;
+	public boolean getIsExtendedPastTarget(int targetEncoderValue) {
+    	boolean isPastTarget = false;
     	
-		if (this.getEncoderPosition() > Calibrations.armEncoderValueMidway + Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER) {
-			isPastMidway = true;
+		if (this.getEncoderPosition() > targetEncoderValue + Calibrations.ARM_ENCODER_BUFFER) {
+			isPastTarget = true;
 		}
 		
-    	return isPastMidway;
+    	return isPastTarget;
 	}
 	
-	public boolean getIsRetractedBeforeMidway() {
-    	boolean isPastMidway = false;
+	public boolean getIsRetractedBeforeTarget(int targetEncoderValue) {
+    	boolean isPastTarget = false;
     	
-		if (this.getEncoderPosition() < Calibrations.armEncoderValueMidway - Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER) {
-			isPastMidway = true;
+		if (this.getEncoderPosition() < targetEncoderValue - Calibrations.ARM_ENCODER_BUFFER) {
+			isPastTarget = true;
 		}
 		
-    	return isPastMidway;
+    	return isPastTarget;
 	}
 	
-	public boolean getIsAtMidway() {
-		boolean isAtMidway = false;
+	public boolean getIsAtTarget(int targetEncoderValue) {
+		boolean isAtTarget = false;
 		
-		boolean notOverExtended = this.getIsExtendedPastMidway();
-		boolean notOverRetracted = this.getIsRetractedBeforeMidway();
+		boolean notOverExtended = this.getIsExtendedPastTarget(targetEncoderValue);
+		boolean notOverRetracted = this.getIsRetractedBeforeTarget(targetEncoderValue);
 		
 		if (notOverExtended == false && notOverRetracted == false) {
-			isAtMidway = true;
+			isAtTarget = true;
 		}
 			
-		return isAtMidway;
+		return isAtTarget;
 	}
 	
 	public boolean getIsExtendedPastHighScale() {
     	boolean isPastHighScale = false;
     	
-		if (this.getEncoderPosition() > Calibrations.armEncoderValueHighScale + Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER) {
+		if (this.getEncoderPosition() > Calibrations.armEncoderValueHighScale + Calibrations.ARM_ENCODER_BUFFER) {
 			isPastHighScale = true;
 		}
 		
@@ -320,7 +290,7 @@ public class ArmSubsystem extends Subsystem {
 	public boolean getIsRetractedBeforeHighScale() {
     	boolean isPastHighScale = false;
     	
-		if (this.getEncoderPosition() < Calibrations.armEncoderValueHighScale - Calibrations.ARM_MIDWAY_SINGLE_SIDE_BUFFER) {
+		if (this.getEncoderPosition() < Calibrations.armEncoderValueHighScale - Calibrations.ARM_ENCODER_BUFFER) {
 			isPastHighScale = true;
 		}
 		

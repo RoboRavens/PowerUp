@@ -266,11 +266,11 @@ public class RavenTank {
     
     public void driveLeftSide(double magnitude) {
 		// System.out.println("Driving left side. Magnitude: " + magnitude);
-    	driveLeft.set(magnitude);
+    	driveRight.set(magnitude); // switched them because robot driving backwards
     }
     
     public void driveRightSide(double magnitude) {
-    	driveRight.set(magnitude);
+    	driveLeft.set(magnitude); // switched them because robot driving backwards
     	//System.out.println("Driving Right At " + magnitude);
     }
     
@@ -493,6 +493,13 @@ public class RavenTank {
     
     public void stop() {
     	this.fpsTank(0, 0);
+		// this.setGyroTargetHeadingToCurrentHeading();
+		//this.resetGyroAdjustmentScaleFactor();
+    }
+    
+    public void gyroStop() {
+    	this.setGyroTargetHeadingToCurrentHeading();
+		this.resetGyroAdjustmentScaleFactor();
     }
     
     public boolean automatedActionHasCompleted() {
@@ -559,10 +566,10 @@ public class RavenTank {
     }
     
     public double getNetInchesTraveled() {
-    	// double leftInches = this.leftRavenEncoder.getNetInchesTraveled();
-    	double rightInches = this.rightRavenEncoder.getNetInchesTraveled();
-    	//double netInchesTraveled = leftInches;
-    	double netInchesTraveled = rightInches;
+    	double leftInches = this.leftRavenEncoder.getNetInchesTraveled();
+    	// double rightInches = this.rightRavenEncoder.getNetInchesTraveled();
+    	double netInchesTraveled = leftInches;
+    	// double netInchesTraveled = rightInches;
     	return netInchesTraveled;
     }
     

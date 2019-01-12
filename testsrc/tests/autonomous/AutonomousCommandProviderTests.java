@@ -1,6 +1,6 @@
 package tests.autonomous;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.usfirst.frc.team1188.autonomous.AutonomousCommandProvider;

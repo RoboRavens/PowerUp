@@ -94,6 +94,8 @@ public class ElevatorSubsystem extends Subsystem {
     public void periodic() {
     	retractedLimitSwitch.maintainState();
     	extendedLimitSwitch.maintainState();
+    	this.getIsAtExtensionLimit();
+    	this.getIsAtRetractionLimit();
     	
     	elevatorSubsystemDiagnostics();
     	checkExpectedSpeedVersusPower();
