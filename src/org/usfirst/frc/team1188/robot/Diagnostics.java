@@ -9,7 +9,7 @@ public class Diagnostics {
 		// System.out.println("DT total IT: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getNetInchesTraveled()));
 		//System.out.println(" Current heading: " + robot.driveTrain.ravenTank.getCurrentHeading());
 		// System.out.println("Shooter RPM: " + Math.round(robot.fuelShooter.shooterMotorLead.getSpeed() / 2));
-		System.out.println(/* "GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+*/"Crnt head: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()) + " Crnt Angle " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroAngle()) + " Target heading: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroTargetHeading()));
+		// System.out.println(/* "GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+*/"Crnt head: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()) + " Crnt Angle " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroAngle()) + " Target heading: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroTargetHeading()));
 		
 	}
 	
@@ -58,7 +58,7 @@ public class Diagnostics {
 		
 		// System.out.println();
 		
-		System.out.println(/* "GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+*/"Crnt head: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()) + " Crnt Angle " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroAngle()) + " Target heading: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroTargetHeading()));
+		//System.out.println(/* "GyroAdjust "+Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.gyroAdjust+*/"Crnt head: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getCurrentHeading()) + " Crnt Angle " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroAngle()) + " Target heading: " + Math.round(Robot.DRIVE_TRAIN_SUBSYSTEM.ravenTank.getGyroTargetHeading()));
 		
 	}
 	

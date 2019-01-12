@@ -18,7 +18,7 @@ public final class Calibrations {
 	public static final double cutPowerModeMovementRatio = .3;
 	public static final double cutPowerModeTurnRatio = .5;
 	//public static final double gyroAdjustmentScaleFactor = .011; // Could possibly cause gyro issues
-	public static final double gyroAdjustmentDefaultScaleFactor = .03;
+	public static final double gyroAdjustmentDefaultScaleFactor = .009;
 	public static final double driveTrainTurnRelativeDegreesGyroAdjustmentScaleFactor = .009;
 	public static final double gyroCooldownTimerTime = .5;
 	public static final double translationMaxTurnScaling = .5;
@@ -71,8 +71,8 @@ public final class Calibrations {
 	public static final double DRIVETRAIN_MAXPOWER_AT_MAX_ELEVEATOR_HEIGHT = .4;
 	
 	// Elevator Lift
-	public static final double elevatorExtensionPowerMagnitude = .82;
-	public static final double elevatorRetractionPowerMagnitude = .66; // when no 3rd stage
+	public static final double elevatorExtensionPowerMagnitude = .86; //was .82
+	public static final double elevatorRetractionPowerMagnitude = .66;
 	// public static final double elevatorRetractionPowerMagnitude = .1;
 	public static final double elevatorMaximumSpeed = 1.0;
 	//public static final double elevatorHoldPositionPowerMagnitude = .15;
@@ -84,7 +84,7 @@ public final class Calibrations {
 	// 28k on practice robot - 26900 on comp
 	// static final int elevatorLiftEncoderMaximumValue = 28000;
 	
-	public static final int elevatorLiftEncoderMaximumValue = 28000;
+	public static final int elevatorLiftEncoderMaximumValue = 27000;
 	
 	
 	public static final double elevatorConsideredMovingEncoderRate = 0;
@@ -142,7 +142,7 @@ public final class Calibrations {
 	// public static int armEncoderValueExtended = 14300;
 	
 	// comp robot: 14.2k
-	public static int armEncoderValueExtended = 12200;
+	public static int armEncoderValueExtended = 12000;
 	
 	public static int armEncoderValueMidway = 7300;
 	public static int armEncoderValueRetracted = 0;
@@ -150,7 +150,7 @@ public final class Calibrations {
 	
 	// This value represents the buffer that the arm can be *on either side* of midway,
 	// so the true buffer range is this value times two.
-	public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 300;
+	//public static int ARM_MIDWAY_SINGLE_SIDE_BUFFER = 300;
 	public static int armEncoderValueHighScale = 3600;
 	public static final double ARM_SAFETY_TIMER_TIMEOUT = 2;
 }

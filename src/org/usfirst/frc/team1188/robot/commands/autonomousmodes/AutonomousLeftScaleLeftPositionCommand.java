@@ -3,19 +3,10 @@ package org.usfirst.frc.team1188.robot.commands.autonomousmodes;
 import org.usfirst.frc.team1188.robot.AutonomousCalibrations;
 import org.usfirst.frc.team1188.robot.Calibrations;
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendFullyCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.commandgroups.ScoreOnScaleCommandGroup;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainDriveInchesCommand;
+import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainStopCommand;
 import org.usfirst.frc.team1188.robot.commands.drivetrain.DriveTrainTurnRelativeDegreesCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendWhileHeldCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractFullyCommand;
-import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorRetractWhileHeldCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelPullCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelStopCommand;
-import org.usfirst.frc.team1188.robot.commands.intake.IntakeWheelsSpitCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -39,7 +30,6 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
 	
     public AutonomousLeftScaleLeftPositionCommand() {
     	
-  	
     	addSequential(new DriveTrainDriveInchesCommand(AutonomousCalibrations.LengthBetweenDriverWallAndScale,
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingForward,
@@ -51,7 +41,7 @@ public class AutonomousLeftScaleLeftPositionCommand extends CommandGroup {
     			AutonomousCalibrations.AutonomousDriveScaleDriveForwardPowerMagniude,
     			Calibrations.drivingBackward,
     			1));
-    	
+    	addSequential(new DriveTrainStopCommand());
     	addSequential(new ScoreOnScaleCommandGroup());
     	
     	/*

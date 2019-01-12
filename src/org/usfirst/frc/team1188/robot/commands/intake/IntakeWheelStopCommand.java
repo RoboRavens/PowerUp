@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1188.robot.commands.intake;
 
 import org.usfirst.frc.team1188.robot.Robot;
-import org.usfirst.frc.team1188.robot.subsystems.IntakeWheelSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 

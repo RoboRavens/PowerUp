@@ -20,11 +20,11 @@ public class LEDSubsystem extends Subsystem{
 	public void run() {
 		
 		if (Robot.DRIVE_CONTROLLER.getButtonValue(ButtonCode.A)) { 
-			off();
+			//off();
 		}
 		
 		if (Robot.ELEVATOR_SUBSYSTEM.getIsAtExtensionLimit() == true) {
-			rainbow(0);
+			//rainbow(0);
 			//System.out.println("Lighting UP Lighting UP Lighting UP Lighting UP Lighting UP Lighting UP Lighting UP");
 		}
 	}
@@ -36,9 +36,9 @@ public class LEDSubsystem extends Subsystem{
 	public void setEnabledPattern() {
 		breathe(5, 0);
 	}
-	
+
 	public void setAutonomousPattern() {
-		breathe(2, 0);
+		rainbow(0);
 	}
 	
 	public void setErrorPattern() {
@@ -71,6 +71,13 @@ public class LEDSubsystem extends Subsystem{
 		led.bounce(color, speed, 1);
 		led.bounce(color, speed, 2);
 		led.bounce(color, speed, 3);
+	}
+	
+	public void solid(int color) {
+		led.solid(color, 0);
+		led.solid(color, 1);
+		led.solid(color, 2);
+		led.solid(color, 3);
 	}
 	
 	public void rainbow(int speed) {

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class BufferedDigitalInput {
 	public DigitalInput digitalInput;
-	protected int listSize = 9;
+	protected int listSize = 5;
 	
 	LinkedList<Boolean> sensorValues;
 	

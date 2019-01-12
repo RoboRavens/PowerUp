@@ -2,7 +2,8 @@ package org.usfirst.frc.team1188.robot.commands.commandgroups;
 
 import org.usfirst.frc.team1188.robot.AutonomousCalibrations;
 import org.usfirst.frc.team1188.robot.Calibrations;
-import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToMidwayCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmExtendToHighScaleCommand;
+import org.usfirst.frc.team1188.robot.commands.arm.ArmMoveToHeightCommand;
 import org.usfirst.frc.team1188.robot.commands.arm.ArmRetractFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorExtendFullyCommand;
 import org.usfirst.frc.team1188.robot.commands.elevator.ElevatorMoveToHeightCommand;
@@ -18,10 +19,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ScoreOnScaleCommandGroup extends CommandGroup {
 
     public ScoreOnScaleCommandGroup() {
-    	// addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayEncoderValue));
+    	//addSequential(new ElevatorMoveToHeightCommand(Calibrations.elevatorMidwayEncoderValue));
     	addSequential(new ElevatorExtendFullyCommand());
     	
-    	addSequential(new ArmMoveToMidwayCommand());
+    	
+    	addSequential(new ArmExtendToHighScaleCommand());
     	// addSequential(new ElevatorExtendFullyCommand());
     	
     	addSequential(new IntakeWheelsSpitCommand(AutonomousCalibrations.AutonomousScaleIntakeSpitPowerMagnitude));
