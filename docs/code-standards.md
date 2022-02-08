@@ -10,7 +10,7 @@ public class Example {
     public String publicProperty = ""; // public properties camelCase
     private String _privateProperty = ""; // private properties _camelCase with underscore
 
-    public void methodName(string val) { // method names are camelCase
+    public void methodName(String val) { // method names are camelCase
         string variableName = "";
         this.publicProperty = val; // use 'this' to reference public properties
         _privateProperty = val; // don't use 'this' to reference private properties
@@ -30,7 +30,7 @@ public enum AxisCode {
 ```
 
 ## Brackets
- - Opening brackets on same line
+ - Opening brackets on same line, with a space after the closing parenthesis
  - Closing brackets on new line
 
 ```java
